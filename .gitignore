@@ -52,7 +52,7 @@ fabric.properties
 .idea/
 *.iml
 target/
-*.properties
+**.properties
 .mvn/
 mvnw
 *.cmd
