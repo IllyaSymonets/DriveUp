@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="create_orders" author="IllyaSymonets">
+        <createTable tableName="orders">
+            <column name="order_id" type="uuid" >
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="order_number" type="long" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="order_type" type="varchar(25)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="trip_number" type="long">
+                <constraints nullable="false"/>
+            </column>
+            <column name="customer_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="driver_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bill_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="varchar(25)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+
+</databaseChangeLog>
