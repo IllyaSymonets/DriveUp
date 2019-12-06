@@ -53,3 +53,6 @@ fabric.properties
 *.iml
 target/
 *.properties
+.mvn/
+mvnw
+*.cmd
