@@ -11,8 +11,6 @@ public enum OrderStatus {
     ORDER_IN_PROGRESS("In progress"),
     ORDER_COMPLETED("Completed");
 
-
-
     private String status;
 
     OrderStatus(String status) {
