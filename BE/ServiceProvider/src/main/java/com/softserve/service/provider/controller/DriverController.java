@@ -1,9 +1,6 @@
 package com.softserve.service.provider.controller;
 
-import com.softserve.service.provider.dto.DriverDTO;
-import com.softserve.service.provider.dto.DriverFineDTO;
-import com.softserve.service.provider.dto.DriverProfileDTO;
-import com.softserve.service.provider.dto.DriverRatingDTO;
+import com.softserve.service.provider.dto.*;
 import com.softserve.service.provider.service.DriverService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -39,6 +37,11 @@ public class DriverController {
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
+    @PostMapping(path = "/find")
+    public List<UUID> getDriverId(@RequestBody @NotNull SearchCarDTO searchCarDTO) {
+        return driverService.findId(searchCarDTO);
+    }
+
     @PostMapping(path = "/add")
     public ResponseEntity addDriver(@RequestBody @NotNull DriverDTO driverDTO) {
         driverService.add(driverDTO);
@@ -47,7 +50,7 @@ public class DriverController {
 
     @PutMapping(path = "/fine/update/{id}")
     public ResponseEntity updateFine(@PathVariable UUID id,
-                                @NotNull @RequestBody DriverFineDTO driverFineDTO) {
+                                     @NotNull @RequestBody DriverFineDTO driverFineDTO) {
         driverService.updateFine(id, driverFineDTO);
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -60,7 +63,7 @@ public class DriverController {
 
     @PutMapping(path = "/update/{id}")
     public ResponseEntity updateDriver(@PathVariable UUID id,
-                                  @NotNull @RequestBody DriverDTO driverDTO) {
+                                       @NotNull @RequestBody DriverDTO driverDTO) {
         driverService.updateDriver(id, driverDTO);
         return new ResponseEntity(HttpStatus.OK);
     }

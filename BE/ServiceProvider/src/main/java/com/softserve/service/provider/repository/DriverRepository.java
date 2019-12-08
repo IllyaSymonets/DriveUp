@@ -8,5 +8,5 @@ import java.util.UUID;
 
 @Repository
 public interface DriverRepository extends CrudRepository<Driver, UUID> {
-   // Driver getDriverByCar_NonSmokerAndCar_BabyCarSeatAndCar_YearOfProduction
+
 }

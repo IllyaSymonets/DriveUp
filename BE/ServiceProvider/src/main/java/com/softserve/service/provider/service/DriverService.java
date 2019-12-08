@@ -41,7 +41,7 @@ public class DriverService {
         List<DriverDTO> dtos = new ArrayList<>();
 
         for (Driver driver : drivers) {
-           dtos.add(getDriverDTO(driver));
+            dtos.add(getDriverDTO(driver));
         }
         return dtos;
     }
@@ -145,6 +145,38 @@ public class DriverService {
                             .build();
                 })
                 .orElseThrow(RuntimeException::new);
+    }
+
+    public List<UUID> findId(SearchCarDTO searchCarDTO) {
+        String sql = String.format("SELECT distinct vehicle_id FROM CARS where" +
+                        " car_type = '%s' and" +
+                        " baby_car_seat = '%s' and" +
+                        " conditioner = '%s' and" +
+                        " courier = '%s' and" +
+                        " english = '%s' and" +
+                        " non_smoker = '%s' and" +
+                        " pet = '%s' and" +
+                        " silence = '%s'",
+                searchCarDTO.getType(),
+                searchCarDTO.isBabyCarSeat(),
+                searchCarDTO.isConditioner(),
+                searchCarDTO.isCourier(),
+                searchCarDTO.isEnglish(),
+                searchCarDTO.isNonSmoker(),
+                searchCarDTO.isPet(),
+                searchCarDTO.isSilence());
+
+        List<UUID> carsId = jdbcTemplate.queryForList(sql, UUID.class);
+        List<UUID> driversId = new ArrayList<>();
+
+        System.out.println(carsId);
+
+        for (UUID uuid : carsId) {
+            driversId.add(jdbcTemplate.queryForObject(
+                    "select driver_id from drivers where vehicle_id = ?", UUID.class, uuid));
+            System.out.println(driversId);
+        }
+        return driversId;
     }
 
     private DriverDTO getDriverDTO(Driver driver) {

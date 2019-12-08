@@ -22,6 +22,7 @@ public class CarController {
         return new ResponseEntity<>(cars, HttpStatus.OK);
     }
 
+
     @PostMapping(path = "/add")
     public ResponseEntity addCar(@RequestBody @NotNull CarDTO carDTO) {
         carService.add(carDTO);

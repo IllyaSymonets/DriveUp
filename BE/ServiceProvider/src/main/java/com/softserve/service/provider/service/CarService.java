@@ -1,6 +1,6 @@
 package com.softserve.service.provider.service;
 
-import com.softserve.service.provider.consts.Constants;
+import com.softserve.service.provider.utilities.Constants;
 import com.softserve.service.provider.dto.CarDTO;
 import com.softserve.service.provider.model.Car;
 import com.softserve.service.provider.repository.CarRepository;

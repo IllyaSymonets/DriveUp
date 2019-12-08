@@ -1,6 +1,6 @@
 package com.softserve.service.provider.futureFeaturesNotToUse;
 
-import com.softserve.service.provider.consts.Constants;
+import com.softserve.service.provider.utilities.Constants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

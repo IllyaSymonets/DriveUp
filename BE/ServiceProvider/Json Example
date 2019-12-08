@@ -17,8 +17,8 @@
     "numberOfSeats": "3",
     "babyCarSeat": "true",
     "conditioner": "true",
-    "pet": "false",
-    "courier": "false",
+    "pet": "true",
+    "courier": "true",
     "english": "true",
     "nonSmoker": "true",
     "silence": "true"
@@ -55,5 +55,15 @@
   },
   {
     "fine": "15"
+  },
+  {
+    "babyCarSeat": "true",
+    "conditioner": "true",
+    "courier": "true",
+    "english": "true",
+    "nonSmoker": "true",
+    "pet": "true",
+    "silence": "true",
+    "type": "Business"
   }
 ]
