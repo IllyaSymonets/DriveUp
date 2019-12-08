@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DriveUp</title>
+    <link rel="stylesheet" href="https://unpkg.com/reset-css/reset.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+</head>
+<body>
+    
+    <div class="window window__main" id="DriveUp-menu" >
+       <div class="window window__main" v-if="window == 'main'">
+            <div class="dropdown">
+                    <a href="#" id="imageDropdown" data-toggle="dropdown">
+                      <img src="images/ICON3_4.jpg">
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="imageDropdown">
+                        <li><img src="images/LOGO4.jpg" alt="" /></li>
+                        <li><a href="#"><i class="tiny material-icons">account_circle</i> Profile</a></li>
+                        <li><a href="#"><i class="tiny material-icons">settings</i> Settings</a></li>
+                        <li><a href="#" @click="changeRole()"><i class="tiny material-icons">{{ RoleToChangeIcon }}</i> As {{ RoleToChange }}</a></li>
+                        <li><a href="#"><i class="tiny material-icons">exit_to_app</i> Log out</a></li>
+                    </ul>
+            </div>          
+        </div>
+        <div class="window window__after-order" v-if="window == 'after-order'">
+                <div class="dropdown">
+                        <a href="#" id="imageDropdown" data-toggle="dropdown">
+                          <img src="images/ICON3_4.jpg">
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="imageDropdown">
+                            <li><img src="images/LOGO4.jpg" alt="" /></li>
+                            <li><a href="#"><i class="tiny material-icons">account_circle</i> Profile</a></li>
+                            <li><a href="#"><i class="tiny material-icons">settings</i> Settings</a></li>
+                            <li><a href="#" @click="changeRole()"><i class="tiny material-icons">{{ RoleToChangeIcon }}</i> As {{ RoleToChange }}</a></li>
+                            <li><a href="#"><i class="tiny material-icons">exit_to_app</i> Log out</a></li>
+                        </ul>
+                </div>          
+            <div class="window window__arrived-map">
+            </div>
+            <div class="window window__arrived">
+                    <button type="button" class="btn btn-lg btn-secondary" @click="goToWindow('start-trip')">Arrived</button>
+            </div>
+        </div>
+        <div class="window window__start-trip" v-if="window == 'start-trip'">
+                <div class="dropdown">
+                        <a href="#" id="imageDropdown" data-toggle="dropdown">
+                          <img src="images/ICON3_4.jpg">
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="imageDropdown">
+                            <li><img src="images/LOGO4.jpg" alt="" /></li>
+                            <li><a href="#"><i class="tiny material-icons">account_circle</i> Profile</a></li>
+                            <li><a href="#"><i class="tiny material-icons">settings</i> Settings</a></li>
+                            <li><a href="#" @click="changeRole()"><i class="tiny material-icons">{{ RoleToChangeIcon }}</i> As {{ RoleToChange }}</a></li>
+                            <li><a href="#"><i class="tiny material-icons">exit_to_app</i> Log out</a></li>
+                        </ul>
+                </div>          
+                <div class="window window__arrived-map">
+                </div>
+                <div class="window window__arrived">
+                        <button type="button" class="btn btn-lg btn-secondary" @click="goToWindow('end-trip')">Start trip</button>
+                </div>
+        </div>
+        <div class="window window__end-trip" v-if="window == 'end-trip'">
+                <div class="dropdown">
+                        <a href="#" id="imageDropdown" data-toggle="dropdown">
+                          <img src="images/ICON3_4.jpg">
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="imageDropdown">
+                            <li><img src="images/LOGO4.jpg" alt="" /></li>
+                            <li><a href="#"><i class="tiny material-icons">account_circle</i> Profile</a></li>
+                            <li><a href="#"><i class="tiny material-icons">settings</i> Settings</a></li>
+                            <li><a href="#" @click="changeRole()"><i class="tiny material-icons">{{ RoleToChangeIcon }}</i> As {{ RoleToChange }}</a></li>
+                            <li><a href="#"><i class="tiny material-icons">exit_to_app</i> Log out</a></li>
+                        </ul>
+                </div>          
+                <div class="window window__arrived-map">
+                </div>
+                <div class="window window__arrived">
+                        <button type="button" class="btn btn-lg btn-secondary" @click="goToWindow('feedback')">End trip</button>
+                </div>
+        </div>
+        <div class="window window__end-trip" v-if="window == 'feedback'">
+                <div class="dropdown">
+                        <a href="#" id="imageDropdown" data-toggle="dropdown">
+                          <img src="images/ICON3_4.jpg">
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="imageDropdown">
+                            <li><img src="images/LOGO4.jpg" alt="" /></li>
+                            <li><a href="#"><i class="tiny material-icons">account_circle</i> Profile</a></li>
+                            <li><a href="#"><i class="tiny material-icons">settings</i> Settings</a></li>
+                            <li><a href="#" @click="changeRole()"><i class="tiny material-icons">{{ RoleToChangeIcon }}</i> As {{ RoleToChange }}</a></li>
+                            <li><a href="#"><i class="tiny material-icons">exit_to_app</i> Log out</a></li>
+                        </ul>
+                </div>          
+                <div class="window window__arrived-map">
+                </div>
+                <div class="window window__arrived">
+                        <button type="button" class="btn btn-lg btn-secondary" @click="goToWindow('feedback-message')">Feedback</button>
+                        <button type="button" class="btn btn-lg btn-secondary" @click="goToWindow('main')">On main</button>
+                </div>
+        </div>
+        <div class="window window__feedback" v-if="window == 'feedback-message'">
+                <div class="dropdown">
+                        <a href="#" id="imageDropdown" data-toggle="dropdown">
+                          <img src="images/ICON3_4.jpg">
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="imageDropdown">
+                            <li><img src="images/LOGO4.jpg" alt="" /></li>
+                            <li><a href="#"><i class="tiny material-icons">account_circle</i> Profile</a></li>
+                            <li><a href="#"><i class="tiny material-icons">settings</i> Settings</a></li>
+                            <li><a href="#" @click="changeRole()"><i class="tiny material-icons">{{ RoleToChangeIcon }}</i> As {{ RoleToChange }}</a></li>
+                            <li><a href="#"><i class="tiny material-icons">exit_to_app</i> Log out</a></li>
+                        </ul>
+                </div>          
+                <div class="window window__feedback">
+                    <span class="rating">
+                    <input type="radio" name="star" id="star1" ><label for="star1">
+                        </label>
+                    <input type="radio" name="star" id="star2" ><label for="star2">
+                        </label>
+                    <input type="radio" name="star" id="star3"><label for="star3">
+                        </label> 
+                    <input type="radio" name="star" id="star4"><label for="star4">
+                        </label>
+                    <input type="radio" name="star" id="star5"><label for="star5">
+                        </label>
+                    </span>
+                </div>
+                <div class="window window__feedback-message">
+                        <textarea name="comment" cols="32" rows="4"></textarea></p>
+                </div>           
+                <div class="window window__feedback-send">
+                        <button type="button" class="btn btn-lg btn-secondary" @click="goToWindow('main')">Send</button>
+                </div>
+        </div>
+    </div> 
+
+    <script src="app/main.js"></script>
+</body>
+</html>
