@@ -117,11 +117,12 @@
 .dropdown-menu{
     max-width: 50vw;
     background-color: #f4f0e6;
-    background: linear-gradient(-180deg, #9dd3a8 33%, #f4f0e6 0%);
+    background: linear-gradient(-180deg, #9dd3a8 13%, #f4f0e6 0%);
 }
 .dropdown-menu img{
     width: 100%;
     height: auto;
+    background:#9dd3a8
 }
 .divider{
     border: 1px dashed #f4f0e6;
