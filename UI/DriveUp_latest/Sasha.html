@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DriveUp</title>
+    <meta name="viewport" content="initial-scale=1.0" />
+    <meta charset="utf-8" />
+
+    <!-- Stylesheets. -->
+    <link rel="stylesheet" href="css/left-nav-style.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles/style2.css" />
+    <!-- <link rel="stylesheet" href="styles/modal.css"> -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div>
+      <input type="checkbox" id="nav-toggle" hidden />
+      <nav class="nav">
+        <label for="nav-toggle" class="nav-toggle" onclick></label>
+        <ul>
+          <li><img class="logo-menu" src="images/LOGO2.png" /></li>
+          <li><a href="#1">Profile</a></li>
+          <li><a href="#2">Settings</a></li>
+          <li><a href="orderList.html">As Driver</a></li>
+          <li>
+            <a href="#4">Log Out</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="windows" id="maps">
+      <div id="map"></div>
+
+      <div class="window window_start-address" v-if="window == 'start-address'">
+        <div class="pac-input">
+          <input
+            class="form-control"
+            id="start"
+            type="text"
+            placeholder="From..."
+            v-model="startAddress"
+          />
+        </div>
+
+        <div class="pac-input">
+          <input
+            class="form-control"
+            id="end"
+            type="text"
+            placeholder="To..."
+            v-model="endAddress"
+          />
+        </div>
+
+        <!-- v-on:click="calcRoute" -->
+
+        <div class="pac-input">
+          <select class="form-control" v-on:change="goTo('set-time')">
+            <option class="hidden"> Now </option>
+            <option>Schedule trip</option>
+          </select>
+        </div>
+
+        <button class="button btn-success" v-on:click="goTo('settleddata')">
+          SUBMIT
+        </button>
+      </div>
+
+      <div class="window window_set-time" v-if="window == 'set-time'">
+        <!-- <div class="row" id="dateTime">
+        <div class="column" > Today:</div>         
+        <div class="column" id="displayDate">
+            <span id="date"></span>
+        </div>
+        <div class="column">Time:</div>
+        <div class="column" id="displayTime">
+          <span id="time"></span>
+        </div>
+    </div> -->
+
+        <div class="row scedule--header">
+          <h3>Schedule trip</h3>
+        </div>
+
+        <div class="row" id="selectDate">
+          <div class="columnDate">
+            <div data-test="dropdown-wrapper" class="dropdown">
+              <select class="select">
+                <option selected disabled>Year</option>
+                <option value="yy">2019</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="columnDate">
+            <div data-test="dropdown-wrapper" class="dropdown">
+              <select class="select">
+                <option selected disabled>Month</option>
+                <option value="jan">January</option>
+                <option value="feb">February</option>
+                <option value="mar">March</option>
+                <option value="apr">April</option>
+                <option value="may">May</option>
+                <option value="jun">June</option>
+                <option value="jul">July</option>
+                <option value="aug">August</option>
+                <option value="sep">September</option>
+                <option value="nov">November</option>
+                <option value="dec">December</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="columnDate">
+            <div data-test="dropdown-wrapper" class="year">
+              <select class="select">
+                <option selected disabled>Day</option>
+                <option value="01">01</option>
+                <option value="1">02</option>
+                <option value="2">03</option>
+                <option value="3">04</option>
+                <option value="4">05</option>
+                <option value="5">06</option>
+                <option value="6">07</option>
+                <option value="3">08</option>
+                <option value="4">09</option>
+                <option value="5">10</option>
+                <option value="2">11</option>
+                <option value="3">12</option>
+                <option value="4">13</option>
+                <option value="5">14</option>
+                <option value="6">15</option>
+                <option value="3">16</option>
+                <option value="4">17</option>
+                <option value="5">18</option>
+                <option value="6">19</option>
+                <option value="6">20</option>
+                <option value="21">21</option>
+                <option value="1">22</option>
+                <option value="2">23</option>
+                <option value="3">24</option>
+                <option value="4">25</option>
+                <option value="5">26</option>
+                <option value="6">27</option>
+                <option value="3">28</option>
+                <option value="4">29</option>
+                <option value="5">30</option>
+                <option value="2">31</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="columnDate">
+            <div data-test="dropdown-wrapper" class="dropdown">
+              <select class="select">
+                <option selected disabled>HH</option>
+                <option value="00">00</option>
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">24</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="columnDate">
+            :
+          </div>
+
+          <div class="columnDate">
+            <div data-test="dropdown-wrapper" class="dropdown">
+              <select class="select">
+                <option selected disabled>MM</option>
+                <option value="00">00</option>
+                <option value="05">05</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="25">25</option>
+                <option value="30">30</option>
+                <option value="35">35</option>
+                <option value="40">40</option>
+                <option value="45">45</option>
+                <option value="50">50</option>
+                <option value="55">55</option>
+              </select>
+            </div>
+          </div>
+          <div class="FooterThree">
+          <button id="btn_back" v-on:click="goTo('start-address')">
+            BACK
+          </button>
+          <button id="btn_submit" v-on:click="goTo('settleddata')">
+            SUBMIT
+          </button>
+        </div>  
+        </div>
+      </div>
+
+      <div class="bottomMenu" v-if="window == 'bottomMenu'">
+        <div class="bottomMenu">
+          <div class="footer">
+            <div class="cars">
+              <div class="cars--content econom--selected">
+                <p>
+                  <img
+                    src="cars/EconomCarBW.png"
+                    id="econom"
+                    alt="Econom_Car"
+                    v-on:click="EconomClick()"
+                  />
+                  Econom
+                </p>
+              </div>
+              <div class="cars--content business--selected">
+                <p>
+                  <img
+                    src="cars/BusinessCarBW.png"
+                    id="business"
+                    alt="Business_Car"
+                    v-on:click="businessClick()"
+                  />
+                  Business
+                </p>
+              </div>
+              <div class="cars--content VIP--selected">
+                <p>
+                  <img
+                    src="cars/VIPCarBW.png"
+                    id="VIP"
+                    alt="VIP_Car"
+                    v-on:click="VIPClick()"
+                  />
+                  VIP
+                </p>
+              </div>
+              <div class="cars--content Minivan--selected">
+                <p>
+                  <img
+                    src="cars/MinivanCarBW.png"
+                    id="minivan"
+                    alt="Minivan_Car"
+                    v-on:click="MinivanClick()"
+                  />
+                  Minivan
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="FooterPrice">Price:154 ₴</div>
+          <div class="FooterTwo">
+            <div class="comfort">
+              <div
+                class="comfort--content courier--content"
+                id="courier"
+                v-on:click="CourierClick()"
+              >
+               Baggage to the cabin
+              </div>
+              <div
+                class="comfort--content babySeat--content"
+                id="babySeat"
+                v-on:click="BabySeatClick()"
+              >
+                Baby car seat
+              </div>
+              <div
+                class="comfort--content conditioner--content"
+                id="conditioner"
+                v-on:click="ConditionerClick()"
+              >
+                Air-conditioned car
+              </div>
+              <div
+                class="comfort--content english--content"
+                id="english"
+                v-on:click="EnglishClick()"
+              >
+                English speaking driver
+              </div>
+              <div
+                class="comfort--content nonSmoker--content"
+                id="nonSmoker"
+                v-on:click="NonSmokerClick()"
+              >
+                Non-smoking driver
+              </div>
+              <div
+                class="comfort--content pets--content"
+                id="pets"
+                v-on:click="PetsClick()"
+              >
+                Pet ride
+              </div>
+              <div
+                class="comfort--content silence--content"
+                id="silecne"
+                v-on:click="SilenceClick()"
+              >
+                Silence in the car
+              </div>
+            </div>
+          </div>
+          <div class="FooterThree">
+            <button id="btn_back" v-on:click="goTo('settleddata')">BACK</button>
+            <button id="btn_submit" v-on:click="goTo('confirmation')" href="#openModal"  >
+              SUBMIT
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="window window_afterconfirmation"
+        v-if="window == 'afterconfirmation'"
+      >
+        <div class="row"></div>
+        <div class="row1">
+          <h4>Thank you for placing your order! We'll notify you soon!</h4>
+        </div>
+      </div>
+
+      <div class="window window_start-address" v-if="window == 'settleddata'">
+        <div class="row">
+          <div class="row2">
+            <span>Address1</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="row2">
+            <span>Address2</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="row2">
+            <span>Time</span>
+          </div>
+        </div>
+        <button id="btn_submit" v-on:click="goTo('bottomMenu')">SUBMIT</button>
+      </div>
+    </div>
+
+
+
+    <!-- <div id="openModal" class="modal" v-if="window == 'confirmation'">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <p class="modal-title">Please, confirm details of your order</p>
+            <a href="#close" title="Close" class="close">×</a>
+          </div>
+          <div class="modal-body">    
+            <div class="inscription">From:</div>
+            <div class="inscription">To:</div>
+            <div class="inscription">Time:</div>
+            <div class="inscription">Price:</div>
+          <div class="modal-payment">
+              <div class="modal-payment-type">
+                  <input name="payment" type="radio" value="CASH" id="radio-cash">
+                  <label class="inscription" for="radio-cash"> CASH</label>   
+                  </div>
+              <div class="modal-payment-type">
+                  <input name="payment" type="radio" value="CARD" id="radio-card">
+                  <label class="inscription" for="radio-card"> CARD</label>
+              </div>
+          </div>
+              <div class="modal-buttons">
+                  <button class="modal-button">
+                      BACK
+                  </button>
+                  <button class="modal-button" v-on:click="goTo('')">
+                      SUBMIT
+                  </button>
+              </div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+
+
+
+    <!-- Bootstrap scripts. -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
+
+    <!-- Google Maps scripts. -->
+    <script src="scripts/script2.js"></script>
+    <!-- <script src="scripts/modal.js"></script> -->
+    <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSfUc_q694PAWLY11x73iDPm6ADnFaVzI&ergion=ua&callback=createMap&libraries=places" async defer></script> -->
+  </body>
+</html>

@@ -1,0 +1,39 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://unpkg.com/reset-css/reset.css">
+    <link rel="stylesheet" href="styles/styles5.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/
+   bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router"></script>
+    <title>Order-confirmation</title>
+</head>
+
+<body>
+
+<div class="window window_order_confirmation" id="orders">
+    <div class="title">
+        <br>
+        <pre>       Confirmation the order </pre>
+    </div>
+    <div class="the_order">        
+            <div class="row"><br><pre>    Order №: {{ currentOrder.orderNumber }}</pre></div>
+            <div class="row"><br><pre>    From {{ currentOrder.startAddress}}</pre></div>
+            <div class="row"><br><pre>    to {{currentOrder.finishAddress}}</pre></div>
+            <div class="row"><br><pre>    at {{currentOrder.wishTime}}</pre> <br></div>
+            <div class="row"></div>
+    </div>
+
+    <div class="btn_block">           
+        <button class="left_btn" title="Back" onclick="window.location.href='    '">Accept</button>
+        <!-- input to prev line-href the name of html-file of the next window (Sasha, map + input address -->
+        <button class="right_btn" title="Edit" onclick="window.location.href='orderList.html'">Back</button>
+        <!-- rename the window with choosing the order as file and in href-brackets in previous line-->
+    </div> 
+</div>  
+<script src="scripts/main5.js"></script>
+</body>
+</html>

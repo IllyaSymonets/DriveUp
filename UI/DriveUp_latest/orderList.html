@@ -1,0 +1,37 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, 
+    shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://unpkg.com/reset-css/reset.css">
+    <link rel="stylesheet" href="styles/styles5.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router"></script>
+    <title>Orders_for_driver</title>
+</head>
+<body>
+<div class="window window_choose_order" v-if="window == 'choose_order'">
+
+    <div class="windows" id="orders">
+
+    <div class="title">       
+        Current orders. <br>
+        Press and choose any of them.
+    </div> 
+    
+    <ul>
+        <li v-for="(order, index) in orders">
+            <a :href="'order-confirmation.html?id=' + order.orderNumber">From {{ order.startAddress}} 
+                <br>to {{order.finishAddress}} 
+                <br>at {{order.wishTime}}</a>
+        </li>
+    </ul>
+    </div>
+</div>
+
+    <script src="scripts/main5.js"></script>
+</body>
+</html>
