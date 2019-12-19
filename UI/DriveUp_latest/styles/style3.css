@@ -1,0 +1,92 @@
+body {
+  background-color: #f4f0e6;
+  margin: 0;
+  display: flex;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: unset;
+}
+.bottomMenu {
+  position: absolute;
+  bottom: 0;
+  height: 30%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.Wrapper {
+  position: absolute;
+  width: 100%;
+}
+.textCars {
+  display: inline-block;
+}
+.cars--content {
+  align-items: center;
+  justify-content: center;
+  background-color: #d9d9f3;
+  display: inline-block;
+  width: 50%;
+  align-self: center;
+  height: 100%;
+}
+.comfort--content {
+  background-color: #d9d9f3;
+  display: inline-block;
+  width: 25%;
+  text-align: center;
+  font-size: 18pt;
+  /* padding: 5% 8% 0 0; */
+}
+.cars {
+  overflow: hidden;
+  width: 100%;
+  overflow-x: scroll;
+  background: #ceefe4;
+  white-space: nowrap;
+  height: 100%;
+}
+.comfort {
+  background-color: #d9d9f3;
+  overflow: hidden;
+  overflow-x: scroll;
+  width: 100%;
+  white-space: nowrap;
+  align-items: center;
+  justify-content: center;
+}
+.FooterTwo {
+  flex-grow: 1;
+}
+.FooterThree {
+  width: 100%;
+  flex-grow: 1;
+}
+.footer {
+  flex-grow: 3;
+}
+.FooterPrice {
+  flex-grow: 1;
+  text-align: left;
+  font-size: 30pt;
+}
+#btn_submit {
+  width: inherit;
+  background-color: #f8b831;
+  text-decoration-color: black;
+  font-size: 18pt;
+}
+.cars::-webkit-scrollbar {
+  display: none;
+}
+.comfort::-webkit-scrollbar {
+  display: none;
+}
+.bottomMenu div,
+.bottomMenu button {
+  height: 100%;
+}
+.cars--content img {
+  /* padding: 7% 0 0 30%; */
+  position: relative;
+}

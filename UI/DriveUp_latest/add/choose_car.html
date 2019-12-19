@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="styles/style3.css" rel="stylesheet" />
+    <script src="scripts/script3.js"></script>
+    <script src="scripts/main3.js"></script>
+  </head>
+  <body>
+    <div class="Wraper">
+      <div class="map"></div>
+    </div>
+    <div class="bottomMenu">
+      <div class="footer">
+        <div class="cars">
+          <div class="cars--content">
+            <img
+              src="/cars/EconomCarBW.png"
+              id="econom"
+              alt="Econom_Car"
+              onclick="EconomClick()"
+            />
+          </div>
+          <div class="cars--content">
+            <img
+              src="/cars/BusinessCarBW.png"
+              id="business"
+              alt="Business_Car"
+              onclick="businessClick()"
+            />
+          </div>
+          <div class="cars--content">
+            <img
+              src="/cars/VIPCarBW.png"
+              id="VIP"
+              alt="VIP_Car"
+              onclick="VIPClick()"
+            />
+          </div>
+          <div class="cars--content">
+            <img
+              src="/cars/MinivanCarBW.png"
+              id="minivan"
+              alt="Minivan_Car"
+              onclick="MinivanClick()"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="FooterPrice">Price:</div>
+      <div class="FooterTwo">
+        <div class="comfort">
+          <div class="comfort--content" id="courier" onclick="CourierClick()">Courier delivery</div>
+          <div class="comfort--content" id="babySeat" onclick="BabySeatClick()">Baby car seat</div>
+          <div class="comfort--content" id="conditioner" onclick="ConditionerClick()">
+            Air-conditioned car
+          </div>
+          <div class="comfort--content" id="english" onclick="EnglishClick()">
+            English speaking driver
+          </div>
+          <div class="comfort--content" id="nonSmoker" onclick="NonSmokerClick()">Non-smoking driver</div>
+          <div class="comfort--content" id="pets" onclick="PetsClick()">Pet ride</div>
+          <div class="comfort--content" id="silecne" onclick="SilenceClick()">Silence in the car</div>
+        </div>
+      </div>
+      <div class="FooterThree">
+        <button id="btn_submit" onclick="isOk()">SUBMIT</button>
+      </div>
+    </div>
+  </body>
+</html>
