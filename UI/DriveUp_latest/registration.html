@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Registration</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles/style1.css">
 </head>
 
 <body>
@@ -15,20 +15,27 @@
             <div class="logo"> <img src="LOGO1.png"> </div>
             <div class="wrapper_form">
                 <form action="#" method="POST" class="registration_form">
-                    <input id="email" type="tel" name="tel" placeholder="Your Phone...">
-                    <input id="pass" type="password" name="password" placeholder="Password..">
-                    <input id="pass" type="password" name="password" placeholder="Confirm Password...">
-                    <div class="agree">
-                        <input type="checkbox" id="check1">
-                        <label for="check1"> I agree to User Agreement and Privacy Notice</label>
+                    <input id="phone" type="tel" name="tel" placeholder="Your Phone...">
+                    <input id="pass1" type="password" name="password1" placeholder="Password..">
+                    <input id="pass2" type="password" name="password2" placeholder="Confirm Password...">
+                    <div class="msg"></div>
+                    <div class="role">
+                        <div class="check_role">
+                            <input type="radio" name="check" id="radio_client" value="client" checked>
+                            <label for="radio_client">Client</label>
+                        </div>
+                        <div class="check_role">
+                            <input type="radio" name="check" id="radio_driver" value="driver">
+                            <label for="radio_driver">Driver</label>
+                        </div>
                     </div>
-                    <input type="button" onclick="location.href='Sasha.html'" value="Submit">
-                    <!--<input type="submit" value="Submit"> -->
+                    <input type="submit" value="Submit" class="btn_registration">
                     <a class="link_deco" href="login.html"><span>Log in</span></a>
                 </form>
             </div>
         </div>
     </div>
+    <script src="scripts/reg.js"></script>
 </body>
 
 </html>
