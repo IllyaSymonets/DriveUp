@@ -4,35 +4,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://unpkg.com/reset-css/reset.css">
+    <link rel="stylesheet" href="css/left-nav-style.css" />
     <link rel="stylesheet" href="styles/styles5.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/
-   bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/vue-router"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, 
+    shrink-to-fit=no">
     <title>Order-confirmation</title>
 </head>
 
 <body>
 
 <div class="window window_order_confirmation" id="orders">
-    <div class="title">
-        <br>
-        <pre>       Confirmation the order </pre>
+    <div>
+        <input type="checkbox" id="nav-toggle" hidden />
+            <nav class="nav">
+            <label for="nav-toggle" class="nav-toggle" onclick></label>
+            <ul>
+                <li><img class="logo-menu" src="images/LOGO2.png" /></li>
+                <li><a href="#1">Profile</a></li>
+                <li><a href="orderList.html">Orders</a></li>
+                <li><a href="#2">Plan</a></li>
+                <li><a href="#3">My bill</a></li>
+                <li><a href="#4">History</a></li>
+                <li><a href="Sasha.html">As Client</a></li>
+                <li><a href="#5">Settings</a></li>
+                <li>
+                    <a href="login.html">Log Out</a>
+                </li>
+            </ul>
+            </nav>
     </div>
-    <div class="the_order">        
-            <div class="row"><br><pre>    Order №: {{ currentOrder.orderNumber }}</pre></div>
-            <div class="row"><br><pre>    From {{ currentOrder.startAddress}}</pre></div>
-            <div class="row"><br><pre>    to {{currentOrder.finishAddress}}</pre></div>
-            <div class="row"><br><pre>    at {{currentOrder.wishTime}}</pre> <br></div>
-            <div class="row"></div>
-    </div>
+    <div class="order-page">
+        <div class="title">
+            <br>Confirmation the order
+        </div>
+        <div class="the_order">
+            <ul>
+                <li><br>Order №: {{ currentOrder.orderNumber }}</li>
+                <li><br>From {{ currentOrder.startAddress}}</li>
+                <li><br>to {{currentOrder.finishAddress}}</li>
+                <li><br>at {{currentOrder.wishTime}}</li>
+            </ul>        
+        </div>
 
-    <div class="btn_block">           
-        <button class="left_btn" title="Back" onclick="window.location.href='    '">Accept</button>
-        <!-- input to prev line-href the name of html-file of the next window (Sasha, map + input address -->
-        <button class="right_btn" title="Edit" onclick="window.location.href='orderList.html'">Back</button>
-        <!-- rename the window with choosing the order as file and in href-brackets in previous line-->
-    </div> 
+        <div class="btn_block">           
+            <button class="left_btn" title="Back" onclick="window.location.href='    '">Accept</button>
+            <!-- input to prev line-href the name of html-file of the next window (Sasha, map + input address -->
+            <button class="right_btn" title="Edit" onclick="window.location.href='orderList.html'">Back</button>
+            <!-- rename the window with choosing the order as file and in href-brackets in previous line-->
+        </div> 
+    </div>
 </div>  
 <script src="scripts/main5.js"></script>
 </body>
