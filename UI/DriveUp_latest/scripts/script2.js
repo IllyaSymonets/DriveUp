@@ -4,6 +4,8 @@ const v = new Vue({
 
   data: {
     window : 'start-address',
+
+
     startAddress : '',
     endAddress : '',
     time : '',
@@ -94,6 +96,10 @@ const v = new Vue({
       document.querySelector(".business--selected").style.backgroundColor = "#68747d";
       document.querySelector(".VIP--selected").style.backgroundColor = "#68747d";
       document.querySelector(".Minivan--selected").style.backgroundColor = "#292e34";
+  },
+  DisplayModal : function(){
+    document.querySelector(".modal-frame").style.display = "block";
+    document.querySelector(".disable-all").style.display = "block";
   },
 
 

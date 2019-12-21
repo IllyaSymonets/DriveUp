@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="styles/modal.css">
+</head>
+<body>
+ 
+    <div id="openModal" class="modal" >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <p class="modal-title">Please, confirm details of your order</p>
+            </div>
+            <div class="modal-body">    
+              <div class="inscription">From:</div>
+              <div class="inscription">To:</div>
+              <div class="inscription">Time:</div>
+              <div class="inscription">Price:</div>
+            <div class="modal-payment">
+                <div class="modal-payment-type">
+                    <input name="payment" type="radio" value="CASH" id="radio-cash">
+                    <label class="inscription" for="radio-cash"> CASH</label>   
+                    </div>
+                <div class="modal-payment-type">
+                    <input name="payment" type="radio" value="CARD" id="radio-card">
+                    <label class="inscription" for="radio-card"> CARD</label>
+                </div>
+            </div>
+                <div class="modal-buttons">
+                    <button class="modal-button">
+                        BACK
+                    </button>
+                    <button class="modal-button" v-on:click="goTo('')">
+                        SUBMIT
+                    </button>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</body>
+</html>
