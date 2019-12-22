@@ -6,7 +6,6 @@
     <meta charset="utf-8" />
 
     <!-- Stylesheets. -->
-    <link rel="stylesheet" href="css/left-nav-style.css" />
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -14,10 +13,15 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="styles/style2.css" />
+    <link rel="stylesheet" href="css/left-nav-style.css" />
     <!-- <link rel="stylesheet" href="styles/modal.css"> -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   </head>
   <body>
+    <!-- <div class="disable-all"></div> -->
+      <iframe src="modal.html" class="modal-frame">
+          Ваш браузер не поддерживает плавающие фреймы!
+       </iframe> 
     <div>
       <input type="checkbox" id="nav-toggle" hidden />
       <nav class="nav">
@@ -219,13 +223,13 @@
             </div>
           </div>
           <div class="FooterThree">
-          <button id="btn_back" v-on:click="goTo('start-address')">
-            BACK
-          </button>
-          <button id="btn_submit" v-on:click="goTo('settleddata')">
-            SUBMIT
-          </button>
-        </div>  
+            <button id="btn_back" v-on:click="goTo('start-address')">
+              BACK
+            </button>
+            <button id="btn_submit" v-on:click="goTo('settleddata')">
+              SUBMIT
+            </button>
+          </div>
         </div>
       </div>
 
@@ -287,7 +291,7 @@
                 id="courier"
                 v-on:click="CourierClick()"
               >
-               Baggage to the cabin
+                Baggage to the cabin
               </div>
               <div
                 class="comfort--content babySeat--content"
@@ -335,7 +339,7 @@
           </div>
           <div class="FooterThree">
             <button id="btn_back" v-on:click="goTo('settleddata')">BACK</button>
-            <button id="btn_submit" v-on:click="goTo('confirmation')" href="#openModal"  >
+            <button id="btn_submit"  v-on:click="DisplayModal()" >
               SUBMIT
             </button>
           </div>
@@ -373,46 +377,7 @@
         <button id="btn_submit" v-on:click="goTo('bottomMenu')">SUBMIT</button>
       </div>
     </div>
-
-
-
-    <!-- <div id="openModal" class="modal" v-if="window == 'confirmation'">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <p class="modal-title">Please, confirm details of your order</p>
-            <a href="#close" title="Close" class="close">×</a>
-          </div>
-          <div class="modal-body">    
-            <div class="inscription">From:</div>
-            <div class="inscription">To:</div>
-            <div class="inscription">Time:</div>
-            <div class="inscription">Price:</div>
-          <div class="modal-payment">
-              <div class="modal-payment-type">
-                  <input name="payment" type="radio" value="CASH" id="radio-cash">
-                  <label class="inscription" for="radio-cash"> CASH</label>   
-                  </div>
-              <div class="modal-payment-type">
-                  <input name="payment" type="radio" value="CARD" id="radio-card">
-                  <label class="inscription" for="radio-card"> CARD</label>
-              </div>
-          </div>
-              <div class="modal-buttons">
-                  <button class="modal-button">
-                      BACK
-                  </button>
-                  <button class="modal-button" v-on:click="goTo('')">
-                      SUBMIT
-                  </button>
-              </div>
-          </div>
-        </div>
-      </div> -->
-    </div>
-
-
-
+    <div class="disable-all"></div>
     <!-- Bootstrap scripts. -->
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -420,7 +385,7 @@
 
     <!-- Google Maps scripts. -->
     <script src="scripts/script2.js"></script>
-    <!-- <script src="scripts/modal.js"></script> -->
     <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSfUc_q694PAWLY11x73iDPm6ADnFaVzI&ergion=ua&callback=createMap&libraries=places" async defer></script> -->
+  
   </body>
 </html>
