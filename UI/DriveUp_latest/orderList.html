@@ -35,12 +35,13 @@
         </ul>
         </nav>
     </div>
+
+    <div class="title">       
+        Current orders. <br>
+        Choose any of them.
+    </div> 
     <div class="page">
-        <div class="title">       
-            Current orders. <br>
-            Choose any of them.
-        </div> 
-    
+
         <ul>
             <li v-for="(order, index) in orders">
                 <a :href="'order-confirmation.html?id=' + order.orderNumber">From {{ order.startAddress}} 
