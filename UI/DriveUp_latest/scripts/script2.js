@@ -100,10 +100,17 @@ const v = new Vue({
   DisplayModal : function(){
     document.querySelector(".modal-frame").style.display = "block";
     document.querySelector(".disable-all").style.display = "block";
+    this.goTo('afterconfirmation');
   },
-
-
-
+  
+  // CorrectOrder : function (){
+  //   window.parent.document.getElementById('disable-all').parentNode.querySelector('#disable-all').style.display = "none";
+  //   window.parent.document.getElementById('modal').parentNode.querySelector('#modal').style.display = "none";  
+  // },
+  // SearchDriver : function(){
+  //  this.goTo('afterconfirmation');
+  //   CorrectOrder();
+  // }
 
     // calcRoute : function () {
     //   origin: document.getElementById('start'),

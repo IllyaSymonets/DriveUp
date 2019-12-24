@@ -1,13 +1,7 @@
-// register modal component
-Vue.component('modal', {
-  iframe: '#openFrame'
-})
-
-window.onload = function () {
-new Vue({
-  el: '.bottomMenu',
-  data: {
-    showModal: false
-  }
-})
+function CorrectOrder(){
+  window.parent.document.getElementById('disable-all').parentNode.querySelector('#disable-all').style.display = "none";
+  window.parent.document.getElementById('modal').parentNode.querySelector('#modal').style.display = "none";  
+}
+function SearchDriver(){
+  CorrectOrder();
 }

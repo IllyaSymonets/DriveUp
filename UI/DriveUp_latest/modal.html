@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <head>
     <link rel="stylesheet" href="styles/modal.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
  
@@ -26,10 +27,10 @@
                 </div>
             </div>
                 <div class="modal-buttons">
-                    <button class="modal-button">
+                    <button class="modal-button"  onclick = "CorrectOrder()" >
                         BACK
                     </button>
-                    <button class="modal-button" v-on:click="goTo('')">
+                    <button class="modal-button" onclick="SearchDriver()">
                         SUBMIT
                     </button>
                 </div>
@@ -37,5 +38,6 @@
           </div>
         </div>
       </div>
+      <script src="scripts/modal.js"></script>
 </body>
 </html>

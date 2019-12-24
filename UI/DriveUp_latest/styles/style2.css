@@ -15,6 +15,18 @@ body {
   margin: 0;
   padding: 0;
 }
+.animation{
+  width: 20%;
+  height: 20%;
+}
+.searching_gif{
+text-align:  center;
+color:#f4f0e6;
+font-size: 20pt; 
+}
+.window_afterconfirmation{
+  padding-top: 10%;
+}
 .window {
   display: block;
   height: 30%; 
