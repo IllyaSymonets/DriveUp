@@ -23,7 +23,7 @@ public class Bill {
     private String paymentMode;
     private UUID orderId;
     private UUID driverId;
-    private  boolean paid;
+    private boolean paid;
 
     public Bill(@JsonProperty("orderId") UUID orderId,
                 @JsonProperty("driverId") UUID driverId,

@@ -5,6 +5,7 @@ import customers.model.Customer;
 import customers.service.CustomerServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,8 @@ public class CustomerController {
 
     private final CustomerServiceImpl customerService;
 
-    @PostMapping("/save")
+    @PostMapping(path = "/save" , produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Customer> save(@RequestBody CreateCustomerDto customerDto) {
         Customer customer = customerService.saveCustomer(customerDto);
         return new ResponseEntity<>(customer, HttpStatus.OK);

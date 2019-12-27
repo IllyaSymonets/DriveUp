@@ -31,7 +31,7 @@ public class CarController {
 
     @PostMapping(path = "/add/{id}")
     public ResponseEntity addCarByDriverId(@PathVariable UUID id,
-                                   @RequestBody @NotNull CarDTO carDTO) {
+                                           @RequestBody @NotNull CarDTO carDTO) {
         carService.addById(id, carDTO);
         return new ResponseEntity(HttpStatus.CREATED);
     }

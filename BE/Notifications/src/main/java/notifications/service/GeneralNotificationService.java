@@ -17,7 +17,7 @@ public class GeneralNotificationService {
         return notificationRepository.findAll();
     }
 
-    public Iterable<PhoneNotification> getAllByOrderIds(UUID orderId){
+    public Iterable<PhoneNotification> getAllByOrderIds(UUID orderId) {
         return notificationRepository.findAllByOrderId(orderId);
     }
 }

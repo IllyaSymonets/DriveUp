@@ -9,7 +9,7 @@
                   separator=","
                   quotchar="A String"
                   file="src/main/resources/db/data/paymentDetails.csv"
-                  encoding="UTF-8"> </loadData>
+                  encoding="UTF-8"></loadData>
     </changeSet>
 
 </databaseChangeLog>

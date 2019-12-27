@@ -36,7 +36,7 @@ public class DriverNotificationController {
     }
 
     @PostMapping("/trip_finished")
-    public ResponseEntity <PhoneNotification> saveMessageTripFinished(@RequestBody ApprovedOrderDto approvedOrderDto) {
+    public ResponseEntity<PhoneNotification> saveMessageTripFinished(@RequestBody ApprovedOrderDto approvedOrderDto) {
         PhoneNotification phoneNotification = driverNotificationService.sayTripFinished(approvedOrderDto);
         return new ResponseEntity<>(phoneNotification, HttpStatus.OK);
     }

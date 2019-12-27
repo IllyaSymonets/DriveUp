@@ -20,14 +20,14 @@ public class GeneralActionsController {
     @GetMapping("/all")
     public ResponseEntity<Iterable<PhoneNotification>> getAll() {
         Iterable<PhoneNotification> listOfNotification =
-                            generalNotificationService.getAllPhoneNotifications();
+                generalNotificationService.getAllPhoneNotifications();
         return new ResponseEntity<>(listOfNotification, HttpStatus.OK);
     }
 
     @PostMapping("/allByOrderId")
     public ResponseEntity<Iterable<PhoneNotification>> getAllByOrderId() {
         Iterable<PhoneNotification> listOfNotification =
-                            generalNotificationService.getAllPhoneNotifications();
+                generalNotificationService.getAllPhoneNotifications();
         return new ResponseEntity<>(listOfNotification, HttpStatus.OK);
     }
 }

@@ -17,8 +17,9 @@ public class Fund {
     private long id;
     private UUID driverId;
     private double fundBalance;
+
     public Fund(@JsonProperty("driverId") UUID driverId,
-                @JsonProperty("fundBalance") double fundBalance){
+                @JsonProperty("fundBalance") double fundBalance) {
         this.driverId = driverId;
         this.fundBalance = fundBalance;
     }

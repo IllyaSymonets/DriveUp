@@ -15,12 +15,11 @@ public class SchedulerSalary {
     private FundService fundService;
     private FundRepository fundRepository;
 
-//    @Scheduled(cron = "0 0 12 * * THU")
+    //    @Scheduled(cron = "0 0 12 * * THU")
 //    public void paySalary() {
 //        countSalary();
 //    }
-    private List<WeekPaymentRequest> countSalary()
-    {
+    private List<WeekPaymentRequest> countSalary() {
         List<Fund> funds = fundService.getAllFunds();
         List<WeekPaymentRequest> salary = new ArrayList<>();
         WeekPaymentRequest currentDriver = new WeekPaymentRequest();
@@ -33,11 +32,10 @@ public class SchedulerSalary {
         return salary;
     }
 
-    public void bankResult(List<SalaryPaid> resultFromBank)
-    {
-        for (int i=0; i<resultFromBank.size(); i++){
+    public void bankResult(List<SalaryPaid> resultFromBank) {
+        for (int i = 0; i < resultFromBank.size(); i++) {
             Fund currentFund = fundRepository.findByDriverId(resultFromBank.get(i).getDriverId());
-            if(resultFromBank.get(i).isTransactionResult()){
+            if (resultFromBank.get(i).isTransactionResult()) {
                 currentFund.setFundBalance(100);
                 fundRepository.save(currentFund);
             }

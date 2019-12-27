@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class GoogleDirectionsJsonParser implements JsonParser{
+public class GoogleDirectionsJsonParser implements JsonParser {
 
     public Route parseJSON(String jsonObject, long orderId, String departureTime) {
 

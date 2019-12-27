@@ -28,6 +28,6 @@
     </changeSet>
 
     <changeSet id="tag-1.0" author="Irina_Holovata">
-        <tagDatabase tag="1.0" />
+        <tagDatabase tag="1.0"/>
     </changeSet>
 </databaseChangeLog>

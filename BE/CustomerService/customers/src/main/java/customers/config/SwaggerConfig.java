@@ -22,6 +22,7 @@ public class SwaggerConfig {
                 .paths(PathSelectors.any())
                 .build();
     }
+
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {

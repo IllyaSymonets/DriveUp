@@ -12,7 +12,7 @@ import softserve.academy.service.PaymentDetailsService;
 public class PaymentDetailsController {
 
     private final PaymentDetailsService detailsService;
-    private  final PaymentDetailsRepo detailsRepo;
+    private final PaymentDetailsRepo detailsRepo;
 
     @PostMapping("addpaymentDetails")
     public PaymentDetails addDetails(@RequestBody CreatePaymentDetails details) {

@@ -1,10 +1,10 @@
-package com.softserve.service.provider;
+package com.softserve.brain;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ServiceProviderApplicationTests {
+class BrainApplicationTests {
 
     @Test
     void contextLoads() {

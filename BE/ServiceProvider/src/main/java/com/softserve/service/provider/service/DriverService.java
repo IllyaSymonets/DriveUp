@@ -160,22 +160,22 @@ public class DriverService {
 
     private String getSqlQuery(SearchCarDTO searchCarDTO) {
         return String.format("SELECT distinct vehicle_id FROM CARS where" +
-                            " car_type = '%s' and" +
-                            " baby_car_seat = '%s' and" +
-                            " conditioner = '%s' and" +
-                            " courier = '%s' and" +
-                            " english = '%s' and" +
-                            " non_smoker = '%s' and" +
-                            " pet = '%s' and" +
-                            " silence = '%s'",
-                    searchCarDTO.getType(),
-                    searchCarDTO.isBabyCarSeat(),
-                    searchCarDTO.isConditioner(),
-                    searchCarDTO.isCourier(),
-                    searchCarDTO.isEnglish(),
-                    searchCarDTO.isNonSmoker(),
-                    searchCarDTO.isPet(),
-                    searchCarDTO.isSilence());
+                        " car_type = '%s' and" +
+                        " baby_car_seat = '%s' and" +
+                        " conditioner = '%s' and" +
+                        " courier = '%s' and" +
+                        " english = '%s' and" +
+                        " non_smoker = '%s' and" +
+                        " pet = '%s' and" +
+                        " silence = '%s'",
+                searchCarDTO.getType(),
+                searchCarDTO.isBabyCarSeat(),
+                searchCarDTO.isConditioner(),
+                searchCarDTO.isCourier(),
+                searchCarDTO.isEnglish(),
+                searchCarDTO.isNonSmoker(),
+                searchCarDTO.isPet(),
+                searchCarDTO.isSilence());
     }
 
     private DriverDTO getDriverDTO(Driver driver) {
