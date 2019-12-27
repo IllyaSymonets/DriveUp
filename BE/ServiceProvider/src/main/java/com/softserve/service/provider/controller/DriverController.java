@@ -37,7 +37,7 @@ public class DriverController {
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
-    @PostMapping(path = "/find")
+    @PostMapping(path = "/find/car")
     public List<UUID> getDriverId(@RequestBody @NotNull SearchCarDTO searchCarDTO) {
         return driverService.findId(searchCarDTO);
     }

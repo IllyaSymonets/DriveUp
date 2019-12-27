@@ -10,12 +10,5 @@ import java.util.List;
 public class DriverProfileDTO {
     private CarDTO car;
     private List<HistoryDTO> histories;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String phone;
-    private String city;
-    private String licence;
-    private int fine;
-    private double rating;
+    private DriverDTO driverDTO;
 }

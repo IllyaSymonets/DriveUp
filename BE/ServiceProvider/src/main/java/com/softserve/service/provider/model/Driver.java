@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 import java.util.Date;
@@ -36,29 +35,9 @@ public class Driver {
     @Column(nullable = false)
     private String city;
 
-    @Size(min = 4, max = 24)
-    @Column(nullable = false)
-    private String firstName;
-
-    @Size(min = 4, max = 24)
-    @Column(nullable = false)
-    private String lastName;
-
     @Size(min = 4, max = 10)
     @Column(unique = true, length = 24)
     private String licence;
-
-    @Email(regexp = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
-    @Column(nullable = false, unique = true)
-    private String email;
-
-    @Size(min = 10, max = 10)
-    @Column(nullable = false, unique = true)
-    private String phone;
-
-    @Size(min = 8, max = 24)
-    @Column(nullable = false, length = 24)
-    private String password;
 
     @PositiveOrZero
     @Column(columnDefinition = "integer default 0")

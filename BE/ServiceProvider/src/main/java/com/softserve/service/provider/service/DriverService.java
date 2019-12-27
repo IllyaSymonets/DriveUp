@@ -24,11 +24,6 @@ public class DriverService {
     public void add(DriverDTO driverDTO) {
         Driver driver = Driver.builder()
                 .city(driverDTO.getCity())
-                .lastName(driverDTO.getLastName())
-                .firstName(driverDTO.getFirstName())
-                .email(driverDTO.getEmail())
-                .phone(driverDTO.getPhone())
-                .password(driverDTO.getPassword())
                 .licence(driverDTO.getLicence())
                 .fine(driverDTO.getFine())
                 .rating(driverDTO.getRating())
@@ -65,12 +60,7 @@ public class DriverService {
     public void updateDriver(UUID id, DriverDTO driverDTO) {
         driverRepository.findById(id)
                 .map(driver -> {
-                    driver.setPhone(driverDTO.getPhone());
                     driver.setLicence(driverDTO.getLicence());
-                    driver.setFirstName(driverDTO.getFirstName());
-                    driver.setLastName(driverDTO.getLastName());
-                    driver.setPassword(driverDTO.getPassword());
-                    driver.setEmail(driverDTO.getEmail());
                     driver.setCity(driverDTO.getCity());
                     driverRepository.save(driver);
                     return getDriverDTO(driver);
@@ -95,21 +85,7 @@ public class DriverService {
         List<History> histories = historyRepository.findAllByDriverId(id);
         List<HistoryDTO> historyDTOList = new ArrayList<>();
 
-        for (History history : histories) {
-            HistoryDTO historyDTO = HistoryDTO.builder()
-                    .date(history.getDate())
-                    .description(history.getDescription())
-                    .distance(history.getDistance())
-                    .finishPoint(history.getFinishPoint())
-                    .startPoint(history.getStartPoint())
-                    .price(history.getPrice())
-                    .fine(history.getFine())
-                    .rating(history.getRating())
-                    .travelTime(history.getTravelTime())
-                    .build();
-
-            historyDTOList.add(historyDTO);
-        }
+        createHistoryDTO(histories, historyDTOList);
 
         return driverRepository.findById(id)
                 .map(driver -> {
@@ -131,40 +107,43 @@ public class DriverService {
                             .build();
 
 
-                    return DriverProfileDTO.builder()
-                            .histories(historyDTOList)
-                            .car(carDTO)
-                            .email(driver.getEmail())
-                            .firstName(driver.getFirstName())
-                            .lastName(driver.getLastName())
-                            .phone(driver.getPhone())
+                    DriverDTO driverDTO = DriverDTO.builder()
                             .city(driver.getCity())
                             .licence(driver.getLicence())
                             .fine(driver.getFine())
                             .rating(driver.getRating())
                             .build();
+
+
+                    return DriverProfileDTO.builder()
+                            .histories(historyDTOList)
+                            .car(carDTO)
+                            .driverDTO(driverDTO)
+                            .build();
                 })
                 .orElseThrow(RuntimeException::new);
     }
 
+    private void createHistoryDTO(List<History> histories, List<HistoryDTO> historyDTOList) {
+        for (History history : histories) {
+            HistoryDTO historyDTO = HistoryDTO.builder()
+                    .date(history.getDate())
+                    .description(history.getDescription())
+                    .distance(history.getDistance())
+                    .finishPoint(history.getFinishPoint())
+                    .startPoint(history.getStartPoint())
+                    .price(history.getPrice())
+                    .fine(history.getFine())
+                    .rating(history.getRating())
+                    .travelTime(history.getTravelTime())
+                    .build();
+
+            historyDTOList.add(historyDTO);
+        }
+    }
+
     public List<UUID> findId(SearchCarDTO searchCarDTO) {
-        String sql = String.format("SELECT distinct vehicle_id FROM CARS where" +
-                        " car_type = '%s' and" +
-                        " baby_car_seat = '%s' and" +
-                        " conditioner = '%s' and" +
-                        " courier = '%s' and" +
-                        " english = '%s' and" +
-                        " non_smoker = '%s' and" +
-                        " pet = '%s' and" +
-                        " silence = '%s'",
-                searchCarDTO.getType(),
-                searchCarDTO.isBabyCarSeat(),
-                searchCarDTO.isConditioner(),
-                searchCarDTO.isCourier(),
-                searchCarDTO.isEnglish(),
-                searchCarDTO.isNonSmoker(),
-                searchCarDTO.isPet(),
-                searchCarDTO.isSilence());
+        String sql = getSqlQuery(searchCarDTO);
 
         List<UUID> carsId = jdbcTemplate.queryForList(sql, UUID.class);
         List<UUID> driversId = new ArrayList<>();
@@ -173,21 +152,36 @@ public class DriverService {
 
         for (UUID uuid : carsId) {
             driversId.add(jdbcTemplate.queryForObject(
-                    "select driver_id from drivers where vehicle_id = ?", UUID.class, uuid));
+                    "select driver_id from drivers where vehicle_id = ? and city = 'Dnipro'", UUID.class, uuid));
             System.out.println(driversId);
         }
         return driversId;
     }
 
+    private String getSqlQuery(SearchCarDTO searchCarDTO) {
+        return String.format("SELECT distinct vehicle_id FROM CARS where" +
+                            " car_type = '%s' and" +
+                            " baby_car_seat = '%s' and" +
+                            " conditioner = '%s' and" +
+                            " courier = '%s' and" +
+                            " english = '%s' and" +
+                            " non_smoker = '%s' and" +
+                            " pet = '%s' and" +
+                            " silence = '%s'",
+                    searchCarDTO.getType(),
+                    searchCarDTO.isBabyCarSeat(),
+                    searchCarDTO.isConditioner(),
+                    searchCarDTO.isCourier(),
+                    searchCarDTO.isEnglish(),
+                    searchCarDTO.isNonSmoker(),
+                    searchCarDTO.isPet(),
+                    searchCarDTO.isSilence());
+    }
+
     private DriverDTO getDriverDTO(Driver driver) {
         return DriverDTO.builder()
-                .city(driver.getCity())
-                .firstName(driver.getFirstName())
-                .lastName(driver.getLastName())
                 .licence(driver.getLicence())
-                .email(driver.getEmail())
-                .password(driver.getPassword())
-                .phone(driver.getPhone())
+                .city(driver.getCity())
                 .fine(driver.getFine())
                 .rating(driver.getRating())
                 .build();

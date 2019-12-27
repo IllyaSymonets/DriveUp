@@ -1,12 +1,7 @@
 [
   {
-    "firstName": "Roman",
-    "lastName": "Andriienko",
     "city": "Dnipro",
-    "licence": "ASD1234",
-    "email": "email@gmail.com",
-    "password": "qwerty1234",
-    "phone": "0509379992"
+    "licence": "ASD1234"
   },
   {
     "brand": "Fiat",

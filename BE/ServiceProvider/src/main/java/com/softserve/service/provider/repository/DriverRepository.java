@@ -8,5 +8,4 @@ import java.util.UUID;
 
 @Repository
 public interface DriverRepository extends CrudRepository<Driver, UUID> {
-
 }
