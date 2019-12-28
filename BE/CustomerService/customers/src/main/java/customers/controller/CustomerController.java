@@ -18,9 +18,8 @@ public class CustomerController {
 
     private final CustomerServiceImpl customerService;
 
-    @PostMapping(path = "/save" , produces = MediaType.APPLICATION_JSON_VALUE,
-            consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Customer> save(@RequestBody CreateCustomerDto customerDto) {
+    @PostMapping(path = "/save" , consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ResponseEntity<Customer> save(CreateCustomerDto customerDto) {
         Customer customer = customerService.saveCustomer(customerDto);
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
