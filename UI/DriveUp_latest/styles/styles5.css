@@ -40,15 +40,15 @@ body{
     border-radius: 10px;
     margin: 6% 4%;
     position: relative;
-    
-} 
+
+}
 
 .page > ul li > a i.fa{
     position: absolute;
     top: 20px;
     left: 12px;
-    font-size: 20px; 
-} 
+    font-size: 20px;
+}
 
 
 .title{
@@ -67,7 +67,7 @@ body{
 }
 
 .orderButton {
-    border:   #1ABC9C;    
+    border:   #1ABC9C;
     background-color: inherit;
     border-radius: 10px;
     width: auto;
@@ -84,7 +84,7 @@ body{
     font-size: 18pt;
     padding: 20px 28px;
     cursor: pointer;
-    width: 50%; 
+    width: 50%;
     height: 100%;
 }
 
@@ -95,44 +95,44 @@ body{
     font-size: 18pt;
     padding: 20px 28px;
     cursor: pointer;
-    float: left;  
-    width: 50%; 
+    float: left;
+    width: 50%;
     height: 100%;
 }
-    
+
 .btn_block{
-        background-color: #1ABC9C;
-        position: absolute;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 12%;
-        width: 100%;
+    background-color: #1ABC9C;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 12%;
+    width: 100%;
 }
 
 
-    .btn_{
-        border: blue;
-        background-color: inherit;
-        border-radius: 10px;
-        padding: 14px 28px;
-        font-size: 12px;
-        cursor: pointer;
-        display: inline-block;
-    }
+.btn_{
+    border: blue;
+    background-color: inherit;
+    border-radius: 10px;
+    padding: 14px 28px;
+    font-size: 12px;
+    cursor: pointer;
+    display: inline-block;
+}
 
-    .the_order{
-        width: 100%;
-        height:65%;
-        align-items: center;
-        justify-content: center;
-        color:white;
-        background-color: #68747d;
-    }
-    .the_order li{
-        margin: 0% 10%;
-        padding: 4%;
-        font-size: 18px;
+.the_order{
+    width: 100%;
+    height:65%;
+    align-items: center;
+    justify-content: center;
+    color:white;
+    background-color: #68747d;
+}
+.the_order li{
+    margin: 0% 10%;
+    padding: 4%;
+    font-size: 18px;
 
-    }
-      /* .order-page:target {display: block;} */
+}
+/* .order-page:target {display: block;} */
