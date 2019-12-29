@@ -1,11 +1,13 @@
 package com.zaets39.billing.utils;
 
-import com.zaets39.billing.pojo.BillRequest;
+import com.zaets39.billing.requests.BillRequest;
 
 import java.util.Map;
 
 public class BillUtils {
-    private BillUtils(){}
+    private BillUtils() {
+    }
+
     public static double countPrice(BillRequest billRequest) {
         Map<String, Double> additionalAmount = billRequest.getCarType().getInfo();
         double amount = billRequest.getDistance() * additionalAmount.get("TARIFF_PER_KM");

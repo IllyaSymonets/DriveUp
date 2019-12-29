@@ -1,4 +1,4 @@
-package com.zaets39.billing.pojo;
+package com.zaets39.billing.requests;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.zaets39.billing.constants.cars.CarType;

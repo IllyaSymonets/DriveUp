@@ -1,7 +1,7 @@
 package com.zaets39.billing.services;
 
 import com.zaets39.billing.models.Fund;
-import com.zaets39.billing.pojo.FundRequest;
+import com.zaets39.billing.requests.FundRequest;
 import com.zaets39.billing.repositories.FundRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

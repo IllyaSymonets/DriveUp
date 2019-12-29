@@ -1,4 +1,4 @@
-package com.zaets39.billing.pojo;
+package com.zaets39.billing.requests;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

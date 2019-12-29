@@ -10,6 +10,6 @@ public class LiqPayPayment extends Payment {
 
     public LiqPayPayment(Transaction transaction, LiqpayPaymentType liqpayPaymentType) {
         super(transaction);
-        this.liqpayPaymentType=liqpayPaymentType;
+        this.liqpayPaymentType = liqpayPaymentType;
     }
 }

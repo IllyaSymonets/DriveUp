@@ -6,10 +6,10 @@
 
     <changeSet id="create_payment_details" author="IllyaSymonets">
         <createTable tableName="payment_details">
-            <column name="payment_details_id" type="uuid" >
+            <column name="payment_details_id" type="uuid">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="driver_id" type="uuid" >
+            <column name="driver_id" type="uuid">
                 <constraints nullable="false"/>
             </column>
             <column name="driver_card" type="varchar(16)">
@@ -49,7 +49,6 @@
             </column>
         </createTable>
     </changeSet>
-
 
 
 </databaseChangeLog>

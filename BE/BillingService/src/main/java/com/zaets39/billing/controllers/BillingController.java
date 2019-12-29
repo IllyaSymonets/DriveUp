@@ -1,8 +1,7 @@
 package com.zaets39.billing.controllers;
 
 import com.zaets39.billing.models.Bill;
-import com.zaets39.billing.pojo.BillRequest;
-import com.zaets39.billing.pojo.PaymentRequest;
+import com.zaets39.billing.requests.BillRequest;
 import com.zaets39.billing.services.BillingService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

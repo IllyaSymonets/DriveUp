@@ -2,8 +2,8 @@ package com.zaets39.billing.services;
 
 import com.zaets39.billing.models.Bill;
 import com.zaets39.billing.models.Fund;
-import com.zaets39.billing.pojo.BillRequest;
-import com.zaets39.billing.pojo.PaymentRequest;
+import com.zaets39.billing.requests.BillRequest;
+import com.zaets39.billing.requests.PaymentRequest;
 import com.zaets39.billing.repositories.BillRepository;
 import com.zaets39.billing.repositories.FundRepository;
 import com.zaets39.billing.utils.BillUtils;
