@@ -1,6 +1,7 @@
 package customers.controller;
 
 import customers.dto.CreateCustomerDto;
+import customers.dto.UpdateCustomerRequest;
 import customers.model.Customer;
 import customers.service.CustomerServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -31,10 +32,11 @@ public class CustomerController {
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
-    @PutMapping("/updateProfile")
-    public ResponseEntity<Customer> updateCustomer(@PathVariable UUID customerId, String email,
-                                                   String firstName, String secondName) {
-        Customer customer = customerService.updateCustomer(customerId, email, firstName, secondName);
+    @PutMapping(path = "/updateProfile" , consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ResponseEntity<Customer> updateCustomer(UpdateCustomerRequest customerRequest) {
+        Customer customer = customerService.updateCustomer(
+                customerRequest.getCustomerId(), customerRequest.getEmail(),
+                customerRequest.getFirstName(), customerRequest.getSecondName());
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
