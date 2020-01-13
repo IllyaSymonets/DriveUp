@@ -24,11 +24,6 @@ public class Route {
     @Column(name = "route_id", nullable = false, updatable = false)
     private UUID route_id;
 
-    @Positive
-    @Column(name = "order_id", nullable = false, unique = true)
-//    private UUID order_id;
-    private long orderId;
-
     @NotEmpty
     @Column(columnDefinition = "varchar (255)",
             name = "start_address", nullable = false)
@@ -69,8 +64,7 @@ public class Route {
     @Column(columnDefinition = "text", name = "polyline", length = 4026)
     private String polyline;
 
-    public Route(@Positive long orderId,
-                 @NotEmpty String startAddress,
+    public Route(@NotEmpty String startAddress,
                  @NotEmpty String destinationAddress,
                  @Positive float distance,
                  List<Double> startCoord,
@@ -81,7 +75,6 @@ public class Route {
                  String destPlaceId,
                  String polyline,
                  String departureTime) {
-        this.orderId = orderId;
         this.startAddress = startAddress;
         this.destinationAddress = destinationAddress;
         this.distance = distance;

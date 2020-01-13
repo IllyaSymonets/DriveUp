@@ -1,7 +1,7 @@
 package com.driveUp.controller;
 
 import com.driveUp.dto.BillingDto;
-import com.driveUp.dto.UserAddressesDto;
+import com.driveUp.dto.CreateTrip;
 import com.driveUp.model.Route;
 import com.driveUp.service.MapsApiRequest;
 import com.driveUp.service.MapsService;
@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,10 +27,11 @@ public class MapController {
 
 
     @PostMapping("/route")
-    public void sendRequestToGoogleAPI(@RequestBody UserAddressesDto userAddressesDto) {
+    @KafkaListener(topics = "CREATE_TRIP_EVENT", groupId = "group_id", containerFactory = "kafkaListenerContainerFactory")
+    public void sendRequestToGoogleAPI(@RequestBody CreateTrip createTrip) {
         String consumeJSONString = mapsApiRequest.postMapsApiRequest(
-                userAddressesDto.getOrigins(), userAddressesDto.getDestinations(), userAddressesDto.getDepTime());
-        mapsService.insertNewRout(consumeJSONString, userAddressesDto.getOrderId(), userAddressesDto.getDepTime());
+                createTrip.getOrigins(), createTrip.getDestinations(), createTrip.getDepTime());
+        mapsService.insertNewRout(consumeJSONString, createTrip.getDepTime());
     }
 
     @GetMapping("/retrieve-all")

@@ -11,7 +11,7 @@ import java.util.List;
 @Component
 public class GoogleDirectionsJsonParser implements JsonParser{
 
-    public Route parseJSON(String jsonObject, long orderId, String departureTime) {
+    public Route parseJSON(String jsonObject, String departureTime) {
 
         JSONObject obj = new JSONObject(jsonObject);
 
@@ -35,7 +35,7 @@ public class GoogleDirectionsJsonParser implements JsonParser{
         List<Double> startCoord = ServiceUtilities.getCoordinates(addresses, "start_location");
         float distance = ServiceUtilities.getDistance(addresses, "distance", "text");
 
-        return new Route(orderId, startAddress, endAddress, distance, startCoord,
+        return new Route(startAddress, endAddress, distance, startCoord,
                 startType, startPlaceId, destCoord, destType, destPlaceId, polyline, departureTime);
     }
 }

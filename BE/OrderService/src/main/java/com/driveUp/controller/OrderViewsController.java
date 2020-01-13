@@ -1,15 +1,15 @@
-package softserve.academy.controller;
+package com.driveUp.controller;
 
+import com.driveUp.converter.OrderConverter;
+import com.driveUp.domain.Order;
+import com.driveUp.dto.OrderDetailsToView;
+import com.driveUp.dto.OrderDriverView;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import softserve.academy.converter.OrderConverter;
-import softserve.academy.domain.Order;
-import softserve.academy.dto.OrderDetailsToView;
-import softserve.academy.dto.OrderDriverView;
 
 @RestController("orderViews")
 @RequiredArgsConstructor

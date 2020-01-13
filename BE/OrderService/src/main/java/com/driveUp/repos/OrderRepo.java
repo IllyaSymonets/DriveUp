@@ -1,8 +1,8 @@
-package softserve.academy.repos;
+package com.driveUp.repos;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import softserve.academy.domain.Order;
-import softserve.academy.domain.OrderStatus;
+import com.driveUp.domain.Order;
+import com.driveUp.domain.OrderStatus;
 
 import java.util.List;
 import java.util.UUID;

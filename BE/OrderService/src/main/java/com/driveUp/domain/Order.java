@@ -1,9 +1,8 @@
-package softserve.academy.domain;
+package com.driveUp.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
-import softserve.academy.dto.CreateOrder;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -49,12 +48,4 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status = OrderStatus.CREATED;
 
-    public Order(CreateOrder order) {
-        this.orderNumber = order.getOrderNumber();
-        this.orderType = order.getOrderType();
-        this.date = order.getDate();
-        this.tripNumber = order.getTripNumber();
-        this.customerId = order.getCustomerId();
-        this.billId = order.getBillId();
-    }
 }

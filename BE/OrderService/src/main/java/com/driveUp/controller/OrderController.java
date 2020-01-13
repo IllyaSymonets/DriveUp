@@ -1,13 +1,15 @@
-package softserve.academy.controller;
+package com.driveUp.controller;
 
+import com.driveUp.domain.Order;
+import com.driveUp.domain.OrderStatus;
+import com.driveUp.dto.CreateOrder;
+import com.driveUp.dto.CreateTrip;
+import com.driveUp.repos.OrderRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
-import softserve.academy.domain.Order;
-import softserve.academy.domain.OrderStatus;
-import softserve.academy.dto.CreateOrder;
-import softserve.academy.repos.OrderRepo;
 
 import java.util.List;
 import java.util.UUID;
@@ -17,11 +19,14 @@ import java.util.UUID;
 public class OrderController {
 
     private final OrderRepo orderRepo;
+    private final KafkaTemplate<String, CreateTrip> kafkaTemplate;
+    private final String CREATE_TRIP_TOPIC="CREATE_TRIP_EVENT";
 
     @PostMapping("create")
     public ResponseEntity<Order> createOrder(@RequestBody CreateOrder createOrder) {
-        Order order = new Order(createOrder);
-        return new ResponseEntity<>(orderRepo.save(order), HttpStatus.OK);
+        Order order = new Order();
+        kafkaTemplate.send(CREATE_TRIP_TOPIC, createOrder.getTripInfo());
+        return new ResponseEntity<>(/*orderRepo.save*/(order), HttpStatus.OK);
     }
 
     @PutMapping("setDriver")

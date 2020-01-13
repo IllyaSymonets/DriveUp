@@ -1,4 +1,4 @@
-package softserve.academy.dto;
+package com.driveUp.dto;
 
 import lombok.Data;
 

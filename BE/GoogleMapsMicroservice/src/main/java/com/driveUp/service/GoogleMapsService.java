@@ -19,8 +19,8 @@ public class GoogleMapsService implements MapsService {
     private final JsonParser jsonParser;
 
     @Override
-    public void insertNewRout(String consumeJSONString, long orderId, String departureTime) {
-        routeRepository.save(jsonParser.parseJSON(consumeJSONString, orderId, departureTime));
+    public void insertNewRout(String consumeJSONString, String departureTime) {
+        routeRepository.save(jsonParser.parseJSON(consumeJSONString, departureTime));
     }
 
     @Override

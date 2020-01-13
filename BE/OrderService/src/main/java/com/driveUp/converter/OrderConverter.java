@@ -1,8 +1,8 @@
-package softserve.academy.converter;
+package com.driveUp.converter;
 
+import com.driveUp.domain.Order;
+import com.driveUp.dto.OrderDetailsToView;
 import org.springframework.stereotype.Service;
-import softserve.academy.domain.Order;
-import softserve.academy.dto.OrderDetailsToView;
 
 @Service
 public class OrderConverter {
