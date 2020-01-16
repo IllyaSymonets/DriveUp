@@ -23,25 +23,25 @@ public class Order {
     @Column(name = "order_id", updatable = false, nullable = false)
     private UUID id;
 
-    @Column(name = "order_number", updatable = false, nullable = false)
+    @Column(name = "order_number")
     private long orderNumber;
 
-    @Column(name = "order_type", updatable = false, nullable = false)
+    @Column(name = "order_type")
     private OrderType orderType;
 
-    @Column(name = "order_date_time", updatable = false, nullable = false)
+    @Column(name = "order_date_time")
     private Date date;
 
-    @Column(name = "trip_number", updatable = false, nullable = false)
-    private long tripNumber;
+    @Column(name = "trip_id")
+    private UUID tripId;
 
-    @Column(name = "customer_id", updatable = false, nullable = false)
+    @Column(name = "customer_id", nullable = false)
     private UUID customerId;
 
     @Column(name = "driver_id")
     private UUID driverId;
 
-    @Column(name = "bill_id", updatable = false, nullable = false)
+    @Column(name = "bill_id")
     private UUID billId;
 
     @Column(name = "order_status", nullable = false)

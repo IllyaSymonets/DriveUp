@@ -1,7 +1,7 @@
 package com.driveUp.service;
 
 import com.driveUp.repository.RouteRepository;
-import com.driveUp.dto.BillingDto;
+import com.driveUp.pojo.BillingDto;
 import com.driveUp.model.Route;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,8 +19,9 @@ public class GoogleMapsService implements MapsService {
     private final JsonParser jsonParser;
 
     @Override
-    public void insertNewRout(String consumeJSONString, String departureTime) {
-        routeRepository.save(jsonParser.parseJSON(consumeJSONString, departureTime));
+    public Route insertNewRout(String consumeJSONString, String departureTime) {
+        return routeRepository.save(
+                jsonParser.parseJSON(consumeJSONString, departureTime));
     }
 
     @Override

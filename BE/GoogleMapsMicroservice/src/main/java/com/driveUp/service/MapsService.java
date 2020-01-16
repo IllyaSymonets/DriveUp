@@ -1,6 +1,6 @@
 package com.driveUp.service;
 
-import com.driveUp.dto.BillingDto;
+import com.driveUp.pojo.BillingDto;
 import com.driveUp.model.Route;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +11,7 @@ import java.util.UUID;
 @Service
 public interface MapsService {
 
-    void insertNewRout (String consumeJSONString, String departureTime);
+    Route insertNewRout (String consumeJSONString, String departureTime);
 
     List<Route> getAllRouts();
 

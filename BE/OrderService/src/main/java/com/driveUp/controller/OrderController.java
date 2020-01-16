@@ -2,12 +2,12 @@ package com.driveUp.controller;
 
 import com.driveUp.domain.Order;
 import com.driveUp.domain.OrderStatus;
-import com.driveUp.dto.CreateOrder;
-import com.driveUp.dto.CreateTrip;
+import com.driveUp.pojo.*;
 import com.driveUp.repos.OrderRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,14 +19,18 @@ import java.util.UUID;
 public class OrderController {
 
     private final OrderRepo orderRepo;
-    private final KafkaTemplate<String, CreateTrip> kafkaTemplate;
+    private final KafkaTemplate<String, CreateTripRequest> kafkaCreateTripTemplate;
+    private final KafkaTemplate<String, CreateBillRequest> kafkaCreateBillTemplate;
     private final String CREATE_TRIP_TOPIC="CREATE_TRIP_EVENT";
+    private final String CREATE_BILL_TOPIC="CREATE_BILL_EVENT";
 
-    @PostMapping("create")
-    public ResponseEntity<Order> createOrder(@RequestBody CreateOrder createOrder) {
+    @PostMapping("add")
+    public ResponseEntity<UUID> createOrder(@RequestBody CreateOrder createOrder) {
         Order order = new Order();
-        kafkaTemplate.send(CREATE_TRIP_TOPIC, createOrder.getTripInfo());
-        return new ResponseEntity<>(/*orderRepo.save*/(order), HttpStatus.OK);
+        orderRepo.save(order);
+        kafkaCreateTripTemplate.send(CREATE_TRIP_TOPIC, new CreateTripRequest(order.getId(), createOrder.getTripInfo()));
+        kafkaCreateBillTemplate.send(CREATE_BILL_TOPIC, new CreateBillRequest(order.getId(), createOrder.getBillInfo()));
+        return new ResponseEntity<>(order.getId(), HttpStatus.OK);
     }
 
     @PutMapping("setDriver")
@@ -64,5 +68,19 @@ public class OrderController {
             @RequestParam UUID customerId) {
         return new ResponseEntity<>(orderRepo.findAllByCustomerId(customerId),
                 HttpStatus.OK);
+    }
+
+    @KafkaListener(topics = "SET_TRIP_EVENT", containerFactory = "kafkaSetTripListenerContainerFactory")
+    public void setTripId(@RequestBody SetTripToOrderRequest setTripToOrderRequest){
+        Order order = orderRepo.findById(setTripToOrderRequest.getOrderId()).get();
+        order.setTripId(setTripToOrderRequest.getTripId());
+        orderRepo.save(order);
+    }
+
+    @KafkaListener(topics = "SET_BILL_EVENT", containerFactory = "kafkaSetBillListenerContainerFactory")
+    public void setTripId(@RequestBody SetBillToOrderRequest setBillToOrderRequest){
+        Order order = orderRepo.findById(setBillToOrderRequest.getOrderId()).get();
+        order.setBillId(setBillToOrderRequest.getBillId());
+        orderRepo.save(order);
     }
 }
