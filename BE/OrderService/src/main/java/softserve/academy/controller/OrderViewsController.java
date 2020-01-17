@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import softserve.academy.converter.OrderConverter;
 import softserve.academy.domain.Order;
-import softserve.academy.dto.OrderDetailsToView;
-import softserve.academy.dto.OrderDriverView;
+import softserve.academy.request.OrderDetailsToView;
+import softserve.academy.request.OrderDriverView;
 
 @RestController("orderViews")
 @RequiredArgsConstructor

@@ -2,7 +2,7 @@ package softserve.academy.converter;
 
 import org.springframework.stereotype.Service;
 import softserve.academy.domain.Order;
-import softserve.academy.dto.OrderDetailsToView;
+import softserve.academy.request.OrderDetailsToView;
 
 @Service
 public class OrderConverter {

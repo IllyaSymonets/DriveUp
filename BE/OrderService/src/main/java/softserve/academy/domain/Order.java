@@ -3,7 +3,7 @@ package softserve.academy.domain;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
-import softserve.academy.dto.CreateOrder;
+import softserve.academy.request.CreateOrder;
 
 import javax.persistence.*;
 import java.util.Date;

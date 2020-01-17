@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import softserve.academy.domain.Order;
 import softserve.academy.domain.OrderStatus;
-import softserve.academy.dto.CreateOrder;
+import softserve.academy.request.CreateOrder;
 import softserve.academy.repos.OrderRepo;
 
 import java.util.List;

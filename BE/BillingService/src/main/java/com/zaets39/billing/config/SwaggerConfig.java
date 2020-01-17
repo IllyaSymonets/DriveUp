@@ -23,6 +23,15 @@ public class SwaggerConfig {
                 .paths(PathSelectors.any())
                 .build();
     }
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**").allowedOrigins("http://127.0.0.1:5501");
+            }
+        };
+    }
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {

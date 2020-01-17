@@ -1,15 +1,19 @@
 package com.driveUp.controller;
 
 import com.driveUp.dto.BillingDto;
+import com.driveUp.dto.OrderRequest;
 import com.driveUp.dto.UserAddressesDto;
 import com.driveUp.model.Route;
+import com.driveUp.service.DataForBrainService;
 import com.driveUp.service.MapsApiRequest;
 import com.driveUp.service.MapsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,13 +27,17 @@ public class MapController {
     private final MapsService mapsService;
     private final MapsApiRequest mapsApiRequest;
     private HttpHeaders httpHeaders = new HttpHeaders();
-
+    @LoadBalanced
+    private RestTemplate restTemplate;
 
     @PostMapping("/route")
     public void sendRequestToGoogleAPI(@RequestBody UserAddressesDto userAddressesDto) {
         String consumeJSONString = mapsApiRequest.postMapsApiRequest(
                 userAddressesDto.getOrigins(), userAddressesDto.getDestinations(), userAddressesDto.getDepTime());
         mapsService.insertNewRout(consumeJSONString, userAddressesDto.getOrderId(), userAddressesDto.getDepTime());
+        OrderRequest order = new OrderRequest(DataForBrainService.generateIdForOrder());
+        restTemplate.postForObject("http://driveUp-brain-service/create-order/", order,
+                OrderRequest.class);
     }
 
     @GetMapping("/retrieve-all")

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Data
@@ -16,10 +17,10 @@ public class Fund {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private UUID driverId;
-    private double fundBalance;
+    private BigDecimal fundBalance;
 
     public Fund(@JsonProperty("driverId") UUID driverId,
-                @JsonProperty("fundBalance") double fundBalance) {
+                @JsonProperty("fundBalance") BigDecimal fundBalance) {
         this.driverId = driverId;
         this.fundBalance = fundBalance;
     }

@@ -7,6 +7,7 @@ import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Data
@@ -18,19 +19,16 @@ public class Bill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @NonNull
-    private double amount;
+    private BigDecimal amount;
     @NotBlank
     private String paymentMode;
-    private UUID orderId;
     private UUID driverId;
     private boolean paid;
 
-    public Bill(@JsonProperty("orderId") UUID orderId,
-                @JsonProperty("driverId") UUID driverId,
-                @JsonProperty("amount") double amount,
+    public Bill(@JsonProperty("driverId") UUID driverId,
+                @JsonProperty("amount") BigDecimal amount,
                 @JsonProperty("paymentMode") String paymentMode,
                 @JsonProperty("paid") boolean paid) {
-        this.orderId = orderId;
         this.driverId = driverId;
         this.amount = amount;
         this.paymentMode = paymentMode;

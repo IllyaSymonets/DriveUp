@@ -25,7 +25,7 @@ const v = new Vue({
       elem.classList.toggle("courier--content");
       elem.classList.toggle("comfort--color");
     },
-       BabySeatClick : function (){
+      BabySeatClick : function (){
       var elem = document.querySelector("#babySeat");
       elem.classList.toggle("babySeat--content");
       elem.classList.toggle("comfort--color");
