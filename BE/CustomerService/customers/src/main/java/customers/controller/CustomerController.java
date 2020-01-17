@@ -1,11 +1,11 @@
 package customers.controller;
 
 import customers.dto.CreateCustomerDto;
+import customers.dto.CustomerDTO;
 import customers.model.Customer;
 import customers.service.CustomerServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +18,13 @@ public class CustomerController {
 
     private final CustomerServiceImpl customerService;
 
-    @PostMapping(path = "/save" , consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(path = "/add")
+    public ResponseEntity add(@RequestBody CustomerDTO customerDTO) {
+        customerService.addCustomer(customerDTO);
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+    @PostMapping(path = "/save")
     public ResponseEntity<Customer> save(CreateCustomerDto customerDto) {
         Customer customer = customerService.saveCustomer(customerDto);
         return new ResponseEntity<>(customer, HttpStatus.OK);

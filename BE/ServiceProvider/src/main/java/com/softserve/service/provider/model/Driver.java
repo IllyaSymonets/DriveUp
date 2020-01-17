@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import javax.validation.constraints.PositiveOrZero;
-import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.UUID;
 
@@ -24,6 +22,10 @@ public class Driver {
     @Column(name = "driver_id")
     private UUID id;
 
+    //TODO
+//    @Column(name = "customer_id")
+//    private UUID customerId;
+
     @CreationTimestamp
     private Date dateOfRegistration;
 
@@ -31,19 +33,15 @@ public class Driver {
     @JoinColumn(name = "vehicle_id")
     private Car car;
 
-    @Size(max = 50)
     @Column(nullable = false)
     private String city;
 
-    @Size(min = 4, max = 10)
     @Column(unique = true, length = 24)
     private String licence;
 
-    @PositiveOrZero
     @Column(columnDefinition = "integer default 0")
     private int fine;
 
-    @PositiveOrZero
     @Column(columnDefinition = "double precision default 0")
     private double rating;
 }

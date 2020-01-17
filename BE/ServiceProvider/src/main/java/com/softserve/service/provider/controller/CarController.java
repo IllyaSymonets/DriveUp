@@ -1,12 +1,14 @@
 package com.softserve.service.provider.controller;
 
 import com.softserve.service.provider.dto.CarDTO;
+import com.softserve.service.provider.request.CarRequest;
 import com.softserve.service.provider.service.CarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
@@ -22,23 +24,10 @@ public class CarController {
         return new ResponseEntity<>(cars, HttpStatus.OK);
     }
 
-
-    @PostMapping(path = "/add")
-    public ResponseEntity addCar(@RequestBody @NotNull CarDTO carDTO) {
-        carService.add(carDTO);
+    @PostMapping(path = "/add/{driverId}")
+    public ResponseEntity addCarByDriverId(@PathVariable UUID driverId,
+                                           @RequestBody @NotNull @Valid CarRequest carRequest) {
+        carService.addById(driverId, carRequest);
         return new ResponseEntity(HttpStatus.CREATED);
-    }
-
-    @PostMapping(path = "/add/{id}")
-    public ResponseEntity addCarByDriverId(@PathVariable UUID id,
-                                           @RequestBody @NotNull CarDTO carDTO) {
-        carService.addById(id, carDTO);
-        return new ResponseEntity(HttpStatus.CREATED);
-    }
-
-    @DeleteMapping(path = "/delete/{id}")
-    public ResponseEntity deleteCarById(@PathVariable UUID id) {
-        carService.delete(id);
-        return new ResponseEntity(HttpStatus.OK);
     }
 }

@@ -1,5 +1,7 @@
 package com.softserve.service.provider.service;
 
+import com.softserve.service.provider.exception.DriverNotFoundException;
+import com.softserve.service.provider.request.CarRequest;
 import com.softserve.service.provider.utilities.Constants;
 import com.softserve.service.provider.dto.CarDTO;
 import com.softserve.service.provider.model.Car;
@@ -19,24 +21,17 @@ public class CarService {
     private final CarRepository carRepository;
     private final DriverRepository driverRepository;
 
-    public void add(CarDTO carDTO) {
-        Car car = getCar(carDTO);
-        car.setType(calculateType(car));
-        carDTO.setType(car.getType());
-        carRepository.save(car);
-    }
-
-    public void addById(UUID id, CarDTO carDTO) {
-        driverRepository.findById(id)
+    public void addById(UUID driverId, CarRequest carRequest) {
+        driverRepository.findById(driverId)
                 .map(driver -> {
-                    Car car = getCar(carDTO);
+                    Car car = getCar(carRequest);
                     driver.setCar(car);
                     car.setType(calculateType(car));
-                    carDTO.setType(car.getType());
+                    carRequest.setType(car.getType());
                     carRepository.save(car);
-                    return carDTO;
+                    return carRequest;
                 })
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(() -> new DriverNotFoundException(driverId));
     }
 
     public Iterable<CarDTO> getAll() {
@@ -66,8 +61,22 @@ public class CarService {
         return dtos;
     }
 
-    public void delete(UUID id) {
-        carRepository.deleteById(id);
+    private Car getCar(CarRequest carRequest) {
+        return Car.builder()
+                .babyCarSeat(carRequest.isBabyCarSeat())
+                .conditioner(carRequest.isConditioner())
+                .courier(carRequest.isCourier())
+                .english(carRequest.isEnglish())
+                .nonSmoker(carRequest.isNonSmoker())
+                .numberOfSeats(carRequest.getNumberOfSeats())
+                .pet(carRequest.isPet())
+                .silence(carRequest.isSilence())
+                .colour(carRequest.getColour())
+                .model(carRequest.getModel())
+                .brand(carRequest.getBrand())
+                .licencePlate(carRequest.getLicencePlate())
+                .yearOfProduction(carRequest.getYearOfProduction())
+                .build();
     }
 
     private String calculateType(Car car) {
@@ -94,23 +103,5 @@ public class CarService {
         }
 
         return type;
-    }
-
-    private Car getCar(CarDTO carDTO) {
-        return Car.builder()
-                .babyCarSeat(carDTO.isBabyCarSeat())
-                .conditioner(carDTO.isConditioner())
-                .courier(carDTO.isCourier())
-                .english(carDTO.isEnglish())
-                .nonSmoker(carDTO.isNonSmoker())
-                .numberOfSeats(carDTO.getNumberOfSeats())
-                .pet(carDTO.isPet())
-                .silence(carDTO.isSilence())
-                .colour(carDTO.getColour())
-                .model(carDTO.getModel())
-                .brand(carDTO.getBrand())
-                .licencePlate(carDTO.getLicencePlate())
-                .yearOfProduction(carDTO.getYearOfProduction())
-                .build();
     }
 }

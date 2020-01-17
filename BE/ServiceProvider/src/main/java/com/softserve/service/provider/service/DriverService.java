@@ -1,10 +1,17 @@
 package com.softserve.service.provider.service;
 
-import com.softserve.service.provider.dto.*;
+import com.softserve.service.provider.dto.CarDTO;
+import com.softserve.service.provider.dto.DriverDTO;
+import com.softserve.service.provider.dto.DriverProfileDTO;
+import com.softserve.service.provider.dto.HistoryDTO;
+import com.softserve.service.provider.exception.DriverNotFoundException;
 import com.softserve.service.provider.model.Driver;
 import com.softserve.service.provider.model.History;
 import com.softserve.service.provider.repository.DriverRepository;
 import com.softserve.service.provider.repository.HistoryRepository;
+import com.softserve.service.provider.request.DriverFineRequest;
+import com.softserve.service.provider.request.AddDriverRequest;
+import com.softserve.service.provider.request.SearchCarRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -21,12 +28,10 @@ public class DriverService {
     private final HistoryRepository historyRepository;
     private final JdbcTemplate jdbcTemplate;
 
-    public void add(DriverDTO driverDTO) {
+    public void add(AddDriverRequest addDriverRequest) {
         Driver driver = Driver.builder()
-                .city(driverDTO.getCity())
-                .licence(driverDTO.getLicence())
-                .fine(driverDTO.getFine())
-                .rating(driverDTO.getRating())
+                .city(addDriverRequest.getCity())
+                .licence(addDriverRequest.getLicence())
                 .build();
         driverRepository.save(driver);
     }
@@ -42,30 +47,35 @@ public class DriverService {
     }
 
     public Double getRating(UUID id) {
-        return jdbcTemplate.queryForObject(
-                "SELECT AVG(rating) from histories where driver_id = ?", Double.class, id);
+        Double rating = driverRepository.getDriverRating(id);
+
+        if (rating == null) {
+            throw new DriverNotFoundException(id);
+        }
+
+        return rating;
     }
 
-    public void updateFine(UUID id, DriverFineDTO driverFineDTO) {
+    public void updateFine(UUID id, DriverFineRequest driverFineRequest) {
         driverRepository.findById(id)
                 .map(driver -> {
-                    driver.setFine(driver.getFine() + driverFineDTO.getFine());
+                    driver.setFine(driver.getFine() + driverFineRequest.getFine());
                     driverRepository.save(driver);
 
                     return getDriverDTO(driver);
                 })
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(() -> new DriverNotFoundException(id));
     }
 
-    public void updateDriver(UUID id, DriverDTO driverDTO) {
+    public void updateDriver(UUID id, AddDriverRequest addDriverRequest) {
         driverRepository.findById(id)
                 .map(driver -> {
-                    driver.setLicence(driverDTO.getLicence());
-                    driver.setCity(driverDTO.getCity());
+                    driver.setLicence(addDriverRequest.getLicence());
+                    driver.setCity(addDriverRequest.getCity());
                     driverRepository.save(driver);
                     return getDriverDTO(driver);
                 })
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(() -> new DriverNotFoundException(id));
     }
 
     public void updateRating(UUID id) {
@@ -76,7 +86,7 @@ public class DriverService {
 
                     return getDriverDTO(driver);
                 })
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(() -> new DriverNotFoundException(id));
 
     }
 
@@ -121,13 +131,13 @@ public class DriverService {
                             .driverDTO(driverDTO)
                             .build();
                 })
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(() -> new DriverNotFoundException(id));
     }
 
     private void createHistoryDTO(List<History> histories, List<HistoryDTO> historyDTOList) {
         for (History history : histories) {
             HistoryDTO historyDTO = HistoryDTO.builder()
-                    .date(history.getDate())
+                    .date(history.getDateOfTrip())
                     .description(history.getDescription())
                     .distance(history.getDistance())
                     .finishPoint(history.getFinishPoint())
@@ -142,23 +152,21 @@ public class DriverService {
         }
     }
 
-    public List<UUID> findId(SearchCarDTO searchCarDTO) {
-        String sql = getSqlQuery(searchCarDTO);
+    public List<UUID> findDrivers(SearchCarRequest searchCarRequest) {
+        String sql = getSqlQuery(searchCarRequest);
 
         List<UUID> carsId = jdbcTemplate.queryForList(sql, UUID.class);
         List<UUID> driversId = new ArrayList<>();
 
-        System.out.println(carsId);
-
         for (UUID uuid : carsId) {
-            driversId.add(jdbcTemplate.queryForObject(
-                    "select driver_id from drivers where vehicle_id = ? and city = 'Dnipro'", UUID.class, uuid));
-            System.out.println(driversId);
+            Driver driver = driverRepository.findDriverByCarId(uuid);
+            driversId.add(driver.getId());
         }
+
         return driversId;
     }
 
-    private String getSqlQuery(SearchCarDTO searchCarDTO) {
+    private String getSqlQuery(SearchCarRequest searchCarRequest) {
         return String.format("SELECT distinct vehicle_id FROM CARS where" +
                         " car_type = '%s' and" +
                         " baby_car_seat = '%s' and" +
@@ -168,14 +176,14 @@ public class DriverService {
                         " non_smoker = '%s' and" +
                         " pet = '%s' and" +
                         " silence = '%s'",
-                searchCarDTO.getType(),
-                searchCarDTO.isBabyCarSeat(),
-                searchCarDTO.isConditioner(),
-                searchCarDTO.isCourier(),
-                searchCarDTO.isEnglish(),
-                searchCarDTO.isNonSmoker(),
-                searchCarDTO.isPet(),
-                searchCarDTO.isSilence());
+                searchCarRequest.getType(),
+                searchCarRequest.isBabyCarSeat(),
+                searchCarRequest.isConditioner(),
+                searchCarRequest.isCourier(),
+                searchCarRequest.isEnglish(),
+                searchCarRequest.isNonSmoker(),
+                searchCarRequest.isPet(),
+                searchCarRequest.isSilence());
     }
 
     private DriverDTO getDriverDTO(Driver driver) {

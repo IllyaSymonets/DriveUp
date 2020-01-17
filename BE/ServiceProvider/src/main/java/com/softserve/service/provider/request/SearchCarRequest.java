@@ -1,9 +1,9 @@
-package com.softserve.service.provider.dto;
+package com.softserve.service.provider.request;
 
 import lombok.Data;
 
 @Data
-public class SearchCarDTO {
+public class SearchCarRequest {
     private String type;
     private boolean babyCarSeat;
     private boolean conditioner;

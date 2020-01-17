@@ -1,6 +1,7 @@
 package customers.service;
 
 import customers.dto.CreateCustomerDto;
+import customers.dto.CustomerDTO;
 import customers.model.Customer;
 import customers.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,19 @@ import java.util.UUID;
 public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
+
+
+    public void addCustomer(CustomerDTO customerDTO) {
+        Customer customer = Customer.builder()
+                .password(customerDTO.getPassword())
+                .phone(customerDTO.getPhone())
+                .email(customerDTO.getEmail())
+                .firstName(customerDTO.getFirstName())
+                .secondName(customerDTO.getSecondName())
+                .build();
+        customerRepository.save(customer);
+    }
+
 
     @Override
     public Customer saveCustomer(CreateCustomerDto customerDto) {

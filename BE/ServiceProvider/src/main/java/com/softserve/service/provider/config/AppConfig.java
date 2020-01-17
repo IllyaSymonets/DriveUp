@@ -18,7 +18,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class AppConfig {
 
     @Bean
-    @ConfigurationProperties("app.datasource.postgres")
+    @ConfigurationProperties(prefix = "spring.datasource.postgres")
     public HikariDataSource hikariDataSource() {
         return DataSourceBuilder
                 .create()
@@ -40,7 +40,8 @@ public class AppConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("http://127.0.0.1:5500");
+                registry.addMapping("/**")
+                        .allowedOrigins("http://127.0.0.1:5500", "http://127.0.0.1:5501");
             }
         };
     }

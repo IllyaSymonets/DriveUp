@@ -1,9 +1,11 @@
 package com.softserve.service.provider.service;
 
 import com.softserve.service.provider.dto.HistoryDTO;
+import com.softserve.service.provider.exception.DriverNotFoundException;
 import com.softserve.service.provider.model.History;
 import com.softserve.service.provider.repository.DriverRepository;
 import com.softserve.service.provider.repository.HistoryRepository;
+import com.softserve.service.provider.request.HistoryRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,28 +22,27 @@ public class HistoryService {
     public HistoryService(HistoryRepository historyRepository, DriverRepository driverRepository) {
         this.historyRepository = historyRepository;
         this.driverRepository = driverRepository;
-
     }
 
-    public void add(UUID id, HistoryDTO historyDTO) {
-        driverRepository.findById(id)
+    public void addByDriverId(UUID driverId, HistoryRequest historyRequest) {
+        driverRepository.findById(driverId)
                 .map(driver -> {
                     History history = History.builder()
-                            .description(historyDTO.getDescription())
-                            .distance(historyDTO.getDistance())
-                            .fine(historyDTO.getFine())
-                            .rating(historyDTO.getRating())
-                            .price(historyDTO.getPrice())
-                            .startPoint(historyDTO.getStartPoint())
-                            .finishPoint(historyDTO.getFinishPoint())
-                            .travelTime(historyDTO.getTravelTime())
-                            .driverId(id)
+                            .description(historyRequest.getDescription())
+                            .distance(historyRequest.getDistance())
+                            .fine(historyRequest.getFine())
+                            .rating(historyRequest.getRating())
+                            .price(historyRequest.getPrice())
+                            .startPoint(historyRequest.getStartPoint())
+                            .finishPoint(historyRequest.getFinishPoint())
+                            .travelTime(historyRequest.getTravelTime())
+                            .driverId(driverId)
                             .build();
 
                     historyRepository.save(history);
-                    return historyDTO;
+                    return historyRequest;
                 })
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(() -> new DriverNotFoundException(driverId));
     }
 
     public Iterable<HistoryDTO> getAll() {
@@ -56,7 +57,7 @@ public class HistoryService {
                     .finishPoint(history.getFinishPoint())
                     .distance(history.getDistance())
                     .description(history.getDescription())
-                    .date(history.getDate())
+                    .date(history.getDateOfTrip())
                     .fine(history.getFine())
                     .rating(history.getRating())
                     .build());
