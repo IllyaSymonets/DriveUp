@@ -6,43 +6,22 @@ import lombok.Data;
 import org.springframework.lang.NonNull;
 
 import javax.validation.constraints.NotBlank;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Data
 public class BillRequest {
-    private UUID orderId = UUID.randomUUID();
-    private boolean babySeat;
-    private boolean englishDriver;
-    private boolean conditioner;
-    private boolean pet;
-    private boolean courier;
-    private boolean nonSmoker;
-    private boolean silence;
-    private CarType carType;
+    BigDecimal  amount;
     @NonNull
     private double distance;
     @NotBlank
     private String paymentMode;
 
-    public BillRequest(@JsonProperty("carType") CarType carType,
-                       @JsonProperty("distance") double distance,
+    public BillRequest(@JsonProperty("distance") double distance,
                        @JsonProperty("paymentMode") String paymentMode,
-                       @JsonProperty("babySeat") boolean babySeat,
-                       @JsonProperty("englishDriver") boolean englishDriver,
-                       @JsonProperty("conditioner") boolean conditioner,
-                       @JsonProperty("pet") boolean pet,
-                       @JsonProperty("courier") boolean courier,
-                       @JsonProperty("nonSmoker") boolean nonSmoker,
-                       @JsonProperty("silence") boolean silence) {
-        this.carType = carType;
+                       @JsonProperty("amount") BigDecimal amount) {
         this.distance = distance;
         this.paymentMode = paymentMode;
-        this.babySeat = babySeat;
-        this.englishDriver = englishDriver;
-        this.conditioner = conditioner;
-        this.pet = pet;
-        this.courier = courier;
-        this.nonSmoker = nonSmoker;
-        this.silence = silence;
+        this.amount = amount;
     }
 }

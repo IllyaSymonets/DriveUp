@@ -6,10 +6,11 @@ import com.zaets39.billing.requests.BillRequest;
 import com.zaets39.billing.requests.PaymentRequest;
 import com.zaets39.billing.repositories.BillRepository;
 import com.zaets39.billing.repositories.FundRepository;
-import com.zaets39.billing.utils.BillUtils;
+import com.zaets39.billing.constants.ConstantValues;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -26,43 +27,39 @@ public class BillingService {
     }
 
     public Bill processBill(BillRequest billRequest) {
-        double amount = BillUtils.countPrice(billRequest);
-        double appPercent = 0.12 * amount;
-        double driverPercent = 0.88 * amount;
+        BigDecimal appPercent = ConstantValues.APPLICATION_PERCENT.multiply(billRequest.getAmount());
+        BigDecimal driverPercent = ConstantValues.DRIVER_PERCENT.multiply(billRequest.getAmount());
         boolean paid = false;
         UUID driverId = getRandomDriver();
         Fund currentDriver = fundRepository.findByDriverId(driverId);
-        if (billRequest.getPaymentMode().equalsIgnoreCase("CARD")) {
-            PaymentRequest payment = new PaymentRequest(amount);
+        if (billRequest.getPaymentMode().equalsIgnoreCase(ConstantValues.CARD_PAYMENT)) {
+            PaymentRequest payment = new PaymentRequest(billRequest.getAmount());
             boolean bankAnswer = bankStub(payment);
             if (bankAnswer) {
                 processCardPayment(currentDriver, driverPercent);
                 paid = true;
                 fundRepository.save(currentDriver);
-            } else {
-                paid = false;
-            }
-        }
-        if (billRequest.getPaymentMode().equalsIgnoreCase("CASH")) {
+           }
+        }else if (billRequest.getPaymentMode().equalsIgnoreCase(ConstantValues.CASH_PAYMENT)) {
             paid = processCashPayment(currentDriver, appPercent);
         }
-        Bill bill = new Bill(billRequest.getOrderId(), currentDriver.getDriverId(),
-                amount, billRequest.getPaymentMode(), paid);
+        Bill bill = new Bill(currentDriver.getDriverId(),
+                billRequest.getAmount(), billRequest.getPaymentMode(), paid);
         billRepository.save(bill);
         return bill;
     }
 
-    private void processCardPayment(Fund currentDriver, double driverPercent) {
-        double newBalance = currentDriver.getFundBalance() + driverPercent;
+    private void processCardPayment(Fund currentDriver, BigDecimal driverPercent) {
+        BigDecimal newBalance = currentDriver.getFundBalance().add(driverPercent);
         currentDriver.setFundBalance(newBalance);
     }
 
-    private boolean processCashPayment(Fund currentDriver, double appPercent) {
+    private boolean processCashPayment(Fund currentDriver, BigDecimal appPercent) {
         boolean result;
-        if (currentDriver.getFundBalance() < appPercent) {
+        if (currentDriver.getFundBalance().compareTo(appPercent)<1) {
             result = false;
         } else {
-            double newBalance = currentDriver.getFundBalance() - appPercent;
+            BigDecimal newBalance = currentDriver.getFundBalance().subtract(appPercent);
             currentDriver.setFundBalance(newBalance);
             result = true;
         }
@@ -70,7 +67,7 @@ public class BillingService {
     }
 
     private boolean bankStub(PaymentRequest paymentRequest) {
-        return paymentRequest.getAmount() > 0;
+        return paymentRequest.getAmount().compareTo(BigDecimal.valueOf(0.00)) > 0;
     }
 
     private UUID getRandomDriver() {

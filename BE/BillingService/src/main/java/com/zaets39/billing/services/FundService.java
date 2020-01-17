@@ -6,6 +6,7 @@ import com.zaets39.billing.repositories.FundRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -18,7 +19,7 @@ public class FundService {
     }
 
     public Fund addFund(FundRequest fundRequest) {
-        Fund fund = new Fund(fundRequest.getDriverId(), 100);
+        Fund fund = new Fund(fundRequest.getDriverId(), BigDecimal.valueOf(100));
         fundRepository.save(fund);
         return fund;
     }

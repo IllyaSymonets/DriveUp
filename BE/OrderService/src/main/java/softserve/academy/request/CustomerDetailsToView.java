@@ -1,4 +1,4 @@
-package softserve.academy.dto;
+package softserve.academy.request;
 
 import lombok.Data;
 

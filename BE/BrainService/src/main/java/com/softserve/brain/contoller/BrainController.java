@@ -2,6 +2,7 @@ package com.softserve.brain.contoller;
 
 import com.softserve.brain.dto.CustomerDTO;
 
+import com.softserve.brain.request.OrderRequest;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -9,16 +10,17 @@ import okhttp3.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 @RestController
-@RequestMapping(path = "/brain")
+@RequestMapping//(path = "/brain")
 public class BrainController {
+
+    private static final Logger LOGGER = Logger.getLogger(BrainController.class.getName());
+
     private final OkHttpClient httpClient = new OkHttpClient();
 
     @PostMapping(path = "/registration", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -43,4 +45,14 @@ public class BrainController {
         }
         return new ResponseEntity(HttpStatus.OK);
     }
+    @GetMapping(path = "/distanceForBill")
+    public ResponseEntity getDistanceForBill(){
+        return new ResponseEntity(18.3, HttpStatus.OK);
+    }
+    @PostMapping(path = "/create-order")
+    public ResponseEntity createOrder(OrderRequest orderId){
+        LOGGER.info("New order id is:"+orderId.toString());
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
 }
