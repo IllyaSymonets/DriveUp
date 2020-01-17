@@ -37,7 +37,7 @@ public class MapController {
         String consumeJSONString = mapsApiRequest.postMapsApiRequest(
                 createTrip.getOrigins(), createTrip.getDestinations(), createTrip.getDepTime());
         kafkaTemplate.send(SET_TRIP_TOPIC, new SetTripToOrderRequest(
-                createTripRequest.getOrderId(),
+                createTripRequest.getOrderNumber(),
                 mapsService.insertNewRout(
                         consumeJSONString, createTrip.getDepTime()).
                         getRoute_id()));

@@ -35,7 +35,7 @@ public class BillingController {
     public ResponseEntity<Bill> add(@RequestBody CreateBillRequest createBillRequest) {
         Bill bill = billingService.processBill(createBillRequest.getBillInfo());
         kafkaTemplate.send(SET_BILL_TOPIC, new SetBillToOrderRequest(
-                createBillRequest.getOrderId(), bill.getId()));
+                createBillRequest.getOrderNumber(), bill.getId()));
         return new ResponseEntity<>(bill, HttpStatus.OK);
     }
 }

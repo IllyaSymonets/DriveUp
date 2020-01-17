@@ -6,10 +6,8 @@
 
     <changeSet id="create_orders" author="IllyaSymonets">
         <createTable tableName="orders">
-            <column name="order_id" type="uuid" >
+            <column name="order_number" type="bigint" >
                 <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column autoIncrement="true" startWith="100000" name="order_number" type="bigint" >
             </column>
             <column name="order_type" type="varchar(25)">
             </column>

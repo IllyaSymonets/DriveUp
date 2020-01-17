@@ -7,6 +7,6 @@ import java.util.UUID;
 @Data
 public class CreateTripRequest {
 
-    private UUID orderId;
+    private long orderNumber;
     private CreateTrip tripInfo;
 }

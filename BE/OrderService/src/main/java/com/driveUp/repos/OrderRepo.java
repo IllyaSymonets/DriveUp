@@ -7,7 +7,7 @@ import com.driveUp.domain.OrderStatus;
 import java.util.List;
 import java.util.UUID;
 
-public interface OrderRepo extends JpaRepository<Order, UUID> {
+public interface OrderRepo extends JpaRepository<Order, Long> {
 
     List<Order> findAllByStatus(OrderStatus status);
 

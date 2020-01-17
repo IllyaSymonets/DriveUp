@@ -25,26 +25,26 @@ public class OrderController {
     private final String CREATE_BILL_TOPIC="CREATE_BILL_EVENT";
 
     @PostMapping("add")
-    public ResponseEntity<UUID> createOrder(@RequestBody CreateOrder createOrder) {
-        Order order = new Order();
+    public ResponseEntity<Long> createOrder(@RequestBody CreateOrder createOrder) {
+        Order order = new Order(createOrder.getOrderType(), createOrder.getDate());
         orderRepo.save(order);
-        kafkaCreateTripTemplate.send(CREATE_TRIP_TOPIC, new CreateTripRequest(order.getId(), createOrder.getTripInfo()));
-        kafkaCreateBillTemplate.send(CREATE_BILL_TOPIC, new CreateBillRequest(order.getId(), createOrder.getBillInfo()));
-        return new ResponseEntity<>(order.getId(), HttpStatus.OK);
+        kafkaCreateTripTemplate.send(CREATE_TRIP_TOPIC, new CreateTripRequest(order.getOrderNumber(), createOrder.getTripInfo()));
+        kafkaCreateBillTemplate.send(CREATE_BILL_TOPIC, new CreateBillRequest(order.getOrderNumber(), createOrder.getBillInfo()));
+        return new ResponseEntity<>(order.getOrderNumber(), HttpStatus.OK);
     }
 
     @PutMapping("setDriver")
-    public ResponseEntity<Order> setDriverToOrder(@RequestParam UUID orderId,
+    public ResponseEntity<Order> setDriverToOrder(@RequestParam long orderNumber,
                                                   @RequestParam UUID driverId) {
-        Order order = orderRepo.findById(orderId).get();
+        Order order = orderRepo.findById(orderNumber).get();
         order.setDriverId(driverId);
         return new ResponseEntity<>(orderRepo.save(order), HttpStatus.OK);
     }
 
     @PutMapping("updateStatus")
-    public ResponseEntity<Order> updateStatusToOrder(@RequestParam UUID orderId,
+    public ResponseEntity<Order> updateStatusToOrder(@RequestParam long orderNumber,
                                                      @RequestParam OrderStatus status) {
-        Order order = orderRepo.findById(orderId).get();
+        Order order = orderRepo.findById(orderNumber).get();
         order.setStatus(status);
         return new ResponseEntity<>(orderRepo.save(order), HttpStatus.OK);
     }
@@ -72,14 +72,14 @@ public class OrderController {
 
     @KafkaListener(topics = "SET_TRIP_EVENT", containerFactory = "kafkaSetTripListenerContainerFactory")
     public void setTripId(@RequestBody SetTripToOrderRequest setTripToOrderRequest){
-        Order order = orderRepo.findById(setTripToOrderRequest.getOrderId()).get();
+        Order order = orderRepo.findById(setTripToOrderRequest.getOrderNumber()).get();
         order.setTripId(setTripToOrderRequest.getTripId());
         orderRepo.save(order);
     }
 
     @KafkaListener(topics = "SET_BILL_EVENT", containerFactory = "kafkaSetBillListenerContainerFactory")
     public void setTripId(@RequestBody SetBillToOrderRequest setBillToOrderRequest){
-        Order order = orderRepo.findById(setBillToOrderRequest.getOrderId()).get();
+        Order order = orderRepo.findById(setBillToOrderRequest.getOrderNumber()).get();
         order.setBillId(setBillToOrderRequest.getBillId());
         orderRepo.save(order);
     }

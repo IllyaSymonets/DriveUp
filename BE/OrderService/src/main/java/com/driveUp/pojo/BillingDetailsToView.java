@@ -1,7 +1,7 @@
 package com.driveUp.pojo;
 
-import lombok.Data;
 import com.driveUp.domain.PaymentType;
+import lombok.Data;
 
 import java.math.BigDecimal;
 
