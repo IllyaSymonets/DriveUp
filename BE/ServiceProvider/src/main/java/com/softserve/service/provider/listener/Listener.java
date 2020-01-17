@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class Listener {
-    private final Gson jsonConverter;
-
-    @KafkaListener(topics = "driver")
-    public void getFromCustomer(String customerDTO) {
-        CustomerDTO dto = jsonConverter.fromJson(customerDTO, CustomerDTO.class);
-        System.out.println(dto);
-    }
+//    private final Gson jsonConverter;
+//
+//    @KafkaListener(topics = "driver")
+//    public void getFromCustomer(String customerDTO) {
+//        CustomerDTO dto = jsonConverter.fromJson(customerDTO, CustomerDTO.class);
+//        System.out.println(dto);
+//    }
 }

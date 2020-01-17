@@ -22,7 +22,6 @@ public class Driver {
     @Column(name = "driver_id")
     private UUID id;
 
-    //TODO
 //    @Column(name = "customer_id")
 //    private UUID customerId;
 

@@ -1,10 +1,8 @@
 package com.driveUp.controller;
 
 import com.driveUp.dto.BillingDto;
-import com.driveUp.dto.OrderRequest;
 import com.driveUp.dto.UserAddressesDto;
 import com.driveUp.model.Route;
-import com.driveUp.service.DataForBrainService;
 import com.driveUp.service.MapsApiRequest;
 import com.driveUp.service.MapsService;
 import lombok.RequiredArgsConstructor;
@@ -28,16 +26,13 @@ public class MapController {
     private final MapsApiRequest mapsApiRequest;
     private HttpHeaders httpHeaders = new HttpHeaders();
     @LoadBalanced
-    private RestTemplate restTemplate;
+    //private RestTemplate restTemplate;
 
     @PostMapping("/route")
     public void sendRequestToGoogleAPI(@RequestBody UserAddressesDto userAddressesDto) {
         String consumeJSONString = mapsApiRequest.postMapsApiRequest(
                 userAddressesDto.getOrigins(), userAddressesDto.getDestinations(), userAddressesDto.getDepTime());
         mapsService.insertNewRout(consumeJSONString, userAddressesDto.getOrderId(), userAddressesDto.getDepTime());
-        OrderRequest order = new OrderRequest(DataForBrainService.generateIdForOrder());
-        restTemplate.postForObject("http://driveUp-brain-service/create-order/", order,
-                OrderRequest.class);
     }
 
     @GetMapping("/retrieve-all")
