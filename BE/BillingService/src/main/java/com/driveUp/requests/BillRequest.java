@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 
 @Data
 public class BillRequest {
-    BigDecimal  amount;
+    private BigDecimal  amount;
     @NonNull
     private double distance;
     @NotBlank
