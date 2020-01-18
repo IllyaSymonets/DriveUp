@@ -1,7 +1,7 @@
 package com.driveUp.config;
 
-import com.driveUp.pojo.CreateTripRequest;
-import com.driveUp.pojo.SetTripToOrderRequest;
+import com.driveUp.requests.CreateTripRequest;
+import com.driveUp.requests.SetTripToOrderRequest;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -21,9 +21,9 @@ import java.util.Map;
 public class KafkaConfiguration {
 
     @Bean
-    public ConsumerFactory consumerFactory(){
+    public ConsumerFactory consumerFactory() {
 
-        Map<String,Object> config = new HashMap<>();
+        Map<String, Object> config = new HashMap<>();
 
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
         config.put(ConsumerConfig.GROUP_ID_CONFIG, "group_id");
@@ -41,9 +41,9 @@ public class KafkaConfiguration {
     }
 
     @Bean
-    public ProducerFactory producerFactory(){
+    public ProducerFactory producerFactory() {
 
-        Map<String,Object> config = new HashMap<>();
+        Map<String, Object> config = new HashMap<>();
 
         config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
@@ -52,7 +52,7 @@ public class KafkaConfiguration {
         return new DefaultKafkaProducerFactory(config);
     }
 
-    public KafkaTemplate<String, SetTripToOrderRequest> kafkaTemplate(){
+    public KafkaTemplate<String, SetTripToOrderRequest> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 }

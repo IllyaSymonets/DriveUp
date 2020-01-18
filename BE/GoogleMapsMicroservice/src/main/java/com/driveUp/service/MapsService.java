@@ -1,6 +1,6 @@
 package com.driveUp.service;
 
-import com.driveUp.pojo.BillingDto;
+import com.driveUp.requests.BillingDto;
 import com.driveUp.model.Route;
 import org.springframework.stereotype.Service;
 

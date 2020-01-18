@@ -1,4 +1,4 @@
-package com.driveUp.pojo;
+package com.driveUp.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

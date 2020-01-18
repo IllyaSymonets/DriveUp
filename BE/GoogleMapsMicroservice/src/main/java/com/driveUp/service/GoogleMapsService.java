@@ -1,7 +1,7 @@
 package com.driveUp.service;
 
 import com.driveUp.repository.RouteRepository;
-import com.driveUp.pojo.BillingDto;
+import com.driveUp.requests.BillingDto;
 import com.driveUp.model.Route;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

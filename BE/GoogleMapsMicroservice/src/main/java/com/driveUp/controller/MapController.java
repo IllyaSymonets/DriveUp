@@ -1,21 +1,19 @@
 package com.driveUp.controller;
 
-import com.driveUp.pojo.BillingDto;
-import com.driveUp.pojo.CreateTrip;
 import com.driveUp.model.Route;
-import com.driveUp.pojo.CreateTripRequest;
-import com.driveUp.pojo.SetTripToOrderRequest;
+import com.driveUp.requests.BillingDto;
+import com.driveUp.requests.CreateTrip;
+import com.driveUp.requests.CreateTripRequest;
+import com.driveUp.requests.SetTripToOrderRequest;
 import com.driveUp.service.MapsApiRequest;
 import com.driveUp.service.MapsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +28,7 @@ public class MapController {
     private final MapsApiRequest mapsApiRequest;
     private HttpHeaders httpHeaders = new HttpHeaders();
     private final KafkaTemplate<String, SetTripToOrderRequest> kafkaTemplate;
-    private final String SET_TRIP_TOPIC="SET_TRIP_EVENT";
+    private final String SET_TRIP_TOPIC = "SET_TRIP_EVENT";
 
     //@PostMapping("/route")
     @KafkaListener(topics = "CREATE_TRIP_EVENT", containerFactory = "kafkaListenerContainerFactory")
