@@ -1,4 +1,4 @@
-package com.driveUp.pojo;
+package com.driveUp.request;
 
 import lombok.Data;
 
@@ -8,5 +8,4 @@ public class CreateTrip {
     private String origins;
     private String destinations;
     private String depTime;
-
 }
