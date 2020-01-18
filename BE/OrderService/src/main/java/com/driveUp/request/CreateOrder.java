@@ -1,4 +1,4 @@
-package com.driveUp.pojo;
+package com.driveUp.request;
 
 import lombok.Data;
 import com.driveUp.domain.OrderType;

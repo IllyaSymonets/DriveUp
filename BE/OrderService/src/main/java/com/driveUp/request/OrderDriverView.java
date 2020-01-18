@@ -1,4 +1,4 @@
-package softserve.academy.request;
+package com.driveUp.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

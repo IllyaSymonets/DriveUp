@@ -2,8 +2,8 @@ package com.driveUp.controller;
 
 import com.driveUp.domain.Order;
 import com.driveUp.domain.OrderStatus;
-import com.driveUp.pojo.*;
 import com.driveUp.repos.OrderRepo;
+import com.driveUp.request.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

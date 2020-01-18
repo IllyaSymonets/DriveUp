@@ -1,7 +1,8 @@
-package softserve.academy.request;
+package com.driveUp.request;
 
+import com.driveUp.domain.PaymentType;
 import lombok.Data;
-import softserve.academy.domain.PaymentType;
+
 
 import java.math.BigDecimal;
 
