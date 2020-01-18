@@ -1,5 +1,4 @@
 package com.driveUp.services;
-
 import com.driveUp.models.Fund;
 import com.driveUp.repositories.BillRepository;
 import com.driveUp.repositories.FundRepository;
@@ -25,7 +24,6 @@ public class BillingService {
     public List<Bill> getAllBills() {
         return billRepository.findAll();
     }
-
     public Bill processBill(BillRequest billRequest) {
         BigDecimal appPercent = ConstantValues.APPLICATION_PERCENT.multiply(billRequest.getAmount());
         BigDecimal driverPercent = ConstantValues.DRIVER_PERCENT.multiply(billRequest.getAmount());

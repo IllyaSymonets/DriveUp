@@ -1,5 +1,4 @@
 package com.driveUp.utils;
-
 import com.driveUp.constants.ConstantValues;
 import com.driveUp.requests.ComfortFromUI;
 

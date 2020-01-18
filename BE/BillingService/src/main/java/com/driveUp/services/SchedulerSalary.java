@@ -1,44 +1,46 @@
-//package com.zaets39.billing.services;
-//
-//import Fund;
-//import SalaryPaid;
-//import WeekPaymentRequest;
-//import FundRepository;
-//import org.springframework.stereotype.Component;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//@Component
-//public class SchedulerSalary {
-//
-//    private FundService fundService;
-//    private FundRepository fundRepository;
-//
-//    //    @Scheduled(cron = "0 0 12 * * THU")
-////    public void paySalary() {
-////        countSalary();
-////    }
-//    private List<WeekPaymentRequest> countSalary() {
-//        List<Fund> funds = fundService.getAllFunds();
-//        List<WeekPaymentRequest> salary = new ArrayList<>();
-//        WeekPaymentRequest currentDriver = new WeekPaymentRequest();
-//        for (int i = 0; i <= funds.size(); i++) {
-//            if ((funds.get(i).getFundBalance() - 100) > 0) {
-//                currentDriver.setDriverId(funds.get(i).getDriverId());
-//                currentDriver.setSalary(funds.get(i).getFundBalance() - 100);
-//            }
-//        }
-//        return salary;
+package com.driveUp.services;
+
+import com.driveUp.pojo.SalaryPaid;
+import com.driveUp.pojo.WeekPaymentRequest;
+import com.driveUp.repositories.FundRepository;
+import com.driveUp.models.Fund;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Component
+public class SchedulerSalary {
+
+    private FundService fundService;
+    private FundRepository fundRepository;
+
+//    @Scheduled(cron = "0 0 12 * * THU")
+//    public void paySalary() {
+//        countSalary();
 //    }
-//
-//    public void bankResult(List<SalaryPaid> resultFromBank) {
-//        for (int i = 0; i < resultFromBank.size(); i++) {
-//            Fund currentFund = fundRepository.findByDriverId(resultFromBank.get(i).getDriverId());
-//            if (resultFromBank.get(i).isTransactionResult()) {
-//                currentFund.setFundBalance(100);
-//                fundRepository.save(currentFund);
-//            }
-//        }
-//    }
-//}
+    private List<WeekPaymentRequest> countSalary()
+    {
+        List<Fund> funds = fundService.getAllFunds();
+        List<WeekPaymentRequest> salary = new ArrayList<>();
+        WeekPaymentRequest currentDriver = new WeekPaymentRequest();
+        for (int i = 0; i <= funds.size(); i++) {
+            if ((funds.get(i).getFundBalance() - 100) > 0) {
+                currentDriver.setDriverId(funds.get(i).getDriverId());
+                currentDriver.setSalary(funds.get(i).getFundBalance() - 100);
+            }
+        }
+        return salary;
+    }
+
+    public void bankResult(List<SalaryPaid> resultFromBank)
+    {
+        for (int i=0; i<resultFromBank.size(); i++){
+            Fund currentFund = fundRepository.findByDriverId(resultFromBank.get(i).getDriverId());
+            if(resultFromBank.get(i).isTransactionResult()){
+                currentFund.setFundBalance(100);
+                fundRepository.save(currentFund);
+            }
+        }
+    }
+}
