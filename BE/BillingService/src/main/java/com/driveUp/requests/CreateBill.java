@@ -8,16 +8,16 @@ import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 
 @Data
-public class BillRequest {
+public class CreateBill {
     private BigDecimal  amount;
     @NonNull
     private double distance;
     @NotBlank
     private String paymentMode;
 
-    public BillRequest(@JsonProperty("distance") double distance,
-                       @JsonProperty("paymentMode") String paymentMode,
-                       @JsonProperty("amount") BigDecimal amount) {
+    public CreateBill(@JsonProperty("distance") double distance,
+                      @JsonProperty("paymentMode") String paymentMode,
+                      @JsonProperty("amount") BigDecimal amount) {
         this.distance = distance;
         this.paymentMode = paymentMode;
         this.amount = amount;

@@ -3,7 +3,7 @@ import com.driveUp.models.Fund;
 import com.driveUp.repositories.BillRepository;
 import com.driveUp.repositories.FundRepository;
 import com.driveUp.models.Bill;
-import com.driveUp.requests.BillRequest;
+import com.driveUp.requests.CreateBill;
 import com.driveUp.requests.PaymentRequest;
 import com.driveUp.constants.ConstantValues;
 import lombok.AllArgsConstructor;
@@ -24,7 +24,7 @@ public class BillingService {
     public List<Bill> getAllBills() {
         return billRepository.findAll();
     }
-    public Bill processBill(BillRequest billRequest) {
+    public Bill processBill(CreateBill billRequest) {
         BigDecimal appPercent = ConstantValues.APPLICATION_PERCENT.multiply(billRequest.getAmount());
         BigDecimal driverPercent = ConstantValues.DRIVER_PERCENT.multiply(billRequest.getAmount());
         boolean paid = false;

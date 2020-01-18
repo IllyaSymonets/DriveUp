@@ -1,19 +1,20 @@
 package com.driveUp.controllers;
 
 import com.driveUp.models.Bill;
-import com.driveUp.requests.BillRequest;
 import com.driveUp.requests.ComfortFromUI;
+import com.driveUp.requests.CreateBillRequest;
+import com.driveUp.requests.SetBillToOrderRequest;
 import com.driveUp.services.BillingService;
 import com.driveUp.utils.BillUtils;
 import lombok.AllArgsConstructor;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -23,8 +24,11 @@ import java.util.List;
 public class BillingController {
 
     private final BillingService billingService;
-    @LoadBalanced
-    private RestTemplate restTemplate;
+    //    @LoadBalanced
+//    private RestTemplate restTemplate;
+    private final KafkaTemplate<String, SetBillToOrderRequest> kafkaTemplate;
+    private final String SET_BILL_TOPIC = "SET_BILL_EVENT";
+
 
     @GetMapping("/allBills")
     public ResponseEntity<List<Bill>> showAllBills() {
@@ -33,10 +37,14 @@ public class BillingController {
     }
 
     @PostMapping("/addBill")
-    public ResponseEntity<Bill> add(@RequestBody BillRequest billRequest) {
-        Bill bill = billingService.processBill(billRequest);
+    @KafkaListener(topics = "CREATE_BILL_EVENT", containerFactory = "kafkaListenerContainerFactory")
+    public ResponseEntity<Bill> add(@RequestBody CreateBillRequest createBillRequest) {
+        Bill bill = billingService.processBill(createBillRequest.getBillInfo());
+        kafkaTemplate.send(SET_BILL_TOPIC, new SetBillToOrderRequest(
+                createBillRequest.getOrderNumber(), bill.getId()));
         return new ResponseEntity<>(bill, HttpStatus.OK);
     }
+
     @GetMapping("/countPrice")
     public ResponseEntity<BigDecimal> countPrice(ComfortFromUI comfortFromUI, double distance) {
 //        DistanceRequest distance = restTemplate.getForObject("http://driveUp-brain-service/distanceForBill/",

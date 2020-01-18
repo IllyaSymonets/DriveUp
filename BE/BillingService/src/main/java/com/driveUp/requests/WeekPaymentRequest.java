@@ -1,20 +1,12 @@
 package com.driveUp.requests;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.UUID;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
+@AllArgsConstructor
 public class WeekPaymentRequest {
     private UUID driverId;
     private double salary;
-
-    public WeekPaymentRequest(UUID driverId, double salary) {
-        this.driverId = driverId;
-        this.salary = salary;
-    }
 }
