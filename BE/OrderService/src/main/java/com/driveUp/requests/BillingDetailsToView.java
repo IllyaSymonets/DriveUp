@@ -1,4 +1,4 @@
-package com.driveUp.request;
+package com.driveUp.requests;
 
 import com.driveUp.domain.PaymentType;
 import lombok.Data;

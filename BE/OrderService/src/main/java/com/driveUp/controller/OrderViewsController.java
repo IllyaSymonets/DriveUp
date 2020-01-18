@@ -2,8 +2,8 @@ package com.driveUp.controller;
 
 import com.driveUp.converter.OrderConverter;
 import com.driveUp.domain.Order;
-import com.driveUp.request.OrderDetailsToView;
-import com.driveUp.request.OrderDriverView;
+import com.driveUp.requests.OrderDetailsToView;
+import com.driveUp.requests.OrderDriverView;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

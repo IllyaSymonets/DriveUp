@@ -1,9 +1,9 @@
 package com.driveUp.config;
 
-import com.driveUp.request.CreateBillRequest;
-import com.driveUp.request.CreateTripRequest;
-import com.driveUp.request.SetBillToOrderRequest;
-import com.driveUp.request.SetTripToOrderRequest;
+import com.driveUp.requests.CreateBillRequest;
+import com.driveUp.requests.CreateTripRequest;
+import com.driveUp.requests.SetBillToOrderRequest;
+import com.driveUp.requests.SetTripToOrderRequest;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;

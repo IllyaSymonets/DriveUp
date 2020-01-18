@@ -1,7 +1,7 @@
 package com.driveUp.converter;
 
 import com.driveUp.domain.Order;
-import com.driveUp.request.OrderDetailsToView;
+import com.driveUp.requests.OrderDetailsToView;
 import org.springframework.stereotype.Service;
 
 @Service
