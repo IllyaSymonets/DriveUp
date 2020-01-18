@@ -21,8 +21,14 @@ public class OrderController {
     private final OrderRepo orderRepo;
     private final KafkaTemplate<String, CreateTripRequest> kafkaCreateTripTemplate;
     private final KafkaTemplate<String, CreateBillRequest> kafkaCreateBillTemplate;
-    private final String CREATE_TRIP_TOPIC="CREATE_TRIP_EVENT";
-    private final String CREATE_BILL_TOPIC="CREATE_BILL_EVENT";
+    private final String CREATE_TRIP_TOPIC = "CREATE_TRIP_EVENT";
+    private final String CREATE_BILL_TOPIC = "CREATE_BILL_EVENT";
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Order>> showAllBills() {
+        List<Order> orders = orderRepo.findAll();
+        return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
 
     @PostMapping("add")
     public ResponseEntity<Long> createOrder(@RequestBody CreateOrder createOrder) {
@@ -71,14 +77,14 @@ public class OrderController {
     }
 
     @KafkaListener(topics = "SET_TRIP_EVENT", containerFactory = "kafkaSetTripListenerContainerFactory")
-    public void setTripId(@RequestBody SetTripToOrderRequest setTripToOrderRequest){
+    public void setTripId(@RequestBody SetTripToOrderRequest setTripToOrderRequest) {
         Order order = orderRepo.findById(setTripToOrderRequest.getOrderNumber()).get();
         order.setTripId(setTripToOrderRequest.getTripId());
         orderRepo.save(order);
     }
 
     @KafkaListener(topics = "SET_BILL_EVENT", containerFactory = "kafkaSetBillListenerContainerFactory")
-    public void setTripId(@RequestBody SetBillToOrderRequest setBillToOrderRequest){
+    public void setTripId(@RequestBody SetBillToOrderRequest setBillToOrderRequest) {
         Order order = orderRepo.findById(setBillToOrderRequest.getOrderNumber()).get();
         order.setBillId(setBillToOrderRequest.getBillId());
         orderRepo.save(order);
