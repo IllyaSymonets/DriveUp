@@ -52,11 +52,11 @@ public class DriverController {
         return new ResponseEntity<>(uuidList, HttpStatus.OK);
     }
 
-    @PostMapping(path = "/add")
-    public ResponseEntity addDriver(@RequestBody @NotNull @Valid AddDriverRequest addDriverRequest) {
-        driverService.add(addDriverRequest);
-        return new ResponseEntity(HttpStatus.CREATED);
-    }
+//    @PostMapping(path = "/add")
+//    public ResponseEntity addDriver(@RequestBody @NotNull @Valid AddDriverRequest addDriverRequest) {
+//        driverService.add(addDriverRequest);
+//        return new ResponseEntity(HttpStatus.CREATED);
+//    }
 
     @PutMapping(path = "/fine/update/{id}")
     public ResponseEntity updateFine(@PathVariable UUID id,

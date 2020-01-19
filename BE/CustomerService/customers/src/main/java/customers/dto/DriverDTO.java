@@ -1,14 +1,14 @@
-package com.softserve.service.provider.request;
+package customers.dto;
 
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.validation.constraints.Size;
 import java.util.UUID;
 
 @Data
-@Builder
-public class AddDriverRequest {
+@AllArgsConstructor
+public class DriverDTO {
     private UUID customerId;
 
     @Size(min = 4, max = 50)

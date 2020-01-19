@@ -1,10 +1,13 @@
 package customers.service;
 
+import com.google.gson.Gson;
+import customers.dto.CreateCustomerAndDriverRequest;
 import customers.dto.CreateCustomerDto;
-import customers.dto.CustomerDTO;
+import customers.dto.DriverDTO;
 import customers.model.Customer;
 import customers.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -14,17 +17,34 @@ import java.util.UUID;
 public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
+    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final Gson jsonConverter;
 
 
-    public void addCustomer(CustomerDTO customerDTO) {
+    public void addCustomerAndDriver(CreateCustomerAndDriverRequest createCustomerAndDriverRequest) {
+
+        Customer customer = addCustomer(createCustomerAndDriverRequest);
+
+        Customer newCustomer = customerRepository.getCustomerByPhone(customer.getPhone());
+        UUID customerId = newCustomer.getCustomerId();
+
+        DriverDTO driverDTO = new DriverDTO(customerId,
+                createCustomerAndDriverRequest.getCity(), createCustomerAndDriverRequest.getLicence());
+
+        kafkaTemplate.send("driver", jsonConverter.toJson(driverDTO));
+
+    }
+
+    private Customer addCustomer(CreateCustomerAndDriverRequest createCustomerAndDriverRequest) {
         Customer customer = Customer.builder()
-                .password(customerDTO.getPassword())
-                .phone(customerDTO.getPhone())
-                .email(customerDTO.getEmail())
-                .firstName(customerDTO.getFirstName())
-                .secondName(customerDTO.getSecondName())
+                .password(createCustomerAndDriverRequest.getPassword())
+                .phone(createCustomerAndDriverRequest.getPhone())
+                .email(createCustomerAndDriverRequest.getEmail())
+                .firstName(createCustomerAndDriverRequest.getFirstName())
+                .secondName(createCustomerAndDriverRequest.getSecondName())
                 .build();
         customerRepository.save(customer);
+        return customer;
     }
 
 

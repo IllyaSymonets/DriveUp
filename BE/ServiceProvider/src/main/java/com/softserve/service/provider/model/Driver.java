@@ -22,8 +22,8 @@ public class Driver {
     @Column(name = "driver_id")
     private UUID id;
 
-//    @Column(name = "customer_id")
-//    private UUID customerId;
+    @Column(name = "customer_id")
+    private UUID customerId;
 
     @CreationTimestamp
     private Date dateOfRegistration;

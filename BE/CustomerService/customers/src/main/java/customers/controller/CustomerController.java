@@ -1,14 +1,17 @@
 package customers.controller;
 
+import customers.dto.CreateCustomerAndDriverRequest;
 import customers.dto.CreateCustomerDto;
 import customers.dto.UpdateCustomerRequest;
 import customers.model.Customer;
 import customers.service.CustomerServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
@@ -18,9 +21,9 @@ public class CustomerController {
 
     private final CustomerServiceImpl customerService;
 
-    @PostMapping(path = "/add")
-    public ResponseEntity add(@RequestBody CustomerDTO customerDTO) {
-        customerService.addCustomer(customerDTO);
+    @PostMapping(path = "/add/customerAndDriver")
+    public ResponseEntity add(@RequestBody @Valid CreateCustomerAndDriverRequest createCustomerAndDriverRequest) {
+        customerService.addCustomerAndDriver(createCustomerAndDriverRequest);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 

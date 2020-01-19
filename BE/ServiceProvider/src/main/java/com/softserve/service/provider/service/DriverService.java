@@ -30,6 +30,7 @@ public class DriverService {
 
     public void add(AddDriverRequest addDriverRequest) {
         Driver driver = Driver.builder()
+                .customerId(addDriverRequest.getCustomerId())
                 .city(addDriverRequest.getCity())
                 .licence(addDriverRequest.getLicence())
                 .build();
