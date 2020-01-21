@@ -1,4 +1,4 @@
-package customers.model;
+package com.driveUp.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;

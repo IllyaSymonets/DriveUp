@@ -1,7 +1,7 @@
-package customers.service;
+package com.driveUp.service;
 
-import customers.dto.CreateCustomerDto;
-import customers.model.Customer;
+import com.driveUp.dto.CreateCustomerDto;
+import com.driveUp.model.Customer;
 
 import java.util.UUID;
 

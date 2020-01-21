@@ -1,11 +1,9 @@
-package customers.service;
+package com.driveUp.service;
 
 import com.google.gson.Gson;
-import customers.dto.CreateCustomerAndDriverRequest;
-import customers.dto.CreateCustomerDto;
-import customers.dto.DriverDTO;
-import customers.model.Customer;
-import customers.repository.CustomerRepository;
+import com.driveUp.dto.CreateCustomerDto;
+import com.driveUp.model.Customer;
+import com.driveUp.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;

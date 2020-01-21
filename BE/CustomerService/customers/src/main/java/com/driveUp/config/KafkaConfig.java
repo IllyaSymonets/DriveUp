@@ -1,4 +1,4 @@
-package customers.config;
+package com.driveUp.config;
 
 import com.google.gson.Gson;
 import org.apache.kafka.clients.consumer.ConsumerConfig;

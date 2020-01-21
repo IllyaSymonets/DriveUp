@@ -1,10 +1,10 @@
-package customers.controller;
+package com.driveUp.controller;
 
-import customers.dto.CreateCustomerAndDriverRequest;
-import customers.dto.CreateCustomerDto;
-import customers.dto.UpdateCustomerRequest;
-import customers.model.Customer;
-import customers.service.CustomerServiceImpl;
+import com.driveUp.dto.CreateCustomerAndDriverRequest;
+import com.driveUp.dto.UpdateCustomerRequest;
+import com.driveUp.dto.CreateCustomerDto;
+import com.driveUp.model.Customer;
+import com.driveUp.service.CustomerServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

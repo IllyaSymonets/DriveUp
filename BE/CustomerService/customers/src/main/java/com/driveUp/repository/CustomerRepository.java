@@ -1,6 +1,6 @@
-package customers.repository;
+package com.driveUp.repository;
 
-import customers.model.Customer;
+import com.driveUp.model.Customer;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.UUID;
