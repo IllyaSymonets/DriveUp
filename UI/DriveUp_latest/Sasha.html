@@ -18,7 +18,6 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   </head>
   <body>
-    <!-- <div class="disable-all"></div> -->
       <iframe src="modal.html" class="modal-frame">
           Ваш браузер не поддерживает плавающие фреймы!
        </iframe> 
@@ -240,7 +239,7 @@
               <div class="cars--content econom--selected">
                 <p>
                   <img
-                    src="cars/EconomCarBW.png"
+                    src="cars/EconomCar.png"
                     id="econom"
                     alt="Econom_Car"
                     v-on:click="EconomClick()"
@@ -283,7 +282,7 @@
               </div>
             </div>
           </div>
-          <div class="FooterPrice">Price:154 ₴</div>
+          <div class="FooterPrice">Price:{{}} ₴</div>
           <div class="FooterTwo">
             <div class="comfort">
               <div

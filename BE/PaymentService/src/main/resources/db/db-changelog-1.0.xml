@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="create_payment_details" author="IllyaSymonets">
+        <createTable tableName="payment_details">
+            <column name="payment_details_id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="driver_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="driver_card" type="varchar(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="driver_card_name" type="varchar(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="driver_card_family_name" type="varchar(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="driver_card_is_actual" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create_transaction" author="IllyaSymonets">
+        <createTable tableName="transactions">
+            <column name="transaction_id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="transaction_date_time" type="timestamp with time zon">
+                <constraints nullable="false"/>
+            </column>
+            <column name="transaction_from_who_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="transaction_to_who_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="transaction_summary" type="numeric">
+                <constraints nullable="false"/>
+            </column>
+            <column name="transaction_status" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+
+</databaseChangeLog>

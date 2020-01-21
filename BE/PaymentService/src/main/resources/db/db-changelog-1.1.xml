@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="load_payment_details" author="IllyaSymonets">
+        <loadData tableName="payment_details"
+                  separator=","
+                  quotchar="A String"
+                  file="src/main/resources/db/data/paymentDetails.csv"
+                  encoding="UTF-8"></loadData>
+    </changeSet>
+
+</databaseChangeLog>

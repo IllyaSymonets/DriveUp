@@ -7,35 +7,38 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Registration</title>
     <link rel="stylesheet" href="styles/style1.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue-router"></script>
 </head>
 
 <body>
     <div class="window window_registration">
-        <div class="wrapper">
+        <div class="wrapper" id="registration">
             <div class="logo"> <img src="LOGO1.png"> </div>
             <div class="wrapper_form">
-                <form action="#" method="POST" class="registration_form">
-                    <input id="phone" type="tel" name="tel" placeholder="Your Phone...">
-                    <input id="pass1" type="password" name="password1" placeholder="Password..">
-                    <input id="pass2" type="password" name="password2" placeholder="Confirm Password...">
+                <div class="registration_form">
+                    <input id="phone" v-model="phone" type="tel" name="tel" placeholder="Your Phone...">
+                    <input id="pass1" v-model="password" type="password" name="password1" placeholder="Password..">
+                    <input id="pass2" v-model="passwordConfirmed" type="password" name="password2" placeholder="Confirm Password...">
                     <div class="msg"></div>
                     <div class="role">
                         <div class="check_role">
-                            <input type="radio" name="check" id="radio_client" value="client" checked>
+                            <input v-model="role" type="radio" name="check" id="radio_client" value="client" checked >
                             <label for="radio_client">Client</label>
                         </div>
                         <div class="check_role">
-                            <input type="radio" name="check" id="radio_driver" value="driver">
+                            <input v-model="role" type="radio" name="check" id="radio_driver" value="driver">
                             <label for="radio_driver">Driver</label>
                         </div>
                     </div>
-                    <input type="submit" value="Submit" class="btn_registration">
+                     <input type="submit" value="Submit" class="btn_registration"  v-on:click="createUser()">
                     <a class="link_deco" href="login.html"><span>Log in</span></a>
-                </form>
+                </div>
             </div>
         </div>
     </div>
-    <script src="scripts/reg.js"></script>
+    <script src="scripts/registration.js"></script>
 </body>
 
 </html>
