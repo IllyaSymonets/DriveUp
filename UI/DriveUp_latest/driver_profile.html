@@ -1,0 +1,73 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://unpkg.com/reset-css/reset.css">
+    <link rel="stylesheet" href="styles/profiles.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Driver-profile</title>
+</head>
+<body>
+<form action="#" method="POST" class="customer_profile_update">
+<div class="profile" id="driver-profile">
+
+<div class="title"><br><pre>            Driver-profile</pre></div>
+<div class="rows">
+
+<div class="row"></div>
+
+<div class="row">
+        <div class="column1"><pre>   Login</pre></div>
+        <div class="column2"><pre>{{phone}}</pre></div>
+</div>        
+<div class="row">
+        <div class="column1"><pre>   First-name</pre></div>
+        <div class="column2">
+        <input type="input" placeholder="{{first-name}}"></div>
+</div>
+<div class="row">
+        <div class="column1"><pre>   Second-name</pre></div>
+        <div class="column2">
+        <input type="input" placeholder="{{second-name}}"></div>
+</div>
+<div class="row">
+        <div class="column1"><pre>   Email</pre></div>
+        <div class="column2">
+        <input type="input" placeholder="{{email}}"></div>
+</div>
+<div class="row">
+        <div class="column1"><pre>   City</pre></div>
+        <div class="column2">
+        <input type="input" placeholder="{{city}}"></div>
+</div>    
+<div class="row">
+        <div class="column1"><pre>   Driver-licence</pre></div>
+        <div class="column2">
+        <input type="input" placeholder="{{driver-licence}}"></div>
+</div>
+<div class="row">
+    <div class="column1"><pre>   Rating</pre></div>
+    <div class="column2">
+    <input type="input" placeholder="{{rating}}"></div>
+</div>
+
+<div class="row"></div>
+<div class="row"></div>
+<div class="row">
+        <div class="column2">
+                <button  type="btn" v-on:click=" ">MY CAR</button>
+        </div>
+</div>
+
+<div class="bottomMenu">
+    <div class="FooterThree">
+        <button  type="btn" v-on:click=" ">BACK</button>
+        <button  type="btn" v-on:click=" ">SAVE</button>
+    </div>
+</div>
+
+</div>
+</form>
+</body>
+</html>

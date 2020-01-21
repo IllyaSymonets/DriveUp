@@ -216,6 +216,9 @@ img {
   height: 100%;
   padding: 2% 18% 0 2%;
 }
+.econom--selected{
+  background-color: #292e34;
+}
 .comfort--content {
   background-color: #68747d;
   color: #f4f0e6;

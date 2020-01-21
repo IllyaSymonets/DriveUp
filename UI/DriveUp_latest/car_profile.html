@@ -1,0 +1,86 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://unpkg.com/reset-css/reset.css">
+    <link rel="stylesheet" href="styles/profiles.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Customer-profile</title>
+</head>
+<body>
+    <form action="#" method="POST" class="car_profile_update">
+        <div class="profile" id="driver-profile">
+                
+        <div class="title"><br><pre>                My Car-profile</pre></div>
+                <div class="rows">
+                <div class="row"></div>
+                <div class="row">
+                        <div class="column1"><pre>   Brand</pre></div>
+                        <div class="column2">
+                                <input type="input" value="{{brand}}"></div>
+                </div>        
+                <div class="row">
+                        <div class="column1"><pre>   Model</pre></div>
+                        <div class="column2">
+                        <input type="input" value="{{model}}"></div>
+                </div>
+                <div class="row">
+                        <div class="column1"><pre>   Licence-plate</pre></div>
+                        <div class="column2">
+                        <input type="input" value="{{licence-plate}}"></div>
+                </div>
+                <div class="row">
+                        <div class="column1"><pre>   Color</pre></div>
+                        <div class="column2">
+                        <input type="input" value="{{color}}"></div>
+                </div>
+                <div class="row">
+                    <div class="column1"><pre>   Issue year</pre></div>
+                    <div class="column2">
+                    <input type="input" value="{{year}}"></div>
+                </div>
+                <div class="row"></div>
+                <div class="row"></div>
+                <div class="row"><pre>                    Additional services</pre></div>
+                <br>
+                <div class="row">
+                        <div class="column1"><div class="babySeat">
+                            <input type="checkbox" name="babySeat" value="babySeat">babySeat<Br> 
+                    </div></div>
+                    <div class="column2"><div class="conditioner">
+                            <input type="checkbox" name="conditioner" value="conditioner">conditioner<Br> 
+                    </div></div>
+                </div>
+                <div class="row">
+                        <div class="column1"><div class="pet">
+                            <input type="checkbox" name="pet" value="pet">pet<Br> 
+                    </div></div>
+                    <div class="column2"><div class="more_luggage">
+                            <input type="checkbox" name="more_luggage" value="more luggage">more_luggage<Br>
+                    </div></div>
+                </div>
+                <div class="row">
+                        <div class="column1"><div class="english">
+                            <input type="checkbox" name="english" value="english">english<Br> 
+                    </div></div>
+                    <div class="column2"><div class="non_smoke">
+                            <input type="checkbox" name="non_smoke" value="non-smoke">non_smoke<Br>
+                    </div></div>
+                </div>
+                <div class="row">
+                        <div class="column1"><div class="silence">
+                            <input type="checkbox" name="silence" value="silence">silence<Br> 
+                    </div></div>
+                </div>
+                <div class="bottomMenu">
+                    <div class="FooterThree">
+                        <button type="btn" v-on:click=" ">BACK</button>
+                        <button type="btn" v-on:click=" ">SAVE</button>
+                    </div>
+                </div>
+                
+                </div>
+                </form>
+                </body>
+                </html>
