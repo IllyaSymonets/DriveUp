@@ -1,10 +1,11 @@
-package softserve.academy.service;
+package com.driveUp.service;
 
+import com.driveUp.domain.PaymentDetails;
+import com.driveUp.dto.CreatePaymentDetails;
+import com.driveUp.repos.PaymentDetailsRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import softserve.academy.domain.PaymentDetails;
-import softserve.academy.dto.CreatePaymentDetails;
-import softserve.academy.repos.PaymentDetailsRepo;
+
 
 import javax.transaction.Transactional;
 

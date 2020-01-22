@@ -1,14 +1,12 @@
-package notifications.service;
+package com.driveUp.service;
 
+import com.driveUp.dto.ApprovedOrderDto;
+import com.driveUp.dto.CreatedOrderDto;
+import com.driveUp.model.PhoneNotification;
+import com.driveUp.service.generator.CustomerNotificationsGenerator;
+import com.driveUp.service.generator.NotificationCreator;
+import com.driveUp.service.generator.store.NotificationStore;
 import lombok.RequiredArgsConstructor;
-import notifications.dto.ApprovedOrderDto;
-import notifications.dto.CreatedOrderDto;
-import notifications.model.PhoneNotification;
-import notifications.service.generator.CustomerNotificationsGenerator;
-import notifications.service.generator.NotificationCreator;
-import notifications.service.generator.store.NotificationStore;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -1,4 +1,4 @@
-package softserve.academy.domain;
+package com.driveUp.domain;
 
 import lombok.Data;
 import lombok.ToString;
@@ -20,4 +20,6 @@ public abstract class Payment {
     public Payment(Transaction transaction) {
         this.transaction = transaction;
     }
+
+    public abstract LiqpayPaymentType getLiqpayPaymentType();
 }

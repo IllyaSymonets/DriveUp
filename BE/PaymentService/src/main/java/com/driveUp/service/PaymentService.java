@@ -1,35 +1,30 @@
-package softserve.academy.service;
+package com.driveUp.service;
 
+import com.driveUp.domain.Payment;
+import com.driveUp.domain.Transaction;
+import com.driveUp.repos.TransactionRepo;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
-import softserve.academy.domain.Payment;
-import softserve.academy.domain.Transaction;
-import softserve.academy.domain.TransactionStatus;
-import softserve.academy.repos.PaymentDetailsRepo;
-import softserve.academy.repos.TransactionRepo;
 
 import javax.transaction.Transactional;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-@PropertySource("classpath:paymentAccountsInfo.properties")
+//@PropertySource("classpath:paymentAccountsInfo.properties")
 public abstract class PaymentService {
 
     protected final TransactionRepo transactionRepo;
-    @Value("${liqpay.PUBLIC_KEY}")
+    //@Value("${liqpay.PUBLIC_KEY}")
     String PUBLIC_KEY;
-    @Value("${liqpay.PRIVATE_KEY}")
+    //@Value("${liqpay.PRIVATE_KEY}")
     String PRIVATE_KEY;
     @Getter
-    @Value("${liqpay.ID}")
+    //@Value("${liqpay.ID}")
     UUID companyId;
 
     @Transactional

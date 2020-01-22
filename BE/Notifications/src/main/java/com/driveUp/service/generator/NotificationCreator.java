@@ -1,15 +1,14 @@
-package notifications.service.generator;
+package com.driveUp.service.generator;
 
+import com.driveUp.dto.ApprovedOrderDto;
+import com.driveUp.dto.CreatedOrderDto;
+import com.driveUp.dto.CreatedOrderDtoWithDrivers;
+import com.driveUp.model.PhoneNotification;
+import com.driveUp.repository.NotificationRepository;
 import lombok.RequiredArgsConstructor;
-import notifications.dto.ApprovedOrderDto;
-import notifications.dto.CreatedOrderDto;
-import notifications.dto.CreatedOrderDtoWithDrivers;
-import notifications.model.PhoneNotification;
-import notifications.repository.NotificationRepository;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Service
 @RequiredArgsConstructor

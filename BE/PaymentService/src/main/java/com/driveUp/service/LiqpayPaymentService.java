@@ -1,9 +1,10 @@
-package softserve.academy.service;
+package com.driveUp.service;
 
+import com.driveUp.domain.Payment;
+import com.driveUp.domain.Transaction;
+import com.driveUp.repos.TransactionRepo;
 import org.springframework.stereotype.Service;
-import softserve.academy.domain.Payment;
-import softserve.academy.domain.Transaction;
-import softserve.academy.repos.TransactionRepo;
+
 
 import javax.transaction.Transactional;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package notifications.service.generator;
+package com.driveUp.service.generator;
 
 import org.springframework.stereotype.Service;
 

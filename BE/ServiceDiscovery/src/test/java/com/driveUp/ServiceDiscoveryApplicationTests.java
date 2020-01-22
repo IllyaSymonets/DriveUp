@@ -1,13 +1,13 @@
-package com.softserve.Gateway;
+package com.driveUp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class GatewayApplicationTests {
+class ServiceDiscoveryApplicationTests {
 
-    @Test
-    void contextLoads() {
-    }
+	@Test
+	void contextLoads() {
+	}
 
 }

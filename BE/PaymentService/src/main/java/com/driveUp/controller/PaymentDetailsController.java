@@ -1,11 +1,12 @@
-package softserve.academy.controller;
+package com.driveUp.controller;
 
+import com.driveUp.domain.PaymentDetails;
+import com.driveUp.dto.CreatePaymentDetails;
+import com.driveUp.repos.PaymentDetailsRepo;
+import com.driveUp.service.PaymentDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import softserve.academy.domain.PaymentDetails;
-import softserve.academy.dto.CreatePaymentDetails;
-import softserve.academy.repos.PaymentDetailsRepo;
-import softserve.academy.service.PaymentDetailsService;
+
 
 @RestController
 @RequiredArgsConstructor
