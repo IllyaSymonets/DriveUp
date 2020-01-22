@@ -1,32 +1,38 @@
 package com.driveUp.utils;
+
 import com.driveUp.constants.ConstantValues;
 import com.driveUp.requests.ComfortFromUI;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.Map;
 
 public class BillUtils {
     private BillUtils() {
     }
 
-    public static BigDecimal countPrice(ComfortFromUI comfortFromUI, double dist) {
+    public static BigDecimal countPrice(ComfortFromUI comfortFromUI) {
         Map<String, BigDecimal> additionalAmount = comfortFromUI.getCarType().getInfo();
-        BigDecimal distance = BigDecimal.valueOf(dist);
+        BigDecimal distance = BigDecimal.valueOf(comfortFromUI.getDistance());
         BigDecimal amount = distance.multiply(additionalAmount.get(ConstantValues.TARIFF_PER_KM));
-        if (comfortFromUI.isBabySeat())
-            amount = amount.add(additionalAmount.get(ConstantValues.BABY_SEAT));
-        if (comfortFromUI.isConditioner())
-            amount = amount.add(additionalAmount.get(ConstantValues.CONDITIONER_FARE));
-        if (comfortFromUI.isEnglishDriver())
-            amount = amount.add(additionalAmount.get(ConstantValues.ENGLISH_DRIVER));
-        if (comfortFromUI.isPet())
-           amount =  amount.add(additionalAmount.get(ConstantValues.PETS_FARE));
-        if (comfortFromUI.isCourier())
-            amount = amount.add(additionalAmount.get(ConstantValues.COURIER_FARE));
-        if (comfortFromUI.isSilence())
-            amount = amount.add(additionalAmount.get(ConstantValues.SILENCE));
-        if (comfortFromUI.isNonSmoker())
-           amount =  amount.add(additionalAmount.get(ConstantValues.NON_SMOKER));
+        Map<String, Boolean> currentComfort = getMapWithCurrentComfort(comfortFromUI);
+        for (Map.Entry<String, Boolean> entry : currentComfort.entrySet()) {
+            if (entry.getValue().equals(true)) {
+                amount = amount.add(additionalAmount.get(entry.getKey()));
+            }
+        }
         return amount;
+    }
+
+    private static Map<String, Boolean> getMapWithCurrentComfort(ComfortFromUI comfortFromUI) {
+        Map<String, Boolean> currentComfort = new HashMap<>();
+        currentComfort.put(ConstantValues.BABY_SEAT, comfortFromUI.isBabySeat());
+        currentComfort.put(ConstantValues.CONDITIONER_FARE, comfortFromUI.isConditioner());
+        currentComfort.put(ConstantValues.ENGLISH_DRIVER, comfortFromUI.isEnglishDriver());
+        currentComfort.put(ConstantValues.PETS_FARE, comfortFromUI.isPet());
+        currentComfort.put(ConstantValues.COURIER_FARE, comfortFromUI.isCourier());
+        currentComfort.put(ConstantValues.SILENCE, comfortFromUI.isSilence());
+        currentComfort.put(ConstantValues.NON_SMOKER, comfortFromUI.isNonSmoker());
+        return currentComfort;
     }
 }

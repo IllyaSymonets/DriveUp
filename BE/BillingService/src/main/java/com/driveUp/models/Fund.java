@@ -1,10 +1,10 @@
 package com.driveUp.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.util.UUID;
 
@@ -17,10 +17,10 @@ public class Fund {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private UUID driverId;
+    @Positive
     private BigDecimal fundBalance;
 
-    public Fund(@JsonProperty("driverId") UUID driverId,
-                @JsonProperty("fundBalance") BigDecimal fundBalance) {
+    public Fund(UUID driverId, BigDecimal fundBalance) {
         this.driverId = driverId;
         this.fundBalance = fundBalance;
     }

@@ -1,13 +1,16 @@
 package com.driveUp.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.lang.NonNull;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.util.UUID;
 
@@ -20,18 +23,16 @@ public class Bill {
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
-
-    @NonNull
+    @Positive
+    @Min(33)
     private BigDecimal amount;
     @NotBlank
     private String paymentMode;
     private UUID driverId;
     private boolean paid;
 
-    public Bill(@JsonProperty("driverId") UUID driverId,
-                @JsonProperty("amount") BigDecimal amount,
-                @JsonProperty("paymentMode") String paymentMode,
-                @JsonProperty("paid") boolean paid) {
+    public Bill(UUID driverId, BigDecimal amount, String paymentMode,
+                boolean paid) {
         this.driverId = driverId;
         this.amount = amount;
         this.paymentMode = paymentMode;
