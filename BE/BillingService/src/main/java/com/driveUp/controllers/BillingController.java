@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -45,11 +46,10 @@ public class BillingController {
         return new ResponseEntity<>(bill, HttpStatus.OK);
     }
 
-    @GetMapping("/countPrice")
-    public ResponseEntity<BigDecimal> countPrice(ComfortFromUI comfortFromUI, double distance) {
-//        DistanceRequest distance = restTemplate.getForObject("http://driveUp-brain-service/distanceForBill/",
-//                DistanceRequest.class);
-        BigDecimal amount = BillUtils.countPrice(comfortFromUI, distance);
+    @PostMapping("/countPrice")
+
+    public ResponseEntity<BigDecimal> countPrice(@RequestBody @Valid ComfortFromUI comfortFromUI){
+        BigDecimal amount = BillUtils.countPrice(comfortFromUI);
         return new ResponseEntity<>(amount, HttpStatus.OK);
     }
 }
