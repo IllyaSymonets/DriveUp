@@ -32,6 +32,15 @@ public class BillingService {
         boolean paid = false;
         UUID driverId = getRandomDriver();
         Fund currentDriver = fundRepository.findByDriverId(driverId);
+        paid = isPaid(billRequest, appPercent, driverPercent, paid, currentDriver);
+        Bill bill = new Bill(currentDriver.getDriverId(),
+                billRequest.getAmount(), billRequest.getPaymentMode(), paid);
+        billRepository.save(bill);
+        return bill;
+    }
+
+    private boolean isPaid(CreateBill billRequest, BigDecimal appPercent,
+                           BigDecimal driverPercent, boolean paid, Fund currentDriver) {
         if (billRequest.getPaymentMode().equalsIgnoreCase(ConstantValues.CARD_PAYMENT)) {
             PaymentRequest payment = new PaymentRequest(billRequest.getAmount());
             boolean bankAnswer = bankStub(payment);
@@ -43,10 +52,7 @@ public class BillingService {
         } else if (billRequest.getPaymentMode().equalsIgnoreCase(ConstantValues.CASH_PAYMENT)) {
             paid = processCashPayment(currentDriver, appPercent);
         }
-        Bill bill = new Bill(currentDriver.getDriverId(),
-                billRequest.getAmount(), billRequest.getPaymentMode(), paid);
-        billRepository.save(bill);
-        return bill;
+        return paid;
     }
 
     private void processCardPayment(Fund currentDriver, BigDecimal driverPercent) {

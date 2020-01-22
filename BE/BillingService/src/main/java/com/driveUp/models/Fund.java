@@ -16,7 +16,6 @@ public class Fund {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     private UUID driverId;
     @Positive
     private BigDecimal fundBalance;
