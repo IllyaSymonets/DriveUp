@@ -1,8 +1,8 @@
-package softserve.academy.converter;
+package com.driveUp.converter;
 
+import com.driveUp.dto.PayToDriver;
+import com.driveUp.dto.RequestPayToDriver;
 import org.springframework.stereotype.Service;
-import softserve.academy.dto.PayToDriver;
-import softserve.academy.dto.RequestPayToDriver;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

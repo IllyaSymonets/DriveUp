@@ -1,4 +1,4 @@
-package notifications.config;
+package com.driveUp.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

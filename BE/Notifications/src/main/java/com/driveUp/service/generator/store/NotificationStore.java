@@ -1,4 +1,4 @@
-package notifications.service.generator.store;
+package com.driveUp.service.generator.store;
 
 import lombok.Getter;
 import lombok.ToString;

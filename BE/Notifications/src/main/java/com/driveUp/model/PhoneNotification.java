@@ -1,4 +1,4 @@
-package notifications.model;
+package com.driveUp.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,18 +1,19 @@
-package softserve.academy.controller;
+package com.driveUp.controller;
 
+import com.driveUp.converter.PayToDriverConverter;
+import com.driveUp.domain.*;
+import com.driveUp.dto.PayToDriver;
+import com.driveUp.dto.RequestPayToDriver;
+import com.driveUp.dto.ResponsePayToDriver;
+import com.driveUp.repos.PaymentDetailsRepo;
+import com.driveUp.service.PaymentDetailsService;
+import com.driveUp.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import softserve.academy.converter.PayToDriverConverter;
-import softserve.academy.domain.*;
-import softserve.academy.dto.PayToDriver;
-import softserve.academy.dto.RequestPayToDriver;
-import softserve.academy.dto.ResponsePayToDriver;
-import softserve.academy.repos.PaymentDetailsRepo;
-import softserve.academy.service.PaymentDetailsService;
-import softserve.academy.service.PaymentService;
+
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

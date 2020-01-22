@@ -1,5 +1,8 @@
-package softserve.academy.domain;
+package com.driveUp.domain;
 
+import lombok.Getter;
+
+@Getter
 public class LiqPayPayment extends Payment {
 
     LiqpayPaymentType liqpayPaymentType;

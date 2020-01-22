@@ -1,4 +1,4 @@
-package softserve.academy.domain;
+package com.driveUp.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

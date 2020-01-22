@@ -1,4 +1,4 @@
-package notifications.db;
+package com.driveUp.db;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;

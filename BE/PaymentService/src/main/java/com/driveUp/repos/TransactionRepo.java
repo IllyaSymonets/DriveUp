@@ -1,7 +1,8 @@
-package softserve.academy.repos;
+package com.driveUp.repos;
 
+
+import com.driveUp.domain.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
-import softserve.academy.domain.Transaction;
 
 import java.util.UUID;
 

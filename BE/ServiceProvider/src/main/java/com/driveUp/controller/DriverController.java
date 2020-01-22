@@ -44,7 +44,8 @@ public class DriverController {
     }
 
     @PostMapping(path = "/find/car")
-    public ResponseEntity<List<UUID>> getDriverId(@RequestBody @NotNull @Valid SearchCarRequest searchCarRequest) {
+    public ResponseEntity<List<UUID>> getDriverId(
+            @RequestBody @NotNull @Valid SearchCarRequest searchCarRequest) {
         List<UUID> uuidList = driverService.findDrivers(searchCarRequest);
         return new ResponseEntity<>(uuidList, HttpStatus.OK);
     }
