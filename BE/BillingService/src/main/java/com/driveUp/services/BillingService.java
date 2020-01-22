@@ -1,11 +1,12 @@
 package com.driveUp.services;
+
+import com.driveUp.constants.ConstantValues;
+import com.driveUp.models.Bill;
 import com.driveUp.models.Fund;
 import com.driveUp.repositories.BillRepository;
 import com.driveUp.repositories.FundRepository;
-import com.driveUp.models.Bill;
 import com.driveUp.requests.CreateBill;
 import com.driveUp.requests.PaymentRequest;
-import com.driveUp.constants.ConstantValues;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,7 @@ public class BillingService {
     public List<Bill> getAllBills() {
         return billRepository.findAll();
     }
+
     public Bill processBill(CreateBill billRequest) {
         BigDecimal appPercent = ConstantValues.APPLICATION_PERCENT.multiply(billRequest.getAmount());
         BigDecimal driverPercent = ConstantValues.DRIVER_PERCENT.multiply(billRequest.getAmount());
@@ -37,8 +39,8 @@ public class BillingService {
                 processCardPayment(currentDriver, driverPercent);
                 paid = true;
                 fundRepository.save(currentDriver);
-           }
-        }else if (billRequest.getPaymentMode().equalsIgnoreCase(ConstantValues.CASH_PAYMENT)) {
+            }
+        } else if (billRequest.getPaymentMode().equalsIgnoreCase(ConstantValues.CASH_PAYMENT)) {
             paid = processCashPayment(currentDriver, appPercent);
         }
         Bill bill = new Bill(currentDriver.getDriverId(),
@@ -54,7 +56,7 @@ public class BillingService {
 
     private boolean processCashPayment(Fund currentDriver, BigDecimal appPercent) {
         boolean result;
-        if (currentDriver.getFundBalance().compareTo(appPercent)<1) {
+        if (currentDriver.getFundBalance().compareTo(appPercent) < 1) {
             result = false;
         } else {
             BigDecimal newBalance = currentDriver.getFundBalance().subtract(appPercent);
