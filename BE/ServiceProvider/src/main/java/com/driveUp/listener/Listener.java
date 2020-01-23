@@ -22,7 +22,7 @@ public class Listener {
     private final DriverRepository driverRepository;
 
     @KafkaListener(topics = "driver")
-    public void getFromCustomer(String driverRequest) {
+    public void getRequestFromCustomerMS(String driverRequest) {
         @Valid AddDriverRequest addDriver = jsonConverter.fromJson(driverRequest, AddDriverRequest.class);
         driverService.add(addDriver);
 

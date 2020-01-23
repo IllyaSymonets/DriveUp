@@ -1,8 +1,9 @@
 package com.driveUp.controller;
 
 import com.driveUp.dto.CreateCustomerAndDriverRequest;
-import com.driveUp.dto.UpdateCustomerRequest;
 import com.driveUp.dto.CreateCustomerDto;
+import com.driveUp.dto.CustomerDTO;
+import com.driveUp.dto.UpdateCustomerRequest;
 import com.driveUp.model.Customer;
 import com.driveUp.service.CustomerServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -21,10 +22,16 @@ public class CustomerController {
 
     private final CustomerServiceImpl customerService;
 
-    @PostMapping(path = "/add/customerAndDriver")
+    @PostMapping(path = "/add/customer-and-driver")
     public ResponseEntity add(@RequestBody @Valid CreateCustomerAndDriverRequest createCustomerAndDriverRequest) {
         customerService.addCustomerAndDriver(createCustomerAndDriverRequest);
         return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+    @GetMapping(path = "/{customerId}")
+    public ResponseEntity<CustomerDTO> getCustomer(@PathVariable UUID customerId) {
+        CustomerDTO customerDTO = customerService.getCustomer(customerId);
+        return new ResponseEntity<>(customerDTO, HttpStatus.OK);
     }
 
     @PostMapping(path = "/save")
@@ -41,7 +48,7 @@ public class CustomerController {
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
-    @PutMapping(path = "/updateProfile" , consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PutMapping(path = "/updateProfile", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<Customer> updateCustomer(UpdateCustomerRequest customerRequest) {
         Customer customer = customerService.updateCustomer(
                 customerRequest.getCustomerId(), customerRequest.getEmail(),

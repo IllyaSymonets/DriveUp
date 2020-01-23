@@ -11,6 +11,8 @@ import java.util.UUID;
 public interface DriverRepository extends CrudRepository<Driver, UUID> {
     Driver findDriverByCarId(UUID id);
 
+    Driver findDriverById(UUID id);
+
     Driver findDriverByLicence(String license);
 
     @Query(value = "SELECT AVG(rating) from histories where driver_id = ?", nativeQuery = true)
