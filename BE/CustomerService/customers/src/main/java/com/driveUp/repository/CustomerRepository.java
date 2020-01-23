@@ -7,4 +7,6 @@ import java.util.UUID;
 
 public interface CustomerRepository extends CrudRepository<Customer, UUID> {
     Customer getCustomerByPhone(String phone);
+
+    Customer findCustomerByCustomerId(UUID id);
 }

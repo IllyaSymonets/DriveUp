@@ -35,6 +35,7 @@ public class AppConfig {
                 .build();
     }
 
+
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {

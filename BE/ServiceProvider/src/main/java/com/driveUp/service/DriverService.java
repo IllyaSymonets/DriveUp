@@ -1,20 +1,18 @@
 package com.driveUp.service;
 
+import com.driveUp.dto.*;
 import com.driveUp.exception.DriverNotFoundException;
 import com.driveUp.model.Driver;
-import com.driveUp.dto.CarDTO;
-import com.driveUp.dto.DriverDTO;
-import com.driveUp.dto.DriverProfileDTO;
-import com.driveUp.dto.HistoryDTO;
 import com.driveUp.model.History;
 import com.driveUp.repository.DriverRepository;
 import com.driveUp.repository.HistoryRepository;
-import com.driveUp.request.DriverFineRequest;
 import com.driveUp.request.AddDriverRequest;
+import com.driveUp.request.DriverFineRequest;
 import com.driveUp.request.SearchCarRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +25,7 @@ public class DriverService {
     private final DriverRepository driverRepository;
     private final HistoryRepository historyRepository;
     private final JdbcTemplate jdbcTemplate;
+    private final RestTemplate restTemplate = new RestTemplate();
 
     public void add(AddDriverRequest addDriverRequest) {
         Driver driver = Driver.builder()
@@ -93,6 +92,8 @@ public class DriverService {
 
     public DriverProfileDTO getProfile(UUID id) {
 
+        CustomerDTO customerDTO = getCustomerDTO(id);
+
         List<History> histories = historyRepository.findAllByDriverId(id);
         List<HistoryDTO> historyDTOList = new ArrayList<>();
 
@@ -130,6 +131,7 @@ public class DriverService {
                             .histories(historyDTOList)
                             .car(carDTO)
                             .driverDTO(driverDTO)
+                            .customerDTO(customerDTO)
                             .build();
                 })
                 .orElseThrow(() -> new DriverNotFoundException(id));
@@ -194,5 +196,13 @@ public class DriverService {
                 .fine(driver.getFine())
                 .rating(driver.getRating())
                 .build();
+    }
+
+    private CustomerDTO getCustomerDTO(UUID id) {
+        Driver driverById = driverRepository.findDriverById(id);
+        UUID customerId = driverById.getCustomerId();
+
+        return restTemplate.getForObject(
+                "http://localhost:8090/customer_service/customers/{customerId}", CustomerDTO.class, customerId);
     }
 }
