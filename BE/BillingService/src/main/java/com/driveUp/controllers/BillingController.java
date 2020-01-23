@@ -6,6 +6,7 @@ import com.driveUp.requests.CreateBillRequest;
 import com.driveUp.requests.SetBillToOrderRequest;
 import com.driveUp.services.BillingService;
 import com.driveUp.utils.BillUtils;
+import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +28,8 @@ public class BillingController {
     private final BillingService billingService;
     //    @LoadBalanced
 //    private RestTemplate restTemplate;
-    private final KafkaTemplate<String, SetBillToOrderRequest> kafkaTemplate;
-    private final String SET_BILL_TOPIC = "SET_BILL_EVENT";
+    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final Gson jsonConverter;
 
 
     @GetMapping("/allBills")
@@ -37,12 +38,18 @@ public class BillingController {
         return new ResponseEntity<>(bills, HttpStatus.OK);
     }
 
-    @PostMapping("/addBill")
-    @KafkaListener(topics = "CREATE_BILL_EVENT", containerFactory = "kafkaListenerContainerFactory")
-    public ResponseEntity<Bill> add(@RequestBody CreateBillRequest createBillRequest) {
-        Bill bill = billingService.processBill(createBillRequest.getBillInfo());
-        kafkaTemplate.send(SET_BILL_TOPIC, new SetBillToOrderRequest(
-                createBillRequest.getOrderNumber(), bill.getId()));
+    @KafkaListener(topics = "CREATE_BILL_EVENT")
+    public ResponseEntity<Bill> add(String createBillRequest) {
+
+        CreateBillRequest billRequestObject = jsonConverter.fromJson(
+                createBillRequest, CreateBillRequest.class);
+
+        Bill bill = billingService.processBill(billRequestObject.getBillInfo());
+
+        SetBillToOrderRequest billToOrderRequest = new SetBillToOrderRequest(
+                billRequestObject.getOrderNumber(), bill.getId());
+
+        kafkaTemplate.send("SET_BILL_EVENT", jsonConverter.toJson(billToOrderRequest));
         return new ResponseEntity<>(bill, HttpStatus.OK);
     }
 

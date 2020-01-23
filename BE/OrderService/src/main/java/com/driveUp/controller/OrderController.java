@@ -4,6 +4,7 @@ import com.driveUp.domain.Order;
 import com.driveUp.domain.OrderStatus;
 import com.driveUp.repos.OrderRepo;
 import com.driveUp.requests.*;
+import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +20,8 @@ import java.util.UUID;
 public class OrderController {
 
     private final OrderRepo orderRepo;
-    private final KafkaTemplate<String, CreateTripRequest> kafkaCreateTripTemplate;
-    private final KafkaTemplate<String, CreateBillRequest> kafkaCreateBillTemplate;
-    private final String CREATE_TRIP_TOPIC = "CREATE_TRIP_EVENT";
-    private final String CREATE_BILL_TOPIC = "CREATE_BILL_EVENT";
+    private final Gson jsonConverter;
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
     @GetMapping("/all")
     public ResponseEntity<List<Order>> showAllBills() {
@@ -34,8 +33,13 @@ public class OrderController {
     public ResponseEntity<Long> createOrder(@RequestBody CreateOrder createOrder) {
         Order order = new Order(createOrder.getOrderType(), createOrder.getDate());
         orderRepo.save(order);
-        kafkaCreateTripTemplate.send(CREATE_TRIP_TOPIC, new CreateTripRequest(order.getOrderNumber(), createOrder.getTripInfo()));
-        kafkaCreateBillTemplate.send(CREATE_BILL_TOPIC, new CreateBillRequest(order.getOrderNumber(), createOrder.getBillInfo()));
+
+
+        CreateTripRequest createTripRequest = new CreateTripRequest(order.getOrderNumber(), createOrder.getTripInfo());
+        CreateBillRequest createBillRequest = new CreateBillRequest(order.getOrderNumber(), createOrder.getBillInfo());
+
+        kafkaTemplate.send("CREATE_TRIP_EVENT", jsonConverter.toJson(createTripRequest));
+        kafkaTemplate.send("CREATE_BILL_EVENT", jsonConverter.toJson(createBillRequest));
         return new ResponseEntity<>(order.getOrderNumber(), HttpStatus.OK);
     }
 
@@ -76,17 +80,23 @@ public class OrderController {
                 HttpStatus.OK);
     }
 
-    @KafkaListener(topics = "SET_TRIP_EVENT", containerFactory = "kafkaSetTripListenerContainerFactory")
-    public void setTripId(@RequestBody SetTripToOrderRequest setTripToOrderRequest) {
-        Order order = orderRepo.findById(setTripToOrderRequest.getOrderNumber()).get();
-        order.setTripId(setTripToOrderRequest.getTripId());
+    @KafkaListener(topics = "SET_TRIP_EVENT")
+    public void setTripId(String setTripToOrderRequest) {
+        SetTripToOrderRequest tripToOrderRequest = jsonConverter.fromJson(
+                setTripToOrderRequest, SetTripToOrderRequest.class);
+
+        Order order = orderRepo.findById(tripToOrderRequest.getOrderNumber()).get();
+        order.setTripId(tripToOrderRequest.getTripId());
         orderRepo.save(order);
     }
 
-    @KafkaListener(topics = "SET_BILL_EVENT", containerFactory = "kafkaSetBillListenerContainerFactory")
-    public void setTripId(@RequestBody SetBillToOrderRequest setBillToOrderRequest) {
-        Order order = orderRepo.findById(setBillToOrderRequest.getOrderNumber()).get();
-        order.setBillId(setBillToOrderRequest.getBillId());
+    @KafkaListener(topics = "SET_BILL_EVENT")
+    public void setBillId(String setBillToOrderRequest) {
+        SetBillToOrderRequest billToOrderRequest = jsonConverter.fromJson(
+              setBillToOrderRequest, SetBillToOrderRequest.class);
+
+        Order order = orderRepo.findById(billToOrderRequest.getOrderNumber()).get();
+        order.setBillId(billToOrderRequest.getBillId());
         orderRepo.save(order);
     }
 }
