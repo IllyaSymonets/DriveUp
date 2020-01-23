@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface FundRepository extends JpaRepository<Fund, Long> {
-    @Override
     List<Fund> findAll();
 
     Fund findByDriverId(UUID DriverId);

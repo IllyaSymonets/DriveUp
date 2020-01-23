@@ -8,5 +8,6 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 public class FundRequest {
-    private UUID driverId = UUID.randomUUID();
+
+    private UUID driverId;
 }

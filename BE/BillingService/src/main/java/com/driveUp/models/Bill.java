@@ -1,5 +1,6 @@
 package com.driveUp.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
@@ -18,6 +19,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "bills")
 @NoArgsConstructor
+@AllArgsConstructor
 public class Bill {
     @Id
     @GeneratedValue(generator = "UUID")
