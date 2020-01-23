@@ -1,15 +1,17 @@
 package com.driveUp.service;
 
+import com.driveUp.dto.ChangePasswordDto;
 import com.driveUp.dto.CreateCustomerAndDriverRequest;
-import com.driveUp.dto.DriverDTO;
-import com.google.gson.Gson;
 import com.driveUp.dto.CreateCustomerDto;
+import com.driveUp.dto.DriverDTO;
 import com.driveUp.model.Customer;
 import com.driveUp.repository.CustomerRepository;
+import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -19,7 +21,6 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
     private final KafkaTemplate<String, String> kafkaTemplate;
     private final Gson jsonConverter;
-
 
     public void addCustomerAndDriver(CreateCustomerAndDriverRequest createCustomerAndDriverRequest) {
 
@@ -46,7 +47,6 @@ public class CustomerServiceImpl implements CustomerService {
         return customer;
     }
 
-
     @Override
     public Customer saveCustomer(CreateCustomerDto customerDto) {
         Customer customer = new Customer(customerDto.getPhone(), customerDto.getPassword());
@@ -54,12 +54,18 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer updatePassword(UUID customerId, String oldPassword, String newPassword) {
-        Customer customer = getCustomerById(customerId);
-        if (customer.getPassword().equals(oldPassword)) {
-            customer.setPassword(newPassword);
+    public Customer updatePassword(ChangePasswordDto changePasswordDto) {
+        Optional<Customer> customer = Optional.ofNullable(
+                getCustomerById(changePasswordDto.getCustomerId()));
+        if(customer.isPresent()){
+           if(customer.get().getPassword().equals(changePasswordDto.getOldPassword())) {
+               customer.get().setPassword(changePasswordDto.getNewPassword());
+           }
+           //else save of old password - but customer will not see the mistake!
         }
-        return customerRepository.save(customer);
+        //what to do if customer is null?
+        return customerRepository.save(customer.get());
+        //add exception handling the situation when customer is not exists
     }
 
     @Override

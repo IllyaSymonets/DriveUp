@@ -1,5 +1,6 @@
 package com.driveUp.controller;
 
+import com.driveUp.dto.ChangePasswordDto;
 import com.driveUp.dto.CreateCustomerAndDriverRequest;
 import com.driveUp.dto.UpdateCustomerRequest;
 import com.driveUp.dto.CreateCustomerDto;
@@ -34,10 +35,8 @@ public class CustomerController {
     }
 
     @PutMapping("/changePassword")
-    public ResponseEntity<Customer> changePassword(@PathVariable UUID customerId,
-                                                   @PathVariable String oldPassword,
-                                                   @PathVariable String newPassword) {
-        Customer customer = customerService.updatePassword(customerId, oldPassword, newPassword);
+    public ResponseEntity<Customer> changePassword(@RequestBody ChangePasswordDto changePasswordDto) {
+        Customer customer = customerService.updatePassword(changePasswordDto);
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
