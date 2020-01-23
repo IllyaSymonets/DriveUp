@@ -7,6 +7,7 @@ import com.driveUp.requests.CreateTripRequest;
 import com.driveUp.requests.SetTripToOrderRequest;
 import com.driveUp.service.MapsApiRequest;
 import com.driveUp.service.MapsService;
+import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -27,20 +28,25 @@ public class MapController {
     private final MapsService mapsService;
     private final MapsApiRequest mapsApiRequest;
     private HttpHeaders httpHeaders = new HttpHeaders();
-    private final KafkaTemplate<String, SetTripToOrderRequest> kafkaTemplate;
-    private final String SET_TRIP_TOPIC = "SET_TRIP_EVENT";
+    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final Gson jsonConverter;
 
-    //@PostMapping("/route")
-    @KafkaListener(topics = "CREATE_TRIP_EVENT", containerFactory = "kafkaListenerContainerFactory")
-    public void sendRequestToGoogleAPI(@RequestBody CreateTripRequest createTripRequest) {
-        CreateTrip createTrip = createTripRequest.getTripInfo();
+    @KafkaListener(topics = "CREATE_TRIP_EVENT")
+    public void sendRequestToGoogleAPI(String createTripRequest) {
+        CreateTripRequest tripRequest = jsonConverter.fromJson(createTripRequest, CreateTripRequest.class);
+
+        CreateTrip createTrip = tripRequest.getTripInfo();
+
         String consumeJSONString = mapsApiRequest.postMapsApiRequest(
                 createTrip.getOrigins(), createTrip.getDestinations(), createTrip.getDepTime());
-        kafkaTemplate.send(SET_TRIP_TOPIC, new SetTripToOrderRequest(
-                createTripRequest.getOrderNumber(),
+
+        SetTripToOrderRequest setTripToOrderRequest = new SetTripToOrderRequest(
+                tripRequest.getOrderNumber(),
                 mapsService.insertNewRout(
                         consumeJSONString, createTrip.getDepTime()).
-                        getRoute_id()));
+                        getRoute_id());
+
+        kafkaTemplate.send("SET_TRIP_EVENT", jsonConverter.toJson(setTripToOrderRequest));
     }
 
     @GetMapping("/retrieve-all")

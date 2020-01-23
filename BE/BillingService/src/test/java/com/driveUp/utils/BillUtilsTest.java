@@ -43,10 +43,4 @@ public class BillUtilsTest {
                 CarType.ECONOM, 30));
         assertEquals(expected, actual);
     }
-//    @Test(expected = IllegalArgumentException.class)
-//    public void countPriceECONOMNegativeDistance() {
-//        BillUtils.countPrice(new ComfortFromUI(false, false,
-//                false, false, false, false, false,
-//                CarType.ECONOM), -22);
-//    }
 }
