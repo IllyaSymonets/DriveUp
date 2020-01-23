@@ -28,7 +28,7 @@ public class CustomerController {
     }
 
     @PostMapping(path = "/save")
-    public ResponseEntity<Customer> save(CreateCustomerDto customerDto) {
+    public ResponseEntity<Customer> save(@RequestBody CreateCustomerDto customerDto) {
         Customer customer = customerService.saveCustomer(customerDto);
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }

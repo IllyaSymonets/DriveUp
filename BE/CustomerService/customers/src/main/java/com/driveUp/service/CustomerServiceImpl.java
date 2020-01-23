@@ -32,7 +32,6 @@ public class CustomerServiceImpl implements CustomerService {
                 createCustomerAndDriverRequest.getCity(), createCustomerAndDriverRequest.getLicence());
 
         kafkaTemplate.send("driver", jsonConverter.toJson(driverDTO));
-
     }
 
     private Customer addCustomer(CreateCustomerAndDriverRequest createCustomerAndDriverRequest) {
