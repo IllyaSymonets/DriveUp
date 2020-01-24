@@ -12,7 +12,7 @@ import java.util.UUID;
 @Table(name = "customers")
 @Builder
 @Data
-//@NoArgsConstructor
+@NoArgsConstructor
 @AllArgsConstructor
 public class Customer implements Serializable {
     @Id
@@ -22,7 +22,6 @@ public class Customer implements Serializable {
     private UUID customerId;
 
     @Column(name = "phone", nullable = false, unique = true, length = 13)
-   // @Pattern(regexp = "^+380d{9}$")
     private String phone;
 
     @Column(name = "password", nullable = false)

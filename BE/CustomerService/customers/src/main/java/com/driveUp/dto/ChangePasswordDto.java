@@ -8,7 +8,6 @@ import java.util.UUID;
 @Data
 public class ChangePasswordDto {
 
-    @NotNull
     UUID customerId;
 
     @NotNull

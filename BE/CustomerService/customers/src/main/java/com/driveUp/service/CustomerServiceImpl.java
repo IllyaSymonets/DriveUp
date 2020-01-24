@@ -26,7 +26,6 @@ public class CustomerServiceImpl implements CustomerService {
     private final Gson jsonConverter;
 
     public void addCustomerAndDriver(@Validated CreateCustomerAndDriverRequest createCustomerAndDriverRequest) {
-
         Customer customer = addCustomer(createCustomerAndDriverRequest);
 
         Customer newCustomer = customerRepository.getCustomerByPhone(customer.getPhone());
@@ -51,12 +50,13 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer saveCustomer(@Validated CreateCustomerDto customerDto) {
+    public Customer saveCustomer(CreateCustomerDto customerDto) {
         Customer customer = new Customer(customerDto.getPhone(), customerDto.getPassword());
         return customerRepository.save(customer);
     }
 
-    private boolean checkPassword(Optional<Customer> customer, @Validated ChangePasswordDto changePasswordDto)
+    private boolean checkPassword(Optional<Customer> customer,
+                                   ChangePasswordDto changePasswordDto)
             throws IncorrectPasswordException {
         if (!customer.get().getPassword().equals(changePasswordDto.getOldPassword())) {
             throw new IncorrectPasswordException();
@@ -65,7 +65,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer updatePassword(@Validated ChangePasswordDto changePasswordDto)
+    public Customer updatePassword(ChangePasswordDto changePasswordDto)
             throws CustomerNotFoundException, IncorrectPasswordException {
         Optional<Customer> customer = Optional.ofNullable(
                 getCustomerById(changePasswordDto.getCustomerId()));

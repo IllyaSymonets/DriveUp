@@ -49,19 +49,19 @@ public class CustomerController {
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
-    @GetMapping("/get_customer_by_id")
+    @GetMapping("/get_customer_by_id/{customerId}")
     public ResponseEntity<Customer> getCustomerById(@PathVariable UUID customerId) {
         Customer customer = customerService.getCustomerById(customerId);
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
-    @GetMapping("/get_email_by_id")
+    @GetMapping("/get_email_by_id/{customerId}")
     public ResponseEntity<String> getEmailById(@PathVariable UUID customerId) {
         String email = customerService.getEmailById(customerId);
         return new ResponseEntity<>(email, HttpStatus.OK);
     }
 
-    @GetMapping("/get_phone_by_id")
+    @GetMapping("/get_phone_by_id/{customerId}")
     public ResponseEntity<String> getPhoneById(@PathVariable UUID customerId) {
         String phone = customerService.getPhoneById(customerId);
         return new ResponseEntity<>(phone, HttpStatus.OK);
