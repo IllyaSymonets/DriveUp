@@ -2,8 +2,9 @@ package com.driveUp.controller;
 
 import com.driveUp.dto.ChangePasswordDto;
 import com.driveUp.dto.CreateCustomerAndDriverRequest;
-import com.driveUp.dto.UpdateCustomerRequest;
 import com.driveUp.dto.CreateCustomerDto;
+import com.driveUp.dto.CustomerDTO;
+import com.driveUp.dto.UpdateCustomerRequest;
 import com.driveUp.model.Customer;
 import com.driveUp.service.CustomerServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -23,10 +24,17 @@ public class CustomerController {
 
     private final CustomerServiceImpl customerService;
 
-    @PostMapping(path = "/add/customerAndDriver")
-    public ResponseEntity add(@NotNull @RequestBody @Valid CreateCustomerAndDriverRequest createCustomerAndDriverRequest) {
+
+    @PostMapping(path = "/add/customer-and-driver")
+    public ResponseEntity add(@RequestBody @Valid CreateCustomerAndDriverRequest createCustomerAndDriverRequest) {
         customerService.addCustomerAndDriver(createCustomerAndDriverRequest);
         return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+    @GetMapping(path = "/{customerId}")
+    public ResponseEntity<CustomerDTO> getCustomer(@PathVariable UUID customerId) {
+        CustomerDTO customerDTO = customerService.getCustomer(customerId);
+        return new ResponseEntity<>(customerDTO, HttpStatus.OK);
     }
 
     @PostMapping(path = "/save")

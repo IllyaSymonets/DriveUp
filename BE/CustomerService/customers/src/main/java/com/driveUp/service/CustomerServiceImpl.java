@@ -2,6 +2,7 @@ package com.driveUp.service;
 
 import com.driveUp.dto.ChangePasswordDto;
 import com.driveUp.dto.CreateCustomerAndDriverRequest;
+import com.driveUp.dto.CustomerDTO;
 import com.driveUp.dto.CreateCustomerDto;
 import com.driveUp.dto.DriverDTO;
 import com.driveUp.exceptions.CustomerNotFoundException;
@@ -20,12 +21,25 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
-
     private final CustomerRepository customerRepository;
+
     private final KafkaTemplate<String, String> kafkaTemplate;
     private final Gson jsonConverter;
 
-    public void addCustomerAndDriver(@Validated CreateCustomerAndDriverRequest createCustomerAndDriverRequest) {
+
+    public CustomerDTO getCustomer(UUID customerId) {
+        Customer customer = customerRepository.findCustomerByCustomerId(customerId);
+
+        return CustomerDTO.builder()
+                .email(customer.getEmail())
+                .firstName(customer.getFirstName())
+                .secondName(customer.getSecondName())
+                .phone(customer.getPhone())
+                .build();
+    }
+
+    public void addCustomerAndDriver(CreateCustomerAndDriverRequest createCustomerAndDriverRequest) {
+
         Customer customer = addCustomer(createCustomerAndDriverRequest);
 
         Customer newCustomer = customerRepository.getCustomerByPhone(customer.getPhone());
