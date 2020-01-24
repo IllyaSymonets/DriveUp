@@ -1,5 +1,6 @@
 package com.driveUp.service;
 
+import com.driveUp.dto.ChangePasswordDto;
 import com.driveUp.dto.CreateCustomerDto;
 import com.driveUp.model.Customer;
 
@@ -9,7 +10,7 @@ public interface CustomerService {
 
     Customer saveCustomer(CreateCustomerDto customerDto);
 
-    Customer updatePassword(UUID customerId, String oldPassword, String newPassword);
+    Customer updatePassword(ChangePasswordDto changePasswordDto);
 
     Customer updateCustomer(UUID customerId, String email, String firstName,
                             String secondName);
