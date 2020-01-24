@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @RestController
@@ -23,25 +24,25 @@ public class CustomerController {
     private final CustomerServiceImpl customerService;
 
     @PostMapping(path = "/add/customerAndDriver")
-    public ResponseEntity add(@RequestBody @Valid CreateCustomerAndDriverRequest createCustomerAndDriverRequest) {
+    public ResponseEntity add(@NotNull @RequestBody @Valid CreateCustomerAndDriverRequest createCustomerAndDriverRequest) {
         customerService.addCustomerAndDriver(createCustomerAndDriverRequest);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @PostMapping(path = "/save")
-    public ResponseEntity<Customer> save(@RequestBody CreateCustomerDto customerDto) {
+    public ResponseEntity<Customer> save(@NotNull @RequestBody @Valid CreateCustomerDto customerDto) {
         Customer customer = customerService.saveCustomer(customerDto);
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
     @PutMapping("/changePassword")
-    public ResponseEntity<Customer> changePassword(@RequestBody ChangePasswordDto changePasswordDto) {
+    public ResponseEntity<Customer> changePassword(@NotNull @RequestBody @Valid ChangePasswordDto changePasswordDto) {
         Customer customer = customerService.updatePassword(changePasswordDto);
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
     @PutMapping(path = "/updateProfile" , consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<Customer> updateCustomer(UpdateCustomerRequest customerRequest) {
+    public ResponseEntity<Customer> updateCustomer(@NotNull @RequestBody @Valid UpdateCustomerRequest customerRequest) {
         Customer customer = customerService.updateCustomer(
                 customerRequest.getCustomerId(), customerRequest.getEmail(),
                 customerRequest.getFirstName(), customerRequest.getSecondName());
