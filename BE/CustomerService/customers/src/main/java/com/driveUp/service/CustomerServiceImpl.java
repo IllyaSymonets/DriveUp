@@ -1,16 +1,21 @@
 package com.driveUp.service;
 
+import com.driveUp.dto.ChangePasswordDto;
 import com.driveUp.dto.CreateCustomerAndDriverRequest;
 import com.driveUp.dto.CustomerDTO;
-import com.driveUp.dto.DriverDTO;
-import com.google.gson.Gson;
 import com.driveUp.dto.CreateCustomerDto;
+import com.driveUp.dto.DriverDTO;
+import com.driveUp.exceptions.CustomerNotFoundException;
+import com.driveUp.exceptions.IncorrectPasswordException;
 import com.driveUp.model.Customer;
 import com.driveUp.repository.CustomerRepository;
+import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -44,10 +49,9 @@ public class CustomerServiceImpl implements CustomerService {
                 createCustomerAndDriverRequest.getCity(), createCustomerAndDriverRequest.getLicence());
 
         kafkaTemplate.send("driver", jsonConverter.toJson(driverDTO));
-
     }
 
-    private Customer addCustomer(CreateCustomerAndDriverRequest createCustomerAndDriverRequest) {
+    private Customer addCustomer(@Validated CreateCustomerAndDriverRequest createCustomerAndDriverRequest) {
         Customer customer = Customer.builder()
                 .password(createCustomerAndDriverRequest.getPassword())
                 .phone(createCustomerAndDriverRequest.getPhone())
@@ -59,20 +63,35 @@ public class CustomerServiceImpl implements CustomerService {
         return customer;
     }
 
-
     @Override
     public Customer saveCustomer(CreateCustomerDto customerDto) {
         Customer customer = new Customer(customerDto.getPhone(), customerDto.getPassword());
         return customerRepository.save(customer);
     }
 
+    private boolean checkPassword(Optional<Customer> customer,
+                                   ChangePasswordDto changePasswordDto)
+            throws IncorrectPasswordException {
+        if (!customer.get().getPassword().equals(changePasswordDto.getOldPassword())) {
+            throw new IncorrectPasswordException();
+        } else
+            return true;
+    }
+
     @Override
-    public Customer updatePassword(UUID customerId, String oldPassword, String newPassword) {
-        Customer customer = getCustomerById(customerId);
-        if (customer.getPassword().equals(oldPassword)) {
-            customer.setPassword(newPassword);
+    public Customer updatePassword(ChangePasswordDto changePasswordDto)
+            throws CustomerNotFoundException, IncorrectPasswordException {
+        Optional<Customer> customer = Optional.ofNullable(
+                getCustomerById(changePasswordDto.getCustomerId()));
+        if (!customer.isPresent()) {
+            throw new CustomerNotFoundException(changePasswordDto.getCustomerId());
+        } else {
+            boolean isPasswordMatches = checkPassword(customer, changePasswordDto);
+            if (isPasswordMatches) {
+                customer.get().setPassword(changePasswordDto.getNewPassword());
+            }
         }
-        return customerRepository.save(customer);
+        return customerRepository.save(customer.get());
     }
 
     @Override
