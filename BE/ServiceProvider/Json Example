@@ -1,7 +1,30 @@
 [
   {
     "city": "Dnipro",
-    "licence": "ASD1234"
+    "email": "email01@gmail.com",
+    "firstName": "Roman",
+    "licence": "ax21fg",
+    "password": "12345",
+    "phone": "+380506663344",
+    "secondName": "Andriienko"
+  },
+  {
+    "city": "Dnipro",
+    "email": "email02@gmail.com",
+    "firstName": "Anton",
+    "licence": "tybg124",
+    "password": "qwerty",
+    "phone": "+380507774455",
+    "secondName": "secondName"
+  },
+  {
+    "city": "Dnipro",
+    "email": "email03@gmail.com",
+    "firstName": "Helen",
+    "licence": "sa12rf",
+    "password": "09876",
+    "phone": "+380501112233",
+    "secondName": "Andriienko"
   },
   {
     "brand": "Fiat",
@@ -9,6 +32,36 @@
     "licencePlate": "AE6813AB",
     "colour": "Green",
     "yearOfProduction": "2004",
+    "numberOfSeats": "3",
+    "babyCarSeat": "true",
+    "conditioner": "true",
+    "pet": "true",
+    "courier": "true",
+    "english": "true",
+    "nonSmoker": "true",
+    "silence": "true"
+  },
+  {
+    "brand": "Toyota",
+    "model": "Rav-4",
+    "licencePlate": "AX5715AB",
+    "colour": "Silver",
+    "yearOfProduction": "2010",
+    "numberOfSeats": "3",
+    "babyCarSeat": "true",
+    "conditioner": "true",
+    "pet": "true",
+    "courier": "true",
+    "english": "true",
+    "nonSmoker": "true",
+    "silence": "true"
+  },
+  {
+    "brand": "Nissan",
+    "model": "Leaf",
+    "licencePlate": "AE1840AA",
+    "colour": "Black",
+    "yearOfProduction": "2013",
     "numberOfSeats": "3",
     "babyCarSeat": "true",
     "conditioner": "true",

@@ -203,6 +203,7 @@ public class DriverService {
         UUID customerId = driverById.getCustomerId();
 
         return restTemplate.getForObject(
-                "http://localhost:8090/customer_service/customers/{customerId}", CustomerDTO.class, customerId);
+                "http://localhost:8090/customer_service/customers/{customerId}",
+                CustomerDTO.class, customerId);
     }
 }

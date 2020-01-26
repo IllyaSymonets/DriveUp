@@ -23,7 +23,9 @@ public class Listener {
 
     @KafkaListener(topics = "driver")
     public void getRequestFromCustomerMS(String driverRequest) {
-        @Valid AddDriverRequest addDriver = jsonConverter.fromJson(driverRequest, AddDriverRequest.class);
+        @Valid AddDriverRequest addDriver = jsonConverter.fromJson(
+                driverRequest, AddDriverRequest.class);
+
         driverService.add(addDriver);
 
         Driver driver = driverRepository.findDriverByLicence(addDriver.getLicence());

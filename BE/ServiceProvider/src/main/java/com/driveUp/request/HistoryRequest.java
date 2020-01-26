@@ -3,15 +3,15 @@ package com.driveUp.request;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Data
 @Builder
 public class HistoryRequest {
+    @NotBlank
     private String startPoint;
+
+    @NotBlank
     private String finishPoint;
 
     @Positive

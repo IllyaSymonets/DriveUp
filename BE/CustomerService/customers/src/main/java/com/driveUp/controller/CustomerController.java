@@ -25,7 +25,7 @@ public class CustomerController {
     private final CustomerServiceImpl customerService;
 
 
-    @PostMapping(path = "/add/customer-and-driver")
+    @PostMapping(path = "/customer-and-driver")
     public ResponseEntity add(@RequestBody @Valid CreateCustomerAndDriverRequest createCustomerAndDriverRequest) {
         customerService.addCustomerAndDriver(createCustomerAndDriverRequest);
         return new ResponseEntity(HttpStatus.CREATED);

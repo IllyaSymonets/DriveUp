@@ -1,0 +1,122 @@
+version: '3.1'
+
+services:
+    trip-management:
+      container_name: trip-management
+      build: ./GoogleMapsMicroservice
+      restart: always
+      ports:
+        - 8092:8082
+      depends_on:
+#        - kafka
+        - db
+        - eureka-server
+      environment:
+        WAIT_HOSTS: postgres:5432, eureka-server:8761
+        WAIT_HOSTS_TIMEOUT: 120
+
+    db:
+      container_name: db
+      image: postgres:12
+      ports:
+        - 5432:5432
+      environment:
+        POSTGRES_USERNAME: postgres
+#        POSTGRES_PASSWORD_FILE: /run/secrets/db_password
+        POSTGRES_PASSWORD: '[postgres]'
+        POSTGRES_DB: driveup
+      volumes:
+        - db-data:/var/lib/postgresql/data
+#      secrets:
+#        - db_password
+
+    order-service:
+      container_name: order_service
+      build: ./OrderService
+      restart: always
+      ports:
+        - 8090:8080
+      depends_on:
+        #        - kafka
+        - db
+        - eureka-server
+      environment:
+        EUREKA_INSTANCE_PREFER_IP_ADDRES: "true"
+        CONFIG_SERVER_URI: http://eureka-server:9002
+        WAIT_HOSTS: postgres:5432, eureka-server:8761
+        WAIT_HOSTS_TIMEOUT: 120
+
+    billing-service:
+      container_name: billing-service
+      build: ./BillingService
+      restart: always
+      ports:
+        - 8093:8083
+      depends_on:
+        #        - kafka
+        - db
+        - eureka-server
+      environment:
+        EUREKA_INSTANCE_PREFER_IP_ADDRES: "true"
+        CONFIG_SERVER_URI: http://eureka-server:9002
+        WAIT_HOSTS: postgres:5432, eureka-server:9002
+        WAIT_HOSTS_TIMEOUT: 120
+
+    eureka-server:
+      image: springcloud/configserver
+      container_name: eureka-server
+      build:  ./ServiceDiscovery
+      restart: always
+      ports:
+        - 9002:9002
+      depends_on:
+        - eureka
+      environment:
+        EUREKA_SERVICE_URL: http://eureka:8761
+        EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
+
+    kafka:
+      container_name: kafka
+      image: wurstmeister/kafka
+      ports:
+        - 9092:9092
+      hostname: kafka
+      environment:
+        KAFKA_CREATE_TOPICS: "CREATE_TRIP_EVENT:1:1, CREATE_BILL_EVENT:1:1, SET_TRIP_EVENT:1:1, SET_BILL_EVENT:1:1"    # topic:partition:replicas
+        KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+        ADVERTIZED_HOST_NAME: kafka               # docker-machine ip
+        KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+        KAFKA_ADVERTISED_PORT: 9092
+        KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+#        KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://127.0.0.1:9092
+#        KAFKA_ADVERTISED_LISTENERS: LISTENER_BILL://kafka:29092
+#        KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_BILL:PLAINTEXT
+#        KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_BILL
+      volumes:
+        - kafkalogs:/path/to/folder/on/host
+      depends_on:
+        - "zookeeper"
+
+    zookeeper:
+      container_name: zookeeper
+      image: wurstmeister/zookeeper
+      ports:
+        - "2181"
+      hostname: zookeeper
+
+    eureka:
+      container_name: eureka
+      image: springcloud/eureka
+      ports:
+        - 8761:8761
+      environment:
+        - EUREKA_INSTANCE_PREFERIPADDRESS=true
+
+volumes:
+    db-data:
+    kafkalogs:
+
+      #
+      #secrets:
+      #  db_password:
+      #    file: ./db_password.txt
