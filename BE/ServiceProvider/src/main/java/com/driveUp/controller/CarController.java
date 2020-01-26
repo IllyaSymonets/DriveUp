@@ -13,18 +13,18 @@ import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(path = "/car")
+@RequestMapping(path = "/cars")
 @RequiredArgsConstructor
 public class CarController {
     private final CarService carService;
 
-    @GetMapping(path = "/all")
+    @GetMapping
     public ResponseEntity<Iterable<CarDTO>> getAll() {
         Iterable<CarDTO> cars = carService.getAll();
         return new ResponseEntity<>(cars, HttpStatus.OK);
     }
 
-    @PostMapping(path = "/add/{driverId}")
+    @PostMapping(path = "/{driverId}")
     public ResponseEntity addCarByDriverId(@PathVariable UUID driverId,
                                            @RequestBody @NotNull @Valid CarRequest carRequest) {
         carService.addById(driverId, carRequest);

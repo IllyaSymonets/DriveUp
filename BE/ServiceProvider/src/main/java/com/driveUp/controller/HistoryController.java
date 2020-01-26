@@ -13,18 +13,18 @@ import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(path = "/history")
+@RequestMapping(path = "/histories")
 @RequiredArgsConstructor
 public class HistoryController {
     private final HistoryService historyService;
 
-    @GetMapping(path = "/all")
+    @GetMapping
     public ResponseEntity<Iterable<HistoryDTO>> getAll() {
         Iterable<HistoryDTO> dtos = historyService.getAll();
         return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 
-    @PostMapping(path = "/add/{driverId}")
+    @PostMapping(path = "/{driverId}")
     public ResponseEntity addHistory(@PathVariable UUID driverId,
                                      @RequestBody @NotNull @Valid HistoryRequest historyRequest) {
         historyService.addByDriverId(driverId, historyRequest);
